@@ -34,7 +34,7 @@ class ResponseThread(QThread):
             self.finished.emit(f"It is {self.current_time}.")
             return
                 
-        elif "date" in self.query or "day" in self.query:
+        elif "what day is today" in self.query or "what date is today" in self.query:
             self.now = datetime.datetime.now()
             self.date_str = self.now.strftime("%A, %B %d, %Y")  # Friday, August 02, 2025
             self.finished.emit(f"Today is {self.date_str}.")
@@ -72,9 +72,14 @@ class ResponseThread(QThread):
 
         elif any(kw in query for kw in [
             "fablab", "innovation lab", "robotics lab", 
-            "fab lab", "the lab", "innovation laboratory"
+            "fab lab", "the lab", "innovation laboratory", "fablab laboratory"
         ]):
             return "Fablab is an innovation lab at Ho Chi Minh University of Technology, supporting students in robotics, AI, and creative projects."
+
+        elif any(kw in query for kw in [
+            "how many people are there in the lab", "how many people work in the lab", "how many members in the lab"
+        ]):
+            return "Fablab currently has 23 members, including students from Electrical, Mechanical, and Computer Science departments." 
 
         elif any(kw in query for kw in [
             "who created you", "your creator", "who made you", "who built you", 

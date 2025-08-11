@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
         self.speak_thread = SpeakThread(f"Let's move to room {room}")
         self.speak_thread.finished.connect(lambda: [self._animate_prompt(base_text=f"Heading to room {room}",
                                                                         label_widget=self.ui.prompt_navi,
-                                                                        duration_ms=5000,  
+                                                                        duration_ms=10000,  
                                                                         callback_after=lambda: self._arrive_at(room))])
         self.speak_thread.start()
 
