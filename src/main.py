@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
                           self.ui.widget_12, self.ui.widget_7, self.ui.btn_home_qna, self.ui.btn_home_navi])
 
         #self.mqtt_handler = MQTTHandler(self.on_robot_status_update)
-        self.bot = AIkoBot()
+        #self.bot = AIkoBot()
         self.current_room = None
         self.is_listening = False
 

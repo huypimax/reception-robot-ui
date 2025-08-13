@@ -384,14 +384,53 @@ border-radius:  30px;
       </widget>
       <widget class="QWidget" name="page_qna">
        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget_5" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="widget_19" native="true">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <property name="spacing">
+               <number>15</number>
+              </property>
               <property name="leftMargin">
-               <number>30</number>
+               <number>15</number>
+              </property>
+              <property name="rightMargin">
+               <number>15</number>
               </property>
               <item>
                <widget class="QPushButton" name="btn_home_qna">
@@ -419,7 +458,7 @@ border-radius:  30px;
                  <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  100px;
+border-radius:  10px;
 </string>
                 </property>
                 <property name="text">
@@ -427,12 +466,12 @@ border-radius:  100px;
                 </property>
                 <property name="icon">
                  <iconset resource="resources/resources.qrc">
-                  <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>45</width>
-                  <height>45</height>
+                  <width>40</width>
+                  <height>40</height>
                  </size>
                 </property>
                </widget>
@@ -449,6 +488,94 @@ border-radius:  100px;
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;
+</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;
+</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -722,17 +849,53 @@ border-radius:  30px;
       </widget>
       <widget class="QWidget" name="page_navi">
        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget_9" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="widget_18" native="true">
              <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <property name="spacing">
+               <number>15</number>
+              </property>
               <property name="leftMargin">
-               <number>30</number>
+               <number>15</number>
+              </property>
+              <property name="rightMargin">
+               <number>15</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btn_home_navi">
+               <widget class="QPushButton" name="btn_home_qna_4">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
@@ -757,7 +920,7 @@ border-radius:  30px;
                  <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  100px;
+border-radius:  10px;
 </string>
                 </property>
                 <property name="text">
@@ -765,28 +928,116 @@ border-radius:  100px;
                 </property>
                 <property name="icon">
                  <iconset resource="resources/resources.qrc">
-                  <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>45</width>
-                  <height>45</height>
+                  <width>40</width>
+                  <height>40</height>
                  </size>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer">
+               <spacer name="horizontalSpacer_9">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>1453</width>
+                  <width>1339</width>
                   <height>20</height>
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_6">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;
+</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_5">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;
+</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
