@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1350</width>
+    <width>1484</width>
     <height>876</height>
    </rect>
   </property>
@@ -466,7 +466,7 @@ border-radius:  10px;
                 </property>
                 <property name="icon">
                  <iconset resource="resources/resources.qrc">
-                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
+                  <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -490,7 +490,7 @@ border-radius:  10px;
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_home_qna_2">
+               <widget class="QPushButton" name="logo_fab">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
@@ -534,7 +534,7 @@ border-radius:  10px;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_home_qna_3">
+               <widget class="QPushButton" name="logo_bk">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
@@ -895,7 +895,7 @@ border-radius:  30px;
                <number>15</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btn_home_qna_4">
+               <widget class="QPushButton" name="btn_home_navi">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
@@ -928,7 +928,7 @@ border-radius:  10px;
                 </property>
                 <property name="icon">
                  <iconset resource="resources/resources.qrc">
-                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
+                  <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -952,7 +952,7 @@ border-radius:  10px;
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_home_qna_6">
+               <widget class="QPushButton" name="logo_fab_2">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
@@ -996,7 +996,7 @@ border-radius:  10px;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_home_qna_5">
+               <widget class="QPushButton" name="logo_bk_2">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
