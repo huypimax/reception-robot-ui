@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -48,8 +48,8 @@ font-family:  &quot;Roboto&quot;;
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <spacer name="verticalSpacer_2">
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -62,60 +62,38 @@ font-family:  &quot;Roboto&quot;;
            <item>
             <widget class="QWidget" name="widget_4" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_10">
-              <property name="spacing">
+              <property name="leftMargin">
                <number>30</number>
               </property>
-              <property name="leftMargin">
-               <number>10</number>
-              </property>
               <property name="topMargin">
-               <number>10</number>
+               <number>30</number>
               </property>
               <property name="rightMargin">
-               <number>10</number>
+               <number>30</number>
               </property>
               <property name="bottomMargin">
-               <number>10</number>
+               <number>30</number>
               </property>
               <item>
                <widget class="QWidget" name="widget_2" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <property name="leftMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="topMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="rightMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
-                 <item>
-                  <spacer name="horizontalSpacer_14">
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>80</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
                  <item>
                   <widget class="QWidget" name="widget" native="true">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>250</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
                      <height>250</height>
                     </size>
                    </property>
@@ -139,14 +117,14 @@ border-radius:  30px;
                      <widget class="QLabel" name="label">
                       <property name="minimumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="font">
@@ -189,7 +167,7 @@ border-radius:  30px;
                       <property name="font">
                        <font>
                         <family>Roboto</family>
-                        <pointsize>20</pointsize>
+                        <pointsize>30</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -201,19 +179,6 @@ border-radius:  30px;
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_13">
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>80</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                 </layout>
                </widget>
@@ -230,19 +195,22 @@ border-radius:  30px;
                   <number>60</number>
                  </property>
                  <property name="leftMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="topMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="rightMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>10</number>
+                  <number>30</number>
                  </property>
                  <item>
                   <spacer name="horizontalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>40</width>
@@ -253,23 +221,11 @@ border-radius:  30px;
                  </item>
                  <item>
                   <widget class="QWidget" name="widget_16" native="true">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="layoutDirection">
-                    <enum>Qt::LeftToRight</enum>
-                   </property>
                    <property name="styleSheet">
                     <string notr="true">
 color: rgb(0, 41, 77);</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout">
-                    <property name="spacing">
-                     <number>12</number>
-                    </property>
                     <item>
                      <widget class="QPushButton" name="btn_qna">
                       <property name="minimumSize">
@@ -307,22 +263,19 @@ border-radius:  30px;
                     </item>
                     <item>
                      <widget class="QLabel" name="label_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
                       <property name="font">
                        <font>
                         <family>Roboto</family>
-                        <pointsize>15</pointsize>
+                        <pointsize>20</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
                       <property name="text">
                        <string>Need some help?</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
                       </property>
                      </widget>
                     </item>
@@ -331,23 +284,11 @@ border-radius:  30px;
                  </item>
                  <item>
                   <widget class="QWidget" name="widget_17" native="true">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="layoutDirection">
-                    <enum>Qt::LeftToRight</enum>
-                   </property>
                    <property name="styleSheet">
                     <string notr="true">
 color: rgb(0, 41, 77);</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_9">
-                    <property name="spacing">
-                     <number>12</number>
-                    </property>
                     <item>
                      <widget class="QPushButton" name="btn_navi">
                       <property name="minimumSize">
@@ -385,22 +326,19 @@ border-radius:  30px;
                     </item>
                     <item>
                      <widget class="QLabel" name="label_5">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
                       <property name="font">
                        <font>
                         <family>Roboto</family>
-                        <pointsize>15</pointsize>
+                        <pointsize>20</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
                       <property name="text">
                        <string>Go to somewhere...</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
                       </property>
                      </widget>
                     </item>
@@ -409,6 +347,9 @@ border-radius:  30px;
                  </item>
                  <item>
                   <spacer name="horizontalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>40</width>
@@ -425,8 +366,8 @@ border-radius:  30px;
            </item>
            <item>
             <spacer name="verticalSpacer">
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -443,212 +384,197 @@ border-radius:  30px;
       </widget>
       <widget class="QWidget" name="page_qna">
        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget_5" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
-            <number>30</number>
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>30</number>
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
            </property>
            <item>
-            <widget class="QWidget" name="widget_20" native="true">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>70</height>
-              </size>
+            <widget class="QWidget" name="widget_19" native="true">
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <property name="leftMargin">
-               <number>13</number>
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <property name="spacing">
+               <number>15</number>
               </property>
-              <property name="topMargin">
-               <number>0</number>
+              <property name="leftMargin">
+               <number>15</number>
               </property>
               <property name="rightMargin">
-               <number>13</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
+               <number>15</number>
               </property>
               <item>
-               <widget class="QWidget" name="widget_19" native="true">
-                <property name="maximumSize">
+               <widget class="QPushButton" name="btn_home_qna">
+                <property name="minimumSize">
                  <size>
-                  <width>16777215</width>
+                  <width>60</width>
                   <height>60</height>
                  </size>
                 </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
+border-radius:  10px;
 </string>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_13">
-                 <property name="spacing">
-                  <number>15</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QPushButton" name="btn_home_navi_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  15px;
+border-radius:  10px;
 </string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>30</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>1018</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="logo_fab_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  15px;
+border-radius:  10px;
 </string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="logo_bk_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-background-color: rgb(255, 255, 255);
-color: rgb(0, 41, 77);
-border-radius:  15px;
-</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
                </widget>
               </item>
              </layout>
@@ -657,48 +583,39 @@ border-radius:  15px;
            <item>
             <widget class="QWidget" name="widget_8" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_3">
-              <property name="spacing">
-               <number>10</number>
-              </property>
               <property name="leftMargin">
-               <number>0</number>
+               <number>30</number>
               </property>
               <property name="topMargin">
-               <number>0</number>
+               <number>10</number>
               </property>
               <property name="rightMargin">
-               <number>0</number>
+               <number>30</number>
               </property>
               <property name="bottomMargin">
-               <number>10</number>
+               <number>30</number>
               </property>
               <item>
                <widget class="QWidget" name="widget_6" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
                  <property name="leftMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="topMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="rightMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <item>
                   <widget class="QWidget" name="widget_7" native="true">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>250</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>300</height>
+                     <height>200</height>
                     </size>
                    </property>
                    <property name="styleSheet">
@@ -721,14 +638,14 @@ border-radius:  30px;
                      <widget class="QLabel" name="label_3">
                       <property name="minimumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="font">
@@ -751,7 +668,7 @@ border-radius:  30px;
                     <item>
                      <widget class="QLabel" name="prompt_qna">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
@@ -771,19 +688,13 @@ border-radius:  30px;
                       <property name="font">
                        <font>
                         <family>Roboto</family>
-                        <pointsize>20</pointsize>
+                        <pointsize>30</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
                       <property name="text">
                        <string>Please press the microphone and speak your question.</string>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>false</bool>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -802,7 +713,7 @@ border-radius:  30px;
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
                  <property name="spacing">
-                  <number>80</number>
+                  <number>78</number>
                  </property>
                  <property name="leftMargin">
                   <number>30</number>
@@ -818,6 +729,9 @@ border-radius:  30px;
                  </property>
                  <item>
                   <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>40</width>
@@ -855,8 +769,8 @@ border-radius:  30px;
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>125</width>
-                     <height>125</height>
+                     <width>150</width>
+                     <height>150</height>
                     </size>
                    </property>
                   </widget>
@@ -890,14 +804,17 @@ border-radius:  30px;
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>125</width>
-                     <height>125</height>
+                     <width>150</width>
+                     <height>150</height>
                     </size>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <spacer name="horizontalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>40</width>
@@ -912,6 +829,19 @@ border-radius:  30px;
              </layout>
             </widget>
            </item>
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>42</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
@@ -919,215 +849,194 @@ border-radius:  30px;
       </widget>
       <widget class="QWidget" name="page_navi">
        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget_9" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout_11">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="spacing">
-            <number>30</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
-            <number>30</number>
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>30</number>
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
            </property>
            <item>
-            <widget class="QWidget" name="widget_11" native="true">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>70</height>
-              </size>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="leftMargin">
-               <number>13</number>
+            <widget class="QWidget" name="widget_18" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <property name="spacing">
+               <number>15</number>
               </property>
-              <property name="topMargin">
-               <number>0</number>
+              <property name="leftMargin">
+               <number>15</number>
               </property>
               <property name="rightMargin">
-               <number>13</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
+               <number>15</number>
               </property>
               <item>
-               <widget class="QWidget" name="widget_18" native="true">
-                <property name="maximumSize">
+               <widget class="QPushButton" name="btn_home_qna_4">
+                <property name="minimumSize">
                  <size>
-                  <width>16777215</width>
+                  <width>60</width>
                   <height>60</height>
                  </size>
                 </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
+                 <string notr="true">
+background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
+border-radius:  10px;
 </string>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_12">
-                 <property name="spacing">
-                  <number>15</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QPushButton" name="btn_home_navi">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/icon/icon/home.svg</normaloff>:/icon/icon/home.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>1339</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_6">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  15px;
+border-radius:  10px;
 </string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>30</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>1018</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="logo_fab">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_home_qna_5">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Roboto</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  15px;
+border-radius:  10px;
 </string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/logo/Logos/Fablab Logo-aftercut.png</normaloff>:/logo/Logos/Fablab Logo-aftercut.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="logo_bk">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>25</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-background-color: rgb(255, 255, 255);
-color: rgb(0, 41, 77);
-border-radius:  15px;
-</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/resources.qrc">
-                     <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>50</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/resources.qrc">
+                  <normaloff>:/logo/Logos/Logo BK.png</normaloff>:/logo/Logos/Logo BK.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>55</width>
+                  <height>55</height>
+                 </size>
+                </property>
                </widget>
               </item>
              </layout>
@@ -1135,46 +1044,46 @@ border-radius:  15px;
            </item>
            <item>
             <widget class="QWidget" name="widget_10" native="true">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
-              <property name="spacing">
+              <property name="leftMargin">
                <number>30</number>
               </property>
+              <property name="topMargin">
+               <number>10</number>
+              </property>
+              <property name="rightMargin">
+               <number>30</number>
+              </property>
+              <property name="bottomMargin">
+               <number>10</number>
+              </property>
               <item>
-               <widget class="QWidget" name="widget_21" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_14">
+               <widget class="QWidget" name="widget_11" native="true">
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
                  <property name="leftMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="topMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="rightMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <item>
                   <widget class="QWidget" name="widget_12" native="true">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>250</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>300</height>
+                     <height>200</height>
                     </size>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
+border-radius:  30px;
 </string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,1">
@@ -1191,14 +1100,14 @@ border-radius:  20px;
                      <widget class="QLabel" name="label_4">
                       <property name="minimumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>200</width>
-                        <height>200</height>
+                        <width>300</width>
+                        <height>300</height>
                        </size>
                       </property>
                       <property name="font">
@@ -1241,7 +1150,7 @@ border-radius:  20px;
                       <property name="font">
                        <font>
                         <family>Roboto</family>
-                        <pointsize>20</pointsize>
+                        <pointsize>30</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -1265,21 +1174,31 @@ border-radius:  20px;
 }</string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                 <property name="spacing">
-                  <number>50</number>
-                 </property>
                  <property name="leftMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="topMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="rightMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>13</number>
+                  <number>30</number>
                  </property>
+                 <item>
+                  <spacer name="horizontalSpacer_7">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
                  <item>
                   <layout class="QGridLayout" name="gridLayout">
                    <property name="spacing">
@@ -1289,20 +1208,20 @@ border-radius:  20px;
                     <widget class="QPushButton" name="btn_room_b">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="font">
                       <font>
                        <family>Roboto</family>
-                       <pointsize>18</pointsize>
+                       <pointsize>25</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
@@ -1310,8 +1229,8 @@ border-radius:  20px;
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
-border: 4px ridge rgb(141, 141, 141);</string>
+border-radius:  30px;
+</string>
                      </property>
                      <property name="text">
                       <string>ROOM B</string>
@@ -1328,20 +1247,20 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_a">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="font">
                       <font>
                        <family>Roboto</family>
-                       <pointsize>18</pointsize>
+                       <pointsize>25</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
@@ -1349,8 +1268,8 @@ border: 4px ridge rgb(141, 141, 141);</string>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
-border: 4px ridge rgb(141, 141, 141);</string>
+border-radius:  30px;
+</string>
                      </property>
                      <property name="text">
                       <string>ROOM A</string>
@@ -1367,20 +1286,20 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_c">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="font">
                       <font>
                        <family>Roboto</family>
-                       <pointsize>18</pointsize>
+                       <pointsize>25</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
@@ -1388,8 +1307,8 @@ border: 4px ridge rgb(141, 141, 141);</string>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
-border: 4px ridge rgb(141, 141, 141);</string>
+border-radius:  30px;
+</string>
                      </property>
                      <property name="text">
                       <string>ROOM C</string>
@@ -1406,20 +1325,20 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_d">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>150</height>
+                       <width>250</width>
+                       <height>125</height>
                       </size>
                      </property>
                      <property name="font">
                       <font>
                        <family>Roboto</family>
-                       <pointsize>18</pointsize>
+                       <pointsize>25</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
@@ -1427,8 +1346,8 @@ border: 4px ridge rgb(141, 141, 141);</string>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
-border-radius:  20px;
-border: 4px ridge rgb(141, 141, 141);</string>
+border-radius:  30px;
+</string>
                      </property>
                      <property name="text">
                       <string>ROOM D</string>
@@ -1443,11 +1362,37 @@ border: 4px ridge rgb(141, 141, 141);</string>
                    </item>
                   </layout>
                  </item>
+                 <item>
+                  <spacer name="horizontalSpacer_8">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
                 </layout>
                </widget>
               </item>
              </layout>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>42</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
