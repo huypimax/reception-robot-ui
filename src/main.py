@@ -15,7 +15,12 @@ from response_thread import ResponseThread
 from call_chatbot import AIkoBot
 
 ASSISTANT_NAME = "AIko"
-
+initial_context = [
+            {"role": "user", "parts": [{"text": "You are a helpful, concise virtual assistant named AIko, created by Fablab."}]},
+            {"role": "model", "parts": [{"text": "Understood. I'm AIko, created by Fablab."}]},
+            {"role": "user", "parts": [{"text": "When answering, use 1–2 full sentences, clear and friendly tone. No bullet points or keywords only."}]},
+            {"role": "model", "parts": [{"text": "Okay. I will respond in short, clear sentences."}]}
+        ]
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -35,7 +40,7 @@ class MainWindow(QMainWindow):
         # self.bot = AIkoBot()
 
         self.inactivity_timer = QTimer(self)
-        self.inactivity_timer.setInterval(20000)  
+        self.inactivity_timer.setInterval(40000)  
         self.inactivity_timer.setSingleShot(True)
         self.inactivity_timer.timeout.connect(self.go_to_main_page)
 
@@ -77,22 +82,23 @@ class MainWindow(QMainWindow):
         self.listen_thread.start()
 
     def get_response(self, query: str):
-        if not query:
+        self.query = query.lower()  
+        if not self.query:
             self.continue_conversation()
-        elif query == "Are you still there?" or query == "Hmm, I didn't quite catch that. Could you please repeat?" or query == "Something went wrong while listening." or query == "Speech service is unavailable.":
+        elif self.query == "Are you still there?" or self.query == "Hmm, I didn't quite catch that. Could you please repeat?" or self.query == "Something went wrong while listening." or self.query == "Speech service is unavailable.":
             print(f"AIko: {query}")
-            self.ui.prompt_qna.setText(query)
+            self.ui.prompt_qna.setText(self.query)
             self.silent_count += 1
             if self.silent_count >= 3:
                 self.ui.prompt_qna.setText("No response detected. Returning to main menu.")
                 self.micro_loop = False
                 self.go_to_main_page()
             else:
-                self.speak_thread = SpeakThread(query)
+                self.speak_thread = SpeakThread(self.query)
                 self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.listen()])
                 self.speak_thread.start()
         else:
-            self.response_thread = ResponseThread(query)
+            self.response_thread = ResponseThread(self.query, intial_context=initial_context)
             self.response_thread.finished.connect(self.answer)
             self.response_thread.finished.connect(lambda: self.cleanup_thread(self.response_thread))
             self.response_thread.start()

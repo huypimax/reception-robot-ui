@@ -8,19 +8,14 @@ ASSISTANT_NAME = "AIko"
 
 class ResponseThread(QThread):
     finished = pyqtSignal(str)  # Signal to emit the response text
-    def __init__(self, query):
+    def __init__(self, query, intial_context=None):
         super().__init__()
         self.query = query.lower()  # Normalize the query to lowercase
         self.api_key = "AIzaSyCsnVbGzLouYNPXIJxnYdmQFa2BrRo1uqA"  # ← thay bằng key thật
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel("gemini-2.0-flash")
 
-        self.initial_context = [
-            {"role": "user", "parts": [{"text": "You are a helpful, concise virtual assistant named AIko, created by Fablab."}]},
-            {"role": "model", "parts": [{"text": "Understood. I'm AIko, created by Fablab."}]},
-            {"role": "user", "parts": [{"text": "When answering, use 1–2 full sentences, clear and friendly tone. No bullet points or keywords only."}]},
-            {"role": "model", "parts": [{"text": "Okay. I will respond in short, clear sentences."}]}
-        ]
+        self.initial_context = intial_context
 
     def run(self):
         self.last_reply = ""
@@ -69,6 +64,12 @@ class ResponseThread(QThread):
             return ("Ho Chi Minh City University of Technology, also known as Bách Khoa, "
                     "is one of Vietnam’s top technical universities. It offers advanced training "
                     "in engineering, technology, and innovation, and is part of the Vietnam National University system.")
+        
+        elif any(kw in query for kw in [
+            "ivs", "ivs company", "ivs joint stock company", "individual systems", "ibs company"]):
+            return ("IVS Joint Stock Company (Individual Systems) is an IT enterprise founded in 2002, "
+                    "specializing in software solutions, automation, and digital transformation for businesses. "
+                    "With a team of hundreds of engineers, IVS has delivered numerous projects in manufacturing management, human resources, AI, and IoT across Vietnam and internationally.")
 
         elif any(kw in query for kw in [
             "fablab", "innovation lab", "robotics lab", 
@@ -98,8 +99,10 @@ class ResponseThread(QThread):
         
     async def ask_gemini(self, prompt):
         try:
-            self.context = self.initial_context + [{"role": "user", "parts": [{"text": prompt}]}]
-            self.response = self.model.generate_content(self.context)
+            self.initial_context = self.initial_context + [{"role": "user", "parts": [{"text": prompt}]}]
+            self.response = self.model.generate_content(self.initial_context)
+            self.initial_context = self.initial_context + [ {"role": "assistant", "parts": [{"text": self.response.text.strip()}]}]
+            
             return self.response.text.strip()
         except Exception as e:
             print("Gemini error:", e)
