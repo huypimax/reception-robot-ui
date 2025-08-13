@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
         if room == self.current_room:
             self.ui.prompt_navi.setText("You are already here!!!")
             self.speak_thread = SpeakThread("You are already here!!!")
-            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.set_color_btn_room("#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.reset_inactivity_timer()])
+            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.set_color_btn_room("#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.reset_inactivity_timer(), self.ui.prompt_navi.setText("Where do you want to go?")])
             self.speak_thread.start()
             return
 

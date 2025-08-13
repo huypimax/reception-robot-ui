@@ -22,17 +22,20 @@ class ResponseThread(QThread):
 
         if any(kw in self.query for kw in ["stop", "thank you", "bye"]):
             self.finished.emit("You're welcome. Goodbye.")
+            self.last_reply = "You're welcome. Goodbye."
             return
 
         elif "time" in self.query:
             self.current_time = datetime.datetime.now().strftime("%I:%M %p")
             self.finished.emit(f"It is {self.current_time}.")
+            self.last_reply = f"It is {self.current_time}."
             return
                 
         elif "what day is today" in self.query or "what date is today" in self.query:
             self.now = datetime.datetime.now()
             self.date_str = self.now.strftime("%A, %B %d, %Y")  # Friday, August 02, 2025
             self.finished.emit(f"Today is {self.date_str}.")
+            self.last_reply = f"Today is {self.date_str}."
             return
 
         elif any(kw in self.query for kw in ["repeat", "repeat that", "say it again"]):
@@ -47,6 +50,7 @@ class ResponseThread(QThread):
             self.faq_answer = self.check_faq(self.query)
             if self.faq_answer:
                 self.finished.emit(self.faq_answer)
+                self.last_reply = self.faq_answer
                 return
             else:
                 self.reply = asyncio.run(self.ask_gemini(self.query))
