@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -290,8 +290,8 @@ border-radius:  30px;
                       </property>
                       <property name="iconSize">
                        <size>
-                        <width>150</width>
-                        <height>150</height>
+                        <width>200</width>
+                        <height>200</height>
                        </size>
                       </property>
                      </widget>
@@ -863,9 +863,12 @@ border-radius:  30px;
                  </property>
                  <item>
                   <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
+                     <width>236</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -943,9 +946,12 @@ border-radius:  30px;
                  </item>
                  <item>
                   <spacer name="horizontalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>40</width>
+                     <width>236</width>
                      <height>20</height>
                     </size>
                    </property>

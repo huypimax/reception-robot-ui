@@ -130,7 +130,7 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QPixmap(":/logo/Logos/Logo BK.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btn_about_us.setIcon(icon)
-        self.btn_about_us.setIconSize(QtCore.QSize(150, 150))
+        self.btn_about_us.setIconSize(QtCore.QSize(200, 200))
         self.btn_about_us.setObjectName("btn_about_us")
         self.verticalLayout_25.addWidget(self.btn_about_us)
         self.label_21 = QtWidgets.QLabel(parent=self.widget_46)
@@ -379,7 +379,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setContentsMargins(30, 30, 30, 30)
         self.horizontalLayout_7.setSpacing(80)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem7 = QtWidgets.QSpacerItem(236, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem7)
         self.btn_speaker = QtWidgets.QPushButton(parent=self.widget_14)
         self.btn_speaker.setMinimumSize(QtCore.QSize(250, 250))
@@ -409,7 +409,7 @@ class Ui_MainWindow(object):
         self.btn_micro.setIconSize(QtCore.QSize(125, 125))
         self.btn_micro.setObjectName("btn_micro")
         self.horizontalLayout_7.addWidget(self.btn_micro)
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem8 = QtWidgets.QSpacerItem(236, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem8)
         self.verticalLayout_3.addWidget(self.widget_14)
         self.verticalLayout_7.addWidget(self.widget_8)
@@ -706,7 +706,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
