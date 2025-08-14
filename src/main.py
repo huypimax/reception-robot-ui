@@ -269,7 +269,7 @@ class MainWindow(QMainWindow):
             thread.deleteLater()
             thread = None
 
-  
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
