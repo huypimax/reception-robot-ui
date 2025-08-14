@@ -13,6 +13,8 @@ from speak_thread import SpeakThread
 from listen_thread import ListenThread
 from response_thread import ResponseThread
 from call_chatbot import AIkoBot
+from ui.web import WebTab
+
 
 ASSISTANT_NAME = "AIko"
 initial_context = [
@@ -33,9 +35,11 @@ class MainWindow(QMainWindow):
         self.silent_count = 0
 
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
-        self.applyShadow([self.ui.btn_qna, self.ui.btn_navi, self.ui.btn_micro, self.ui.btn_speaker, self.ui.widget,
-                          self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18,self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d])
+        self.applyShadow([self.ui.btn_qna, self.ui.btn_home_qna, self.ui.btn_navi, self.ui.btn_home_navi, self.ui.btn_about_us, self.ui.btn_home_about_us, self.ui.btn_micro, self.ui.btn_speaker, self.ui.widget,
+                          self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18, self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d,
+                          self.ui.label_6, self.ui.label_7, self.ui.label_8, self.ui.label_9, self.ui.label_19, self.ui.label_20])
 
+        self.web_ = WebTab(self.ui)
         # self.mqtt_handler = MQTTHandler(self.on_robot_status_update)
         # self.bot = AIkoBot()
 
@@ -48,8 +52,11 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_qna.clicked.connect(lambda: [self.handle_btn_qna(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_qna), self.ui.prompt_qna.setText("Press the microphone button to start a conversation."), self.reset_inactivity_timer(), self.ui.btn_home_qna.setEnabled(False), self.ui.btn_micro.setEnabled(False)])
         self.ui.btn_navi.clicked.connect(lambda: [self.handle_btn_navi(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_navi), self.reset_inactivity_timer(), self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.ui.prompt_navi.setText("Where do you want to go?")])
+        self.ui.btn_about_us.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
         self.ui.btn_home_qna.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_about_us.clicked.connect(lambda: self.go_to_main_page())
+        
 
         self.ui.btn_micro.clicked.connect(lambda: [self.handle_micro(), self.ui.btn_home_qna.setEnabled(False)])
         #self.ui.btn_speaker.setEnabled(False)
