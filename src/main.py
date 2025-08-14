@@ -13,6 +13,8 @@ from speak_thread import SpeakThread
 from listen_thread import ListenThread
 from response_thread import ResponseThread
 from call_chatbot import AIkoBot
+from ui.web import WebTab
+
 
 ASSISTANT_NAME = "AIko"
 initial_context = [
@@ -33,9 +35,11 @@ class MainWindow(QMainWindow):
         self.silent_count = 0
 
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
-        self.applyShadow([self.ui.btn_qna, self.ui.btn_navi, self.ui.btn_micro, self.ui.btn_speaker, self.ui.widget,
-                          self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18,self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d])
+        self.applyShadow([self.ui.btn_qna, self.ui.btn_home_qna, self.ui.btn_navi, self.ui.btn_home_navi, self.ui.btn_about_us, self.ui.btn_home_about_us, self.ui.btn_micro, self.ui.btn_speaker, self.ui.widget,
+                          self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18, self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d,
+                          self.ui.label_6, self.ui.label_7, self.ui.label_8, self.ui.label_9, self.ui.label_19, self.ui.label_20])
 
+        self.web_ = WebTab(self.ui)
         # self.mqtt_handler = MQTTHandler(self.on_robot_status_update)
         # self.bot = AIkoBot()
 
@@ -48,8 +52,11 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_qna.clicked.connect(lambda: [self.handle_btn_qna(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_qna), self.ui.prompt_qna.setText("Press the microphone button to start a conversation."), self.reset_inactivity_timer(), self.ui.btn_home_qna.setEnabled(False), self.ui.btn_micro.setEnabled(False)])
         self.ui.btn_navi.clicked.connect(lambda: [self.handle_btn_navi(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_navi), self.reset_inactivity_timer(), self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.ui.prompt_navi.setText("Where do you want to go?")])
+        self.ui.btn_about_us.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
         self.ui.btn_home_qna.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_about_us.clicked.connect(lambda: self.go_to_main_page())
+        
 
         self.ui.btn_micro.clicked.connect(lambda: [self.handle_micro(), self.ui.btn_home_qna.setEnabled(False)])
         #self.ui.btn_speaker.setEnabled(False)
@@ -94,7 +101,7 @@ class MainWindow(QMainWindow):
                 self.micro_loop = False
                 self.go_to_main_page()
             else:
-                self.speak_thread = SpeakThread(self.query)
+                self.speak_thread = SpeakThread("AIko" + self.query)
                 self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.listen()])
                 self.speak_thread.start()
         else:
@@ -112,14 +119,14 @@ class MainWindow(QMainWindow):
         # self.ui.prompt_qna.setText("Answering...")
         if text == "You're welcome. Goodbye.":
             print(f"AIko: {text}")
-            self.speak_thread = SpeakThread(text)
+            self.speak_thread = SpeakThread("AIko" + text)
             self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), self.SetStyleSheetForbtn("btn_speaker", "#ffffff")])
             self.speak_thread.start()
             # self.btn_speaker_timer.start(4000)
             self.micro_loop = False
         else:
             print(f"AIko: {text}")
-            self.speak_thread = SpeakThread(text)
+            self.speak_thread = SpeakThread("AIko" + text)
             self.speak_thread.finished.connect(self.continue_conversation)
             self.speak_thread.finished.connect(lambda: self.cleanup_thread(self.speak_thread))
             self.speak_thread.start()
@@ -131,13 +138,13 @@ class MainWindow(QMainWindow):
     def start_navigation(self, room: str):
         if room == self.current_room:
             self.ui.prompt_navi.setText("You are already here!!!")
-            self.speak_thread = SpeakThread("You are already here!!!")
+            self.speak_thread = SpeakThread("AIko You are already here!!!")
             self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.set_color_btn_room("#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.reset_inactivity_timer(), self.ui.prompt_navi.setText("Where do you want to go?")])
             self.speak_thread.start()
             return
 
         self._set_navigation_buttons_enabled(False)
-        self.speak_thread = SpeakThread(f"Let's move to room {room}")
+        self.speak_thread = SpeakThread(f"AIko Let's move to room {room}")
         self.speak_thread.finished.connect(lambda: [self._animate_prompt(base_text=f"Heading to room {room}",
                                                                         label_widget=self.ui.prompt_navi,
                                                                         duration_ms=10000,  
@@ -146,7 +153,7 @@ class MainWindow(QMainWindow):
 
     def _arrive_at(self, room: str):
         self.current_room = room
-        self.speak_thread = SpeakThread(f"We have arrived at room {room}")
+        self.speak_thread = SpeakThread(f"AIko We have arrived at room {room}")
         self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), self._set_navigation_buttons_enabled(True), self.ui.prompt_navi.setText(f"Arrived at room {room}. Ready for next destination."), self.set_color_btn_room("#ffffff")])
         self.reset_inactivity_timer()
         self.speak_thread.start()
@@ -269,7 +276,7 @@ class MainWindow(QMainWindow):
             thread.deleteLater()
             thread = None
 
-  
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
