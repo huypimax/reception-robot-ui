@@ -48,4 +48,4 @@ class WelcomeThread(QThread):
             os.remove(tmp_file)
 
         except Exception as e:
-            print("🔊 Error in thread speak:", e)
+            print("🔊 Error in thread welcome:", e)
