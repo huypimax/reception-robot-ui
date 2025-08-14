@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
                 self.micro_loop = False
                 self.go_to_main_page()
             else:
-                self.speak_thread = SpeakThread(self.query)
+                self.speak_thread = SpeakThread("AIko" + self.query)
                 self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.listen()])
                 self.speak_thread.start()
         else:
@@ -112,14 +112,14 @@ class MainWindow(QMainWindow):
         # self.ui.prompt_qna.setText("Answering...")
         if text == "You're welcome. Goodbye.":
             print(f"AIko: {text}")
-            self.speak_thread = SpeakThread(text)
+            self.speak_thread = SpeakThread("AIko" + text)
             self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), self.SetStyleSheetForbtn("btn_speaker", "#ffffff")])
             self.speak_thread.start()
             # self.btn_speaker_timer.start(4000)
             self.micro_loop = False
         else:
             print(f"AIko: {text}")
-            self.speak_thread = SpeakThread(text)
+            self.speak_thread = SpeakThread("AIko" + text)
             self.speak_thread.finished.connect(self.continue_conversation)
             self.speak_thread.finished.connect(lambda: self.cleanup_thread(self.speak_thread))
             self.speak_thread.start()
@@ -131,13 +131,13 @@ class MainWindow(QMainWindow):
     def start_navigation(self, room: str):
         if room == self.current_room:
             self.ui.prompt_navi.setText("You are already here!!!")
-            self.speak_thread = SpeakThread("You are already here!!!")
+            self.speak_thread = SpeakThread("AIko You are already here!!!")
             self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.set_color_btn_room("#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.reset_inactivity_timer(), self.ui.prompt_navi.setText("Where do you want to go?")])
             self.speak_thread.start()
             return
 
         self._set_navigation_buttons_enabled(False)
-        self.speak_thread = SpeakThread(f"Let's move to room {room}")
+        self.speak_thread = SpeakThread(f"AIko Let's move to room {room}")
         self.speak_thread.finished.connect(lambda: [self._animate_prompt(base_text=f"Heading to room {room}",
                                                                         label_widget=self.ui.prompt_navi,
                                                                         duration_ms=10000,  
@@ -146,7 +146,7 @@ class MainWindow(QMainWindow):
 
     def _arrive_at(self, room: str):
         self.current_room = room
-        self.speak_thread = SpeakThread(f"We have arrived at room {room}")
+        self.speak_thread = SpeakThread(f"AIko We have arrived at room {room}")
         self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), self._set_navigation_buttons_enabled(True), self.ui.prompt_navi.setText(f"Arrived at room {room}. Ready for next destination."), self.set_color_btn_room("#ffffff")])
         self.reset_inactivity_timer()
         self.speak_thread.start()

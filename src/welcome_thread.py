@@ -23,7 +23,7 @@ class WelcomeThread(QThread):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(
-            self._speak(f"{greet}, I'm AIko, your receptionist assistant. How can I help you?")
+            self._speak(f"AIko {greet}, I'm AIko, your receptionist assistant, how can I help you?")
         )
         loop.close()
 
