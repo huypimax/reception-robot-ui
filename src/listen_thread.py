@@ -14,7 +14,7 @@ class ListenThread(QThread):
             self.r.adjust_for_ambient_noise(source, duration=0.5)
             print("🎤 Listening...")
             try:
-                self.audio = self.r.listen(source, timeout=6, phrase_time_limit=10)
+                self.audio = self.r.listen(source, timeout=6, phrase_time_limit=12)
                 self.query = self.r.recognize_google(self.audio, language="en-US")
                 print("You:", self.query)
                 self.finished.emit(self.query)

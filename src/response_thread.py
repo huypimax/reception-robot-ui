@@ -5,6 +5,7 @@ import google.generativeai as genai
 
 
 ASSISTANT_NAME = "AIko"
+last_reply = ""
 
 class ResponseThread(QThread):
     finished = pyqtSignal(str)  # Signal to emit the response text
@@ -18,29 +19,27 @@ class ResponseThread(QThread):
         self.initial_context = intial_context
 
     def run(self):
-        self.last_reply = ""
-
         if any(kw in self.query for kw in ["stop", "thank you", "bye"]):
             self.finished.emit("You're welcome. Goodbye.")
-            self.last_reply = "You're welcome. Goodbye."
+            last_reply = "You're welcome. Goodbye."
             return
 
         elif "time" in self.query:
             self.current_time = datetime.datetime.now().strftime("%I:%M %p")
             self.finished.emit(f"It is {self.current_time}.")
-            self.last_reply = f"It is {self.current_time}."
+            last_reply = f"It is {self.current_time}."
             return
                 
         elif "what day is today" in self.query or "what date is today" in self.query:
             self.now = datetime.datetime.now()
             self.date_str = self.now.strftime("%A, %B %d, %Y")  # Friday, August 02, 2025
             self.finished.emit(f"Today is {self.date_str}.")
-            self.last_reply = f"Today is {self.date_str}."
+            last_reply = f"Today is {self.date_str}."
             return
 
         elif any(kw in self.query for kw in ["repeat", "repeat that", "say it again"]):
-            if self.last_reply:
-                self.finished.emit(self.last_reply)
+            if last_reply:
+                self.finished.emit(last_reply)
                 return
             else:
                 self.finished.emit("I haven't said anything yet.")
@@ -50,11 +49,11 @@ class ResponseThread(QThread):
             self.faq_answer = self.check_faq(self.query)
             if self.faq_answer:
                 self.finished.emit(self.faq_answer)
-                self.last_reply = self.faq_answer
+                last_reply = self.faq_answer
                 return
             else:
                 self.reply = asyncio.run(self.ask_gemini(self.query))
-                self.last_reply = self.reply
+                last_reply = self.reply
                 self.finished.emit(self.reply)
                 return
 
@@ -62,8 +61,8 @@ class ResponseThread(QThread):
         self.query = query.lower()
 
         if any(kw in query for kw in [
-            "ho chi minh university of technology", "bach khoa", 
-            "bach khoa university", "ho chi minh university"
+            "ho chi minh university of technology", "bach khoa", "ho chi minh city university",
+            "bach khoa university", "ho chi minh university", "ho chi minh city university of technology",
         ]):
             return ("Ho Chi Minh City University of Technology, also known as Bách Khoa, "
                     "is one of Vietnam’s top technical universities. It offers advanced training "
@@ -71,9 +70,9 @@ class ResponseThread(QThread):
         
         elif any(kw in query for kw in [
             "ivs", "ivs company", "ivs joint stock company", "individual systems", "ibs company"]):
-            return ("IVS Joint Stock Company (Individual Systems) is an IT enterprise founded in 2002, "
+            return ("IVS Joint Stock Company is an IT enterprise founded in 2002, "
                     "specializing in software solutions, automation, and digital transformation for businesses. "
-                    "With a team of hundreds of engineers, IVS has delivered numerous projects in manufacturing management, human resources, AI, and IoT across Vietnam and internationally.")
+                    "With a team of hundreds of engineers, IVS has delivered numerous projects in manufacturing management, AI, and IoT across Vietnam and internationally.")
 
         elif any(kw in query for kw in [
             "fablab", "innovation lab", "robotics lab", 
