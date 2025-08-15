@@ -88,6 +88,10 @@ class WebTab1(QWidget):
         self.browser = QWebEngineView(self)
         self.browser.setUrl(self.url)
 
+        # ✨ TẮT TIẾNG TOÀN CỤC
+        self.browser.page().setAudioMuted(True)
+
+
         # Đặt Zoom về 1.0 để hiển thị đúng kích thước
         self.browser.setZoomFactor(1.0) 
 
