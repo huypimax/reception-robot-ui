@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 QLoggingCategory.setFilterRules("qt.webenginecontext=false")
 
-def inject_perf_script(profile: QWebEngineProfile, fps=30, canvas_scale=0.7, css_zoom=0.85):
+def inject_perf_script(profile: QWebEngineProfile, fps=25, canvas_scale=0.7, css_zoom=0.75):
     js = f"""
 (() => {{
   const FPS = {fps};
