@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="robot">
     <file>robot/floating-minimal-robot.PNG</file>
+    <file>robot/reception-robot.png</file>
   </qresource>
   <qresource prefix="logo">
     <file>Logos/Fablab Logo-aftercut.png</file>
