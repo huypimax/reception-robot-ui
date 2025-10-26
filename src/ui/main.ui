@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1566</width>
-    <height>876</height>
+    <width>1910</width>
+    <height>923</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -165,7 +165,7 @@ border-radius:  30px;
                        <string/>
                       </property>
                       <property name="pixmap">
-                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot.png</pixmap>
+                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-Photoroom.png</pixmap>
                       </property>
                       <property name="scaledContents">
                        <bool>true</bool>
@@ -913,7 +913,7 @@ border-radius:  30px;
                        <string/>
                       </property>
                       <property name="pixmap">
-                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot.png</pixmap>
+                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-Photoroom.png</pixmap>
                       </property>
                       <property name="scaledContents">
                        <bool>true</bool>
@@ -1306,7 +1306,7 @@ border-radius:  20px;
                        <string/>
                       </property>
                       <property name="pixmap">
-                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot.png</pixmap>
+                       <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-Photoroom.png</pixmap>
                       </property>
                       <property name="scaledContents">
                        <bool>true</bool>
@@ -1550,146 +1550,2754 @@ border: 4px ridge rgb(141, 141, 141);</string>
        </layout>
       </widget>
       <widget class="QWidget" name="page_lab">
-       <layout class="QHBoxLayout" name="horizontalLayout_33">
+       <layout class="QVBoxLayout" name="verticalLayout_16">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_23">
-          <item>
-           <widget class="QWidget" name="widget_43" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_24">
-             <property name="spacing">
-              <number>30</number>
-             </property>
-             <property name="leftMargin">
-              <number>30</number>
-             </property>
-             <property name="rightMargin">
-              <number>30</number>
-             </property>
-             <item>
-              <widget class="QWidget" name="widget_44" native="true">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>90</height>
-                </size>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_28">
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QWidget" name="widget_45" native="true">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>100</height>
-                   </size>
+         <widget class="QStackedWidget" name="stackedWidget_2">
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="page_lab_main">
+           <layout class="QHBoxLayout" name="horizontalLayout_26">
+            <item>
+             <widget class="QWidget" name="widget_30" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_31">
+               <item>
+                <widget class="QWidget" name="widget_51" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_40">
+                  <property name="spacing">
+                   <number>15</number>
                   </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>100</height>
-                   </size>
+                  <property name="leftMargin">
+                   <number>15</number>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
+                  <property name="topMargin">
+                   <number>20</number>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_29">
-                   <property name="spacing">
-                    <number>15</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>15</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>20</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>15</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>15</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="btn_home_lab">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>60</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>60</width>
-                       <height>60</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>Roboto</family>
-                       <pointsize>25</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">
+                  <property name="rightMargin">
+                   <number>15</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>15</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_home_lab_main">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
 background-color: rgb(255, 255, 255);
 color: rgb(0, 41, 77);
 border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_17">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>1080</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_31" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_39">
+                  <item>
+                   <spacer name="horizontalSpacer_25">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_43" native="true">
+                    <property name="minimumSize">
+                     <size>
+                      <width>680</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>680</width>
+                      <height>500</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_30">
+                     <property name="spacing">
+                      <number>11</number>
                      </property>
-                     <property name="text">
-                      <string/>
+                     <property name="rightMargin">
+                      <number>45</number>
                      </property>
-                     <property name="icon">
-                      <iconset resource="resources/resources.qrc">
-                       <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                     <item>
+                      <widget class="QWidget" name="widget_44" native="true">
+                       <layout class="QHBoxLayout" name="horizontalLayout_29">
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="prompt_lab">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>500</width>
+                            <height>250</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>20</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  30px;
+padding: 10px
+</string>
+                          </property>
+                          <property name="text">
+                           <string>These are the lab devices you can explore. Tap on a kit to see more details.</string>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QWidget" name="widget_45" native="true">
+                       <layout class="QHBoxLayout" name="horizontalLayout_37">
+                        <item>
+                         <widget class="QLabel" name="label_38">
+                          <property name="maximumSize">
+                           <size>
+                            <width>200</width>
+                            <height>225</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="pixmap">
+                           <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-Photoroom.png</pixmap>
+                          </property>
+                          <property name="scaledContents">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_24">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>426</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_49" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_38">
+                     <property name="spacing">
+                      <number>50</number>
                      </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
+                     <item>
+                      <widget class="QPushButton" name="btn_IFM_2">
+                       <property name="styleSheet">
+                        <string notr="true">background: transparent;
+</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="resources/resources.qrc">
+                         <normaloff>:/lab_equipment/lab_equipment/Kit Vali IFM.png</normaloff>:/lab_equipment/lab_equipment/Kit Vali IFM.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>430</width>
+                         <height>510</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_step_2">
+                       <property name="styleSheet">
+                        <string notr="true">background: transparent;
+</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="resources/resources.qrc">
+                         <normaloff>:/lab_equipment/lab_equipment/Kit Vali Step motor control.png</normaloff>:/lab_equipment/lab_equipment/Kit Vali Step motor control.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>510</width>
+                         <height>510</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_26">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_lab_IFM">
+           <layout class="QHBoxLayout" name="horizontalLayout_28">
+            <property name="spacing">
+             <number>100</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widget_34" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_34">
+               <item>
+                <widget class="QWidget" name="widget_63" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_49">
+                  <property name="spacing">
+                   <number>15</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>15</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>15</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_home_lab_IFM">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_back_lab_IFM">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/arrows_18891435.png</normaloff>:/icon/icon/arrows_18891435.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_33">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>1080</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_35" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_32">
+                  <property name="spacing">
+                   <number>100</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <spacer name="horizontalSpacer_11">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_39" native="true">
+                    <layout class="QVBoxLayout" name="verticalLayout_20">
+                     <property name="spacing">
+                      <number>30</number>
                      </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_17">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                     <property name="topMargin">
+                      <number>0</number>
                      </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>1080</width>
-                       <height>20</height>
-                      </size>
+                     <property name="bottomMargin">
+                      <number>100</number>
                      </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="web_layout" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_30"/>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+                     <item>
+                      <widget class="QLabel" name="label_24">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>27</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>System Diagram</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QWidget" name="widget_50" native="true">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <widget class="QLabel" name="label_16">
+                        <property name="geometry">
+                         <rect>
+                          <x>20</x>
+                          <y>0</y>
+                          <width>721</width>
+                          <height>500</height>
+                         </rect>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>500</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>500</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="pixmap">
+                         <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/Vali IFM - system diagram.jpg</pixmap>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                       <widget class="QPushButton" name="btn_PLC">
+                        <property name="geometry">
+                         <rect>
+                          <x>230</x>
+                          <y>0</y>
+                          <width>100</width>
+                          <height>100</height>
+                         </rect>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>100</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>100</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background: transparent;
+</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="label_IFM_overview">
+                    <property name="minimumSize">
+                     <size>
+                      <width>750</width>
+                      <height>750</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>750</width>
+                      <height>750</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;
+color: rgb(0, 41, 77);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>5</number>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_18">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_15">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>27</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>About Kit Vali IFM</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="LineEdit">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>540</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>540</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QLineEdit, QComboBox {
+    color: rgb(0, 41, 77);
+    qproperty-alignment: 'AlignCenter';
+}
+</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_17">
+                        <item>
+                         <widget class="QLabel" name="label_19">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>180</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="text">
+                           <string>This training kit demonstrates an industrial automation system using IO-Link communication and PROFINET connectivity integrated with a PLC. The setup includes an IO-Link Master (AL1102) connected to multiple IO-Link devices such as sensors (KT5112, O5C500, TW2000, IF6153, UGT524, RB3100) and I/O modules (AL2401 DI and AL2330 DO).</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_17">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>60</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Power is supplied through a 24V DC power module (DN4012) with a Y-splitter (EBC113) for distribution.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_18">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>The digital outputs control an Omron G2R1-SN relay, light indicators, and an RS775 DC motor, allowing the system to perform monitoring and actuation tasks.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_20">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>This kit provides a complete demonstration of sensor integration, signal processing, and control via industrial communication networks, making it ideal for training and automation experiments.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>900</width>
+                         <height>50</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_27">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QPushButton" name="btn_IFM_read">
+                          <property name="minimumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>17</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="focusPolicy">
+                           <enum>Qt::TabFocus</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">
+QPushButton{
+background-color: rgb(0, 41, 77);
+color: rgb(255, 255, 255);
+border-radius:10px;
+}
+QPushButton:hover{
+	background-color: rgb(216, 229, 254);
+	color: rgb(0, 41, 77);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>Read Aloud</string>
+                          </property>
+                          <property name="default">
+                           <bool>true</bool>
+                          </property>
+                          <property name="flat">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_19">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_lab_PLC">
+           <layout class="QVBoxLayout" name="verticalLayout_29">
+            <item>
+             <widget class="QWidget" name="widget_40" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_32">
+               <item>
+                <widget class="QWidget" name="widget_64" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_50">
+                  <property name="spacing">
+                   <number>15</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>15</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>15</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_home_lab_PLC">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_back_lab_PLC">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/arrows_18891435.png</normaloff>:/icon/icon/arrows_18891435.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_34">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>1080</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_41" native="true">
+                 <layout class="QVBoxLayout" name="verticalLayout_23">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QWidget" name="widget_42" native="true">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>500</height>
+                     </size>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_34">
+                     <property name="spacing">
+                      <number>30</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_33">
+                       <property name="minimumSize">
+                        <size>
+                         <width>400</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>400</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="pixmap">
+                        <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/PLC_1.png</pixmap>
+                       </property>
+                       <property name="scaledContents">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="label_PLC">
+                       <property name="minimumSize">
+                        <size>
+                         <width>1000</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>1000</width>
+                         <height>400</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;
+color: rgb(0, 41, 77);</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>5</number>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_24">
+                        <property name="leftMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="label_34">
+                          <property name="minimumSize">
+                           <size>
+                            <width>1000</width>
+                            <height>55</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>1000</width>
+                            <height>55</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>27</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>About PLC</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="LineEdit_2">
+                          <property name="minimumSize">
+                           <size>
+                            <width>1000</width>
+                            <height>250</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>1000</width>
+                            <height>250</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>10</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit, QComboBox {
+    color: rgb(0, 41, 77);
+    qproperty-alignment: 'AlignCenter';
+}
+</string>
+                          </property>
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_28">
+                           <item>
+                            <widget class="QLabel" name="label_35">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>60</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Roboto</family>
+                               <pointsize>18</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="layoutDirection">
+                              <enum>Qt::RightToLeft</enum>
+                             </property>
+                             <property name="text">
+                              <string>A Programmable Logic Controller (PLC) is an industrial digital computer designed to control and automate machines, production lines, or processes.</string>
+                             </property>
+                             <property name="alignment">
+                              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                             </property>
+                             <property name="wordWrap">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_36">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>90</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Roboto</family>
+                               <pointsize>18</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>It continuously monitors input signals from sensors, processes them according to a user-defined program, and generates output signals to actuators such as motors, relays, and indicators.</string>
+                             </property>
+                             <property name="alignment">
+                              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                             </property>
+                             <property name="wordWrap">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_37">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>60</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Roboto</family>
+                               <pointsize>18</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>PLC systems are widely used because of their reliability, flexibility, real-time operation, and ease of programming.</string>
+                             </property>
+                             <property name="alignment">
+                              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                             </property>
+                             <property name="wordWrap">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="frame_2">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>1000</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QHBoxLayout" name="horizontalLayout_35">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QPushButton" name="btn_PLC_read">
+                             <property name="minimumSize">
+                              <size>
+                               <width>250</width>
+                               <height>50</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>250</width>
+                               <height>50</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Roboto</family>
+                               <pointsize>17</pointsize>
+                               <weight>50</weight>
+                               <italic>false</italic>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="focusPolicy">
+                              <enum>Qt::TabFocus</enum>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">
+QPushButton{
+background-color: rgb(0, 41, 77);
+color: rgb(255, 255, 255);
+border-radius:10px;
+}
+QPushButton:hover{
+	background-color: rgb(216, 229, 254);
+	color: rgb(0, 41, 77);
+}</string>
+                             </property>
+                             <property name="text">
+                              <string>Read Aloud</string>
+                             </property>
+                             <property name="default">
+                              <bool>true</bool>
+                             </property>
+                             <property name="flat">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_53" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_36">
+                     <item>
+                      <spacer name="horizontalSpacer_22">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>29</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_32">
+                       <property name="minimumSize">
+                        <size>
+                         <width>1400</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>1400</width>
+                         <height>290</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="pixmap">
+                        <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/PLC_2.png</pixmap>
+                       </property>
+                       <property name="scaledContents">
+                        <bool>true</bool>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_23">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>29</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_lab_step">
+           <layout class="QHBoxLayout" name="horizontalLayout_33">
+            <item>
+             <widget class="QWidget" name="widget_36" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_33">
+               <item>
+                <widget class="QWidget" name="widget_65" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_51">
+                  <property name="spacing">
+                   <number>15</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>15</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>15</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_home_lab_step">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_back_lab_step">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/arrows_18891435.png</normaloff>:/icon/icon/arrows_18891435.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_35">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>1080</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_37" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_31">
+                  <property name="spacing">
+                   <number>100</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <spacer name="horizontalSpacer_20">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_38" native="true">
+                    <layout class="QVBoxLayout" name="verticalLayout_21">
+                     <property name="spacing">
+                      <number>50</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>60</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_25">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>27</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>System Diagram</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QWidget" name="widget_55" native="true">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <widget class="QLabel" name="label_26">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>741</width>
+                          <height>450</height>
+                         </rect>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>450</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>450</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="pixmap">
+                         <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/Vali Step motor control - system diagram.png</pixmap>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                       <widget class="QPushButton" name="btn_HMI">
+                        <property name="geometry">
+                         <rect>
+                          <x>200</x>
+                          <y>30</y>
+                          <width>130</width>
+                          <height>100</height>
+                         </rect>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>130</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>130</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background: transparent;
+</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="label_step_overview">
+                    <property name="minimumSize">
+                     <size>
+                      <width>750</width>
+                      <height>750</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>750</width>
+                      <height>750</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;
+color: rgb(0, 41, 77);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>5</number>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_19">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_27">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>27</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>About Kit Vali Step motor control</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="LineEdit_signup_3">
+                       <property name="minimumSize">
+                        <size>
+                         <width>750</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>750</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QLineEdit, QComboBox {
+    color: rgb(0, 41, 77);
+    qproperty-alignment: 'AlignCenter';
+}
+</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_22">
+                        <item>
+                         <widget class="QLabel" name="label_28">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>60</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="text">
+                           <string>This training kit demonstrates a motion control system using Siemens PLC S7-1200 with PROFINET communication.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_29">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>150</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>The setup includes a Master PLC and a Slave PLC connected through an Ethernet hub, with an HMI for monitoring and control. The PLC sends control signals to a TB6600 stepper motor driver, which drives a stepper motor coupled to a lead screw shaft for linear motion.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_30">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>A signal encoder provides A, B, Z feedback signals for position monitoring, enabling precise closed-loop control and synchronization between the PLCs.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_31">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>This kit is ideal for studying PLC-based motion control, PROFINET communication, and encoder feedback integration in industrial automation.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="btn_deli_create_3">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>900</width>
+                         <height>50</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_30">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QPushButton" name="btn_step_read">
+                          <property name="minimumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>17</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="focusPolicy">
+                           <enum>Qt::TabFocus</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">
+QPushButton{
+background-color: rgb(0, 41, 77);
+color: rgb(255, 255, 255);
+border-radius:10px;
+}
+QPushButton:hover{
+	background-color: rgb(216, 229, 254);
+	color: rgb(0, 41, 77);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>Read Aloud</string>
+                          </property>
+                          <property name="default">
+                           <bool>true</bool>
+                          </property>
+                          <property name="flat">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_21">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_lab_HMI">
+           <layout class="QVBoxLayout" name="verticalLayout_35">
+            <item>
+             <widget class="QWidget" name="widget_57" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_39">
+               <item>
+                <widget class="QWidget" name="widget_58" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_44">
+                  <property name="spacing">
+                   <number>15</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>20</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>15</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>15</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_home_lab_HMI">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/basic-ui_17055247.png</normaloff>:/icon/icon/basic-ui_17055247.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_back_lab_HMI">
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Roboto</family>
+                      <pointsize>25</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  10px;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/resources.qrc">
+                      <normaloff>:/icon/icon/arrows_18891435.png</normaloff>:/icon/icon/arrows_18891435.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_30">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>1080</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_59" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_45">
+                  <property name="spacing">
+                   <number>100</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>50</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>50</number>
+                  </property>
+                  <item>
+                   <widget class="QWidget" name="widget_60" native="true">
+                    <property name="maximumSize">
+                     <size>
+                      <width>600</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_38">
+                     <property name="spacing">
+                      <number>15</number>
+                     </property>
+                     <item>
+                      <spacer name="verticalSpacer_4">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QWidget" name="widget_61" native="true">
+                       <layout class="QHBoxLayout" name="horizontalLayout_47">
+                        <item>
+                         <widget class="QLabel" name="label_39">
+                          <property name="minimumSize">
+                           <size>
+                            <width>400</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>400</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="pixmap">
+                           <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/HMI_1.png</pixmap>
+                          </property>
+                          <property name="scaledContents">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_31">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::Minimum</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>146</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QWidget" name="widget_62" native="true">
+                       <layout class="QHBoxLayout" name="horizontalLayout_48">
+                        <item>
+                         <spacer name="horizontalSpacer_32">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>146</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_44">
+                          <property name="minimumSize">
+                           <size>
+                            <width>400</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>400</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="pixmap">
+                           <pixmap resource="resources/resources.qrc">:/lab_equipment/lab_equipment/HMI_2.png</pixmap>
+                          </property>
+                          <property name="scaledContents">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_5">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="label_HMI">
+                    <property name="minimumSize">
+                     <size>
+                      <width>650</width>
+                      <height>700</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>650</width>
+                      <height>700</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 20px;
+color: rgb(0, 41, 77);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>5</number>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_37">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>15</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>15</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_40">
+                       <property name="minimumSize">
+                        <size>
+                         <width>650</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>650</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>27</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>About HMI</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="LineEdit_3">
+                       <property name="minimumSize">
+                        <size>
+                         <width>650</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>650</width>
+                         <height>500</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Roboto</family>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QLineEdit, QComboBox {
+    color: rgb(0, 41, 77);
+    qproperty-alignment: 'AlignCenter';
+}
+</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_36">
+                        <property name="leftMargin">
+                         <number>30</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>30</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="label_41">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>600</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::RightToLeft</enum>
+                          </property>
+                          <property name="text">
+                           <string>A Human Machine Interface (HMI) is a device or software platform that allows operators to interact with machines, systems, or processes.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_42">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>120</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>It displays real-time data from the controller (such as a PLC) and enables users to monitor, control, and adjust system parameters through a graphical interface.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_43">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>HMIs can range from simple text displays to advanced touchscreens with animations, alarms, and data logging features.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_45">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>90</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>18</pointsize>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>They play a key role in improving system visualization, operational efficiency, and troubleshooting in industrial automation.</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                          </property>
+                          <property name="wordWrap">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_3">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>1000</width>
+                         <height>50</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_46">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QPushButton" name="btn_HMI_read">
+                          <property name="minimumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>250</width>
+                            <height>50</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Roboto</family>
+                            <pointsize>17</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="focusPolicy">
+                           <enum>Qt::TabFocus</enum>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">
+QPushButton{
+background-color: rgb(0, 41, 77);
+color: rgb(255, 255, 255);
+border-radius:10px;
+}
+QPushButton:hover{
+	background-color: rgb(216, 229, 254);
+	color: rgb(0, 41, 77);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>Read Aloud</string>
+                          </property>
+                          <property name="default">
+                           <bool>true</bool>
+                          </property>
+                          <property name="flat">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1789,7 +4397,7 @@ border-radius:  10px;</string>
         </item>
         <item>
          <widget class="QWidget" name="widget_23" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <layout class="QHBoxLayout" name="horizontalLayout_22">
            <item>
             <spacer name="horizontalSpacer_8">
              <property name="orientation">
@@ -1797,11 +4405,125 @@ border-radius:  10px;</string>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>243</width>
-               <height>20</height>
+               <width>240</width>
+               <height>17</height>
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget_27" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>680</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>680</width>
+               <height>500</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QWidget" name="widget_28" native="true">
+                <layout class="QHBoxLayout" name="horizontalLayout_21">
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="prompt_deli">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>500</width>
+                     <height>250</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Roboto</family>
+                     <pointsize>20</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  30px;
+padding: 10px
+</string>
+                   </property>
+                   <property name="text">
+                    <string>Let’s get your delivery ready! Please fill in the form and tap 'Start delivery' when done.</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_29" native="true">
+                <layout class="QHBoxLayout" name="horizontalLayout_17">
+                 <item>
+                  <widget class="QLabel" name="label_7">
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>225</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="pixmap">
+                    <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-on-delivery-Photoroom.png</pixmap>
+                   </property>
+                   <property name="scaledContents">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_12">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>426</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
            <item>
             <widget class="QFrame" name="Deli_form">
@@ -1937,7 +4659,7 @@ QPushButton:hover{
 }</string>
                    </property>
                    <property name="text">
-                    <string>Create Form</string>
+                    <string>Start delivery</string>
                    </property>
                    <property name="default">
                     <bool>true</bool>
@@ -2598,7 +5320,7 @@ border-radius:  30px;
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot.png</pixmap>
+                 <pixmap resource="resources/resources.qrc">:/robot/robot/reception-robot-Photoroom.png</pixmap>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>

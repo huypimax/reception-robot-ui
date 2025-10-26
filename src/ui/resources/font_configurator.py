@@ -22,6 +22,7 @@ def apply_custom_fonts(ui):
     set_bold(ui.btn_room_d)
 
     #deli
+    set_bold(ui.prompt_deli)
     set_bold(ui.label_9)
     set_bold(ui.label_10)
     set_bold(ui.label_11)
@@ -31,4 +32,14 @@ def apply_custom_fonts(ui):
 
     #chekin
     set_bold(ui.prompt_checkin)
+
+    #lab_equipment
+    set_bold(ui.prompt_lab) 
+    set_bold(ui.label_24) 
+    set_bold(ui.label_15) 
+    set_bold(ui.label_34) 
+    set_bold(ui.label_27) 
+    set_bold(ui.label_25) 
+    set_bold(ui.label_40) 
+
     

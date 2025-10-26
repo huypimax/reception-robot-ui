@@ -76,7 +76,9 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
         self.applyShadow([self.ui.btn_qna, self.ui.btn_home_qna, 
                           self.ui.btn_navi, self.ui.btn_home_navi, 
-                          self.ui.btn_lab, self.ui.btn_home_lab, 
+                          self.ui.btn_lab, 
+                          self.ui.btn_home_lab_main, self.ui.btn_home_lab_IFM, self.ui.btn_home_lab_PLC, self.ui.btn_home_lab_step, self.ui.btn_home_lab_HMI,
+                          self.ui.btn_back_lab_IFM, self.ui.btn_back_lab_PLC, self.ui.btn_back_lab_step, self.ui.btn_back_lab_HMI,
                           self.ui.btn_deli, self.ui.btn_home_deli,
                           self.ui.btn_check_in, self.ui.btn_home_checkin,
                           self.ui.btn_micro, self.ui.btn_speaker, 
@@ -96,15 +98,30 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_qna.clicked.connect(lambda: [self.handle_btn_qna(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_qna), self.ui.prompt_qna.setText("Press the microphone button to start a conversation."), self.reset_inactivity_timer(), self.ui.btn_home_qna.setEnabled(False), self.ui.btn_micro.setEnabled(False)])
         self.ui.btn_navi.clicked.connect(lambda: [self.handle_btn_navi(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_navi), self.reset_inactivity_timer(), self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.ui.prompt_navi.setText("Where do you want to go?")])
-        self.ui.btn_lab.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_lab))
+        self.ui.btn_lab.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_lab),self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
         self.ui.btn_deli.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_deli))
         self.ui.btn_check_in.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_checkin))
+
         self.ui.btn_home_qna.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
-        self.ui.btn_home_lab.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_home_deli.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_home_checkin.clicked.connect(lambda: self.go_to_main_page())
+
+        self.ui.btn_home_lab_main.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_lab_IFM.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_lab_PLC.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_lab_step.clicked.connect(lambda: self.go_to_main_page())
+        self.ui.btn_home_lab_HMI.clicked.connect(lambda: self.go_to_main_page())
+
+        self.ui.btn_IFM_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM))
+        self.ui.btn_step_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step))
+        self.ui.btn_PLC.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_PLC))
+        self.ui.btn_HMI.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_HMI))
         
+        self.ui.btn_back_lab_IFM.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main))
+        self.ui.btn_back_lab_PLC.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM))
+        self.ui.btn_back_lab_step.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main))
+        self.ui.btn_back_lab_HMI.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step))
 
         self.ui.btn_micro.clicked.connect(lambda: [self.handle_micro(), self.ui.btn_home_qna.setEnabled(False)])
         #self.ui.btn_speaker.setEnabled(False)

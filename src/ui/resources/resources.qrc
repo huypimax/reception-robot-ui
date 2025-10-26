@@ -1,7 +1,18 @@
 <RCC>
   <qresource prefix="robot">
     <file>robot/floating-minimal-robot.PNG</file>
-    <file>robot/reception-robot.png</file>
+    <file>robot/reception-robot-on-delivery-Photoroom.png</file>
+    <file>robot/reception-robot-Photoroom.png</file>
+  </qresource>
+  <qresource prefix="lab_equipment">
+    <file>lab_equipment/HMI_1.png</file>
+    <file>lab_equipment/HMI_2.png</file>
+    <file>lab_equipment/Kit Vali IFM.png</file>
+    <file>lab_equipment/Kit Vali Step motor control.png</file>
+    <file>lab_equipment/PLC_1.png</file>
+    <file>lab_equipment/PLC_2.png</file>
+    <file>lab_equipment/Vali IFM - system diagram.jpg</file>
+    <file>lab_equipment/Vali Step motor control - system diagram.png</file>
   </qresource>
   <qresource prefix="logo">
     <file>Logos/Fablab Logo-aftercut.png</file>
@@ -14,6 +25,7 @@
     <file>icon/community_14359834.png</file>
     <file>icon/machine-learning.png</file>
     <file>icon/product-quality.png</file>
+    <file>icon/arrows_18891435.png</file>
     <file>icon/microphone.png</file>
     <file>icon/maps-location_16197007.png</file>
   </qresource>
