@@ -16,10 +16,11 @@ os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = " ".join([
 
 import sys
 from ui.main_ui import Ui_MainWindow
-from ui.resources.font_configurator import apply_custom_fonts
-from PyQt6.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect
+from ui.fonts_conf.font_configurator import apply_custom_fonts
+from ui.widget_conf.ui_utils import SetStyleSheetForbtn 
+from ui.widget_conf.apply_utils import apply_shadow
+from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
-from PyQt6.QtGui import QColor
 
 from mqtt_client import MQTTHandler
 import asyncio
@@ -68,22 +69,13 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         apply_custom_fonts(self.ui)
+        apply_shadow(self.ui)
 
         self.current_room = ""
         self.micro_loop = False
         self.silent_count = 0
 
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
-        self.applyShadow([self.ui.btn_qna, self.ui.btn_home_qna, 
-                          self.ui.btn_navi, self.ui.btn_home_navi, 
-                          self.ui.btn_lab, 
-                          self.ui.btn_home_lab_main, self.ui.btn_home_lab_IFM, self.ui.btn_home_lab_PLC, self.ui.btn_home_lab_step, self.ui.btn_home_lab_HMI,
-                          self.ui.btn_back_lab_IFM, self.ui.btn_back_lab_PLC, self.ui.btn_back_lab_step, self.ui.btn_back_lab_HMI,
-                          self.ui.btn_deli, self.ui.btn_home_deli,
-                          self.ui.btn_check_in, self.ui.btn_home_checkin,
-                          self.ui.btn_micro, self.ui.btn_speaker, 
-                          self.ui.widget, self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18, 
-                          self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d])
 
         # self.web_ = WebTab1(self.ui)
         # self.mqtt_handler = MQTTHandler(self.on_robot_status_update)
@@ -126,15 +118,15 @@ class MainWindow(QMainWindow):
         self.ui.btn_micro.clicked.connect(lambda: [self.handle_micro(), self.ui.btn_home_qna.setEnabled(False)])
         #self.ui.btn_speaker.setEnabled(False)
 
-        # self.ui.btn_room_a.clicked.connect(lambda: [self.handle_go_to("A"), self.SetStyleSheetForbtn("btn_room_a", "#69ff3d")])
-        # self.ui.btn_room_b.clicked.connect(lambda: [self.handle_go_to("B"), self.SetStyleSheetForbtn("btn_room_b", "#69ff3d")])
-        # self.ui.btn_room_c.clicked.connect(lambda: [self.handle_go_to("C"), self.SetStyleSheetForbtn("btn_room_c", "#69ff3d")])
-        # self.ui.btn_room_d.clicked.connect(lambda: [self.handle_go_to("D"), self.SetStyleSheetForbtn("btn_room_d", "#69ff3d")])
+        # self.ui.btn_room_a.clicked.connect(lambda: [self.handle_go_to("A"), SetStyleSheetForbtn(self.ui, "btn_room_a", "#69ff3d")])
+        # self.ui.btn_room_b.clicked.connect(lambda: [self.handle_go_to("B"), SetStyleSheetForbtn(self.ui, "btn_room_b", "#69ff3d")])
+        # self.ui.btn_room_c.clicked.connect(lambda: [self.handle_go_to("C"), SetStyleSheetForbtn(self.ui, "btn_room_c", "#69ff3d")])
+        # self.ui.btn_room_d.clicked.connect(lambda: [self.handle_go_to("D"), SetStyleSheetForbtn(self.ui, "btn_room_d", "#69ff3d")])
 
-        self.ui.btn_room_a.clicked.connect(lambda: [self.start_navigation("A"), self.SetStyleSheetForbtn("btn_room_a", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_b.clicked.connect(lambda: [self.start_navigation("B"), self.SetStyleSheetForbtn("btn_room_b", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_c.clicked.connect(lambda: [self.start_navigation("C"), self.SetStyleSheetForbtn("btn_room_c", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_d.clicked.connect(lambda: [self.start_navigation("D"), self.SetStyleSheetForbtn("btn_room_d", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
+        self.ui.btn_room_a.clicked.connect(lambda: [self.start_navigation("A"), SetStyleSheetForbtn(self.ui, "btn_room_a", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
+        self.ui.btn_room_b.clicked.connect(lambda: [self.start_navigation("B"), SetStyleSheetForbtn(self.ui, "btn_room_b", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
+        self.ui.btn_room_c.clicked.connect(lambda: [self.start_navigation("C"), SetStyleSheetForbtn(self.ui, "btn_room_c", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
+        self.ui.btn_room_d.clicked.connect(lambda: [self.start_navigation("D"), SetStyleSheetForbtn(self.ui, "btn_room_d", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
 
     def handle_micro(self):
         if self.micro_loop == False:
@@ -143,14 +135,14 @@ class MainWindow(QMainWindow):
             self.listen()
 
     def listen(self):
-        self.SetStyleSheetForbtn("btn_micro", "#69ff3d")  
-        self.SetStyleSheetForbtn("btn_speaker", "#ffffff")  
+        SetStyleSheetForbtn(self.ui, "btn_micro", "#69ff3d")  
+        SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")  
         self.reset_inactivity_timer()
         self.ui.prompt_qna.setText("Listening...")
         self.ui.btn_micro.setEnabled(True)
         self.listen_thread = ListenThread()
         self.listen_thread.finished.connect(self.get_response)
-        self.listen_thread.finished.connect(lambda: [self.cleanup_thread(self.listen_thread), self.ui.btn_micro.setEnabled(False), self.SetStyleSheetForbtn("btn_micro", "#ffffff"), self.SetStyleSheetForbtn("btn_speaker", "#69ff3d")])
+        self.listen_thread.finished.connect(lambda: [self.cleanup_thread(self.listen_thread), self.ui.btn_micro.setEnabled(False), SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff"), SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")])
         self.listen_thread.start()
 
     def get_response(self, query: str):
@@ -177,7 +169,7 @@ class MainWindow(QMainWindow):
 
     def answer(self, text: str):
         #self.ui.btn_speaker.setEnabled(True)
-        #self.SetStyleSheetForbtn("btn_speaker", "#69ff3d")
+        #SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")
         self.ui.btn_micro.setEnabled(False)
         self.reset_inactivity_timer()
         self.ui.prompt_qna.setText(text)
@@ -185,7 +177,7 @@ class MainWindow(QMainWindow):
         if text == "You're welcome. Goodbye.":
             print(f"AIko: {text}")
             self.speak_thread = SpeakThread(text)
-            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), self.SetStyleSheetForbtn("btn_speaker", "#ffffff")])
+            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")])
             self.speak_thread.start()
             # self.btn_speaker_timer.start(4000)
             self.micro_loop = False
@@ -252,12 +244,12 @@ class MainWindow(QMainWindow):
 
     def go_to_main_page(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
-        self.SetStyleSheetForbtn("btn_micro", "#ffffff")
-        self.SetStyleSheetForbtn("btn_speaker", "#ffffff")
-        self.SetStyleSheetForbtn("btn_room_a", "ffffff")
-        self.SetStyleSheetForbtn("btn_room_b", "ffffff")
-        self.SetStyleSheetForbtn("btn_room_c", "ffffff")
-        self.SetStyleSheetForbtn("btn_room_d", "ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_room_a", "ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_room_b", "ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_room_c", "ffffff")
+        SetStyleSheetForbtn(self.ui, "btn_room_d", "ffffff")
         self.ui.btn_home_navi.setEnabled(True)
 
     def reset_inactivity_timer(self):
@@ -284,20 +276,11 @@ class MainWindow(QMainWindow):
         # Sau duration_ms thì stop hiệu ứng và gọi callback nếu có
         QTimer.singleShot(duration_ms, lambda: (timer.stop(), callback_after() if callback_after else None))
 
-    def applyShadow(self, objects, blur=20, x_offset=4, y_offset=4, color=QColor(0, 0, 0, 150)):
-        """Áp dụng hiệu ứng bóng cho danh sách các đối tượng"""
-        for obj in objects:
-            shadow = QGraphicsDropShadowEffect()
-            shadow.setBlurRadius(blur)
-            shadow.setXOffset(x_offset)
-            shadow.setYOffset(y_offset)
-            shadow.setColor(color)
-            obj.setGraphicsEffect(shadow)
 
     def handle_btn_qna(self):
-        self.SetStyleSheetForbtn("btn_speaker", "#69ff3d")
+        SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")
         self.welcome_thread = WelcomeThread()
-        self.welcome_thread.finished.connect(lambda: [self.cleanup_thread(self.welcome_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), self.SetStyleSheetForbtn("btn_speaker", "#ffffff")])
+        self.welcome_thread.finished.connect(lambda: [self.cleanup_thread(self.welcome_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True), SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")])
         self.welcome_thread.start()
 
     def handle_btn_navi(self):
@@ -306,33 +289,10 @@ class MainWindow(QMainWindow):
         self.speak_thread.start()
 
     def set_color_btn_room(self, color):
-        self.SetStyleSheetForbtn("btn_room_a", color)
-        self.SetStyleSheetForbtn("btn_room_b", color)
-        self.SetStyleSheetForbtn("btn_room_c", color)
-        self.SetStyleSheetForbtn("btn_room_d", color)
-
-    def SetStyleSheetForbtn(self, btn, background_color, text_color="black", hover_background="#ffffff"):
-        button = getattr(self.ui, btn)
-        button.setStyleSheet(f"""
-            QPushButton#{btn} {{
-                border-radius: 30px;
-                border-color: white;
-                background-color: {background_color};
-                color: {text_color};
-                text-align: center;
-                font-family: Inter, sans-serif;
-            }}
-
-            QPushButton#{btn}:hover {{
-                background-color: {hover_background};
-            }}
-
-            QPushButton#{btn}:pressed {{
-                padding-left: 5px;
-                padding-top: 5px;
-            }}
-        """)
-
+        SetStyleSheetForbtn(self.ui, "btn_room_a", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_b", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_c", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_d", color)
 
     def cleanup_thread(self, thread):
         if thread is not None:

@@ -1,6 +1,6 @@
 # ui/font_configurator.py
 
-from ui.resources.fonts import set_bold, set_regular
+from ui.fonts_conf.fonts import set_bold, set_regular
 
 def apply_custom_fonts(ui):
     #main 

@@ -1,0 +1,35 @@
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect
+from PyQt6.QtGui import QColor
+
+def shadow(objects, blur=20, x_offset=4, y_offset=4, color=QColor(0, 0, 0, 150)):
+    """Áp dụng hiệu ứng bóng cho danh sách các đối tượng"""
+    for obj in objects:
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(blur)
+        shadow.setXOffset(x_offset)
+        shadow.setYOffset(y_offset)
+        shadow.setColor(color)
+        obj.setGraphicsEffect(shadow)
+
+def SetStyleSheetForbtn(ui, btn, background_color, text_color="black", hover_background="#ffffff"):
+    button = getattr(ui, btn)
+    button.setStyleSheet(f"""
+        QPushButton#{btn} {{
+            border-radius: 30px;
+            border-color: white;
+            background-color: {background_color};
+            color: {text_color};
+            text-align: center;
+            font-family: Inter, sans-serif;
+        }}
+
+        QPushButton#{btn}:hover {{
+            background-color: {hover_background};
+        }}
+
+        QPushButton#{btn}:pressed {{
+            padding-left: 5px;
+            padding-top: 5px;
+        }}
+    """)
+
