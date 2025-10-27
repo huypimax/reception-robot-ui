@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -1554,7 +1554,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page_lab_main">
            <layout class="QHBoxLayout" name="horizontalLayout_26">
@@ -1688,7 +1688,7 @@ border-radius:  10px;</string>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_30">
                      <property name="spacing">
-                      <number>11</number>
+                      <number>0</number>
                      </property>
                      <property name="rightMargin">
                       <number>45</number>
@@ -1697,7 +1697,7 @@ border-radius:  10px;</string>
                       <widget class="QWidget" name="widget_44" native="true">
                        <layout class="QHBoxLayout" name="horizontalLayout_29">
                         <property name="bottomMargin">
-                         <number>0</number>
+                         <number>15</number>
                         </property>
                         <item>
                          <widget class="QLabel" name="prompt_lab">
@@ -2033,7 +2033,7 @@ border-radius:  10px;</string>
                       <number>30</number>
                      </property>
                      <property name="topMargin">
-                      <number>0</number>
+                      <number>30</number>
                      </property>
                      <property name="bottomMargin">
                       <number>100</number>
@@ -2073,7 +2073,7 @@ border-radius:  10px;</string>
                        <property name="maximumSize">
                         <size>
                          <width>16777215</width>
-                         <height>500</height>
+                         <height>550</height>
                         </size>
                        </property>
                        <widget class="QLabel" name="label_16">
@@ -2088,13 +2088,13 @@ border-radius:  10px;</string>
                         <property name="minimumSize">
                          <size>
                           <width>0</width>
-                          <height>500</height>
+                          <height>480</height>
                          </size>
                         </property>
                         <property name="maximumSize">
                          <size>
                           <width>16777215</width>
-                          <height>500</height>
+                          <height>480</height>
                          </size>
                         </property>
                         <property name="text">
@@ -2246,6 +2246,12 @@ color: rgb(0, 41, 77);</string>
                         <enum>QFrame::Raised</enum>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_17">
+                        <property name="leftMargin">
+                         <number>30</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>30</number>
+                        </property>
                         <item>
                          <widget class="QLabel" name="label_19">
                           <property name="minimumSize">
@@ -2256,7 +2262,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>180</height>
                            </size>
                           </property>
@@ -2292,7 +2298,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>60</height>
                            </size>
                           </property>
@@ -2325,7 +2331,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>90</height>
                            </size>
                           </property>
@@ -2358,8 +2364,8 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
-                            <height>90</height>
+                            <width>720</width>
+                            <height>120</height>
                            </size>
                           </property>
                           <property name="font">
@@ -2781,6 +2787,12 @@ color: rgb(0, 41, 77);</string>
                            <enum>QFrame::Raised</enum>
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_28">
+                           <property name="leftMargin">
+                            <number>30</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>30</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_35">
                              <property name="minimumSize">
@@ -2791,7 +2803,7 @@ color: rgb(0, 41, 77);</string>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>16777215</width>
+                               <width>970</width>
                                <height>60</height>
                               </size>
                              </property>
@@ -2827,7 +2839,7 @@ color: rgb(0, 41, 77);</string>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>16777215</width>
+                               <width>970</width>
                                <height>90</height>
                               </size>
                              </property>
@@ -2860,7 +2872,7 @@ color: rgb(0, 41, 77);</string>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>16777215</width>
+                               <width>970</width>
                                <height>60</height>
                               </size>
                              </property>
@@ -3427,6 +3439,12 @@ color: rgb(0, 41, 77);</string>
                         <enum>QFrame::Raised</enum>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_22">
+                        <property name="leftMargin">
+                         <number>30</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>30</number>
+                        </property>
                         <item>
                          <widget class="QLabel" name="label_28">
                           <property name="minimumSize">
@@ -3437,7 +3455,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>60</height>
                            </size>
                           </property>
@@ -3473,7 +3491,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>150</height>
                            </size>
                           </property>
@@ -3506,7 +3524,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>90</height>
                            </size>
                           </property>
@@ -3539,7 +3557,7 @@ color: rgb(0, 41, 77);</string>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>16777215</width>
+                            <width>720</width>
                             <height>90</height>
                            </size>
                           </property>
@@ -4435,8 +4453,11 @@ border-radius:  10px;</string>
               <item>
                <widget class="QWidget" name="widget_28" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_21">
-                 <property name="bottomMargin">
+                 <property name="topMargin">
                   <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>15</number>
                  </property>
                  <item>
                   <widget class="QLabel" name="prompt_deli">
