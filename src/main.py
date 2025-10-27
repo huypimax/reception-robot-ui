@@ -17,7 +17,7 @@ os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = " ".join([
 import sys
 from ui.main_ui import Ui_MainWindow
 from ui.fonts_conf.font_configurator import apply_custom_fonts
-from ui.widget_conf.ui_utils import SetStyleSheetForbtn 
+from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt 
 from ui.widget_conf.apply_utils import apply_shadow
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
@@ -202,7 +202,7 @@ class MainWindow(QMainWindow):
 
         self._set_navigation_buttons_enabled(False)
         self.speak_thread = SpeakThread(f"Let's move to room {room}")
-        self.speak_thread.finished.connect(lambda: [self._animate_prompt(base_text=f"Heading to room {room}",
+        self.speak_thread.finished.connect(lambda: [_animate_prompt(base_text=f"Heading to room {room}",
                                                                         label_widget=self.ui.prompt_navi,
                                                                         duration_ms=10000,  
                                                                         callback_after=lambda: self._arrive_at(room))])
@@ -228,7 +228,7 @@ class MainWindow(QMainWindow):
             self.ui.prompt_navi.setText("You are already here!!!")
         else:
             self._set_navigation_buttons_enabled(False)
-            self._animate_prompt(
+            _animate_prompt(
                 base_text=f"Heading to room {room}",
                 label_widget=self.ui.prompt_navi,
                 duration_ms=5000,  # mô phỏng thời gian di chuyển
@@ -256,25 +256,6 @@ class MainWindow(QMainWindow):
         self.inactivity_timer.stop()
         self.inactivity_timer.start()
 
-
-    def _animate_prompt(self, base_text: str, label_widget, duration_ms, callback_after=None):
-        """
-        Hiệu ứng động "..." sau base_text
-        """
-        dots = [".", "..", "..."]
-        index = 0
-        timer = QTimer(self)
-
-        def update():
-            nonlocal index
-            label_widget.setText(f"{base_text}{dots[index]}")
-            index = (index + 1) % len(dots)
-
-        timer.timeout.connect(update)
-        timer.start(500)  # mỗi 500ms update chấm
-
-        # Sau duration_ms thì stop hiệu ứng và gọi callback nếu có
-        QTimer.singleShot(duration_ms, lambda: (timer.stop(), callback_after() if callback_after else None))
 
 
     def handle_btn_qna(self):

@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -1554,7 +1554,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page_lab_main">
            <layout class="QHBoxLayout" name="horizontalLayout_26">
