@@ -22,7 +22,7 @@ from ui.widget_conf.apply_utils import apply_shadow
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
 
-from mqtt_client import MQTTHandler
+from mqtt.mqtt_client import MQTTHandler
 import asyncio
 import os
 from thread_welcome import WelcomeThread
