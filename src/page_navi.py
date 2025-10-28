@@ -1,12 +1,13 @@
-from PyQt6.QtCore import QTimer
-from PyQt6.QtCore import QThread
+from PyQt6.QtCore import QTimer, QThread
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 from ui.main_ui import Ui_MainWindow
+from pathplanning import LocationManager
 from thread_speak import SpeakThread
 
 class NaviPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
+        self.location_manager = LocationManager(self.ui)
         self.current_place = ""
 
         self.place_button_pairs = [
@@ -54,6 +55,7 @@ class NaviPage:
             self.speak_thread.start()
             return
 
+        self.location_manager.send_waypoint(place)
         self._set_navigation_buttons_enabled(False)
         self.speak_thread = SpeakThread(f"Let's move to {place}")
         self.speak_thread.finished.connect(lambda checked=False, p=place, b=btn_name: [
