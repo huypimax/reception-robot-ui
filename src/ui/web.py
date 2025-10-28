@@ -10,7 +10,7 @@ class WebTab(QWidget):
     def __init__(self, ui):
         super().__init__()
         self.ui = ui
-        self.url_str = "https://10.128.122.102"
+        self.url_str = "https://hcmut.edu.vn/virtual-tour/"
         self.url = QUrl(self.url_str)
 
         self.browser = QWebEngineView()

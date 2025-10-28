@@ -78,7 +78,7 @@ class MainWindow(QMainWindow):
                           self.ui.widget_12, self.ui.widget_7, self.ui.widget_19, self.ui.widget_18, self.ui.btn_room_a, self.ui.btn_room_b, self.ui.btn_room_c, self.ui.btn_room_d,
                           self.ui.label_6, self.ui.label_7, self.ui.label_8, self.ui.label_9, self.ui.label_19, self.ui.label_20])
 
-        self.web_ = WebTab1(self.ui)
+        self.web_ = WebTab(self.ui)
         # self.mqtt_handler = MQTTHandler(self.on_robot_status_update)
         # self.bot = AIkoBot()
 
