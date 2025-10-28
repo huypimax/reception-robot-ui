@@ -1,18 +1,13 @@
+from PyQt6.QtCore import QTimer
 from PyQt6.QtCore import QThread
-from PyQt6.QtWidgets import QWidget
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 from ui.main_ui import Ui_MainWindow
 from thread_speak import SpeakThread
 
-class NaviPage(QWidget):
+class NaviPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.current_place = ""
-        self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
-        self.ui.btn_room_a.clicked.connect(lambda: [self.start_navigation("A"), SetStyleSheetForbtn(self.ui, "btn_room_a", "#69ff3d"), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_b.clicked.connect(lambda: [self.start_navigation("B"), SetStyleSheetForbtn(self.ui, "btn_room_b", "#69ff3d"), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_c.clicked.connect(lambda: [self.start_navigation("C"), SetStyleSheetForbtn(self.ui, "btn_room_c", "#69ff3d"), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_d.clicked.connect(lambda: [self.start_navigation("D"), SetStyleSheetForbtn(self.ui, "btn_room_d", "#69ff3d"), self.ui.btn_home_navi.setEnabled(False)])
 
         self.place_button_pairs = [
             ("Electrical lab", "btn_room_a"), 
@@ -31,14 +26,16 @@ class NaviPage(QWidget):
             button.clicked.connect(lambda checked=False, p=place, b=btn_name: [
                 self.start_navigation(p, b), 
                 SetStyleSheetForbtn(self.ui, b, "#69ff3d"), 
-                self.inactivity_timer.stop(), 
                 ])      
 
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
         
     def handle_btn_navi(self):
         self.speak_thread = SpeakThread("Where do you want to go?")
-        self.speak_thread.finished.connect(lambda: [self.ui.btn_room_a.setEnabled(True), self.ui.btn_room_b.setEnabled(True), self.ui.btn_room_c.setEnabled(True), self.ui.btn_room_d.setEnabled(True), self.ui.btn_home_navi.setEnabled(True)])
+        self.speak_thread.finished.connect(lambda: [
+            self.ui.btn_home_navi.setEnabled(True),
+            self._set_navigation_buttons_enabled(True)  # Enable tất cả button từ pairs
+        ])
         self.speak_thread.start()
 
     def start_navigation(self, place: str, btn_name: str):
@@ -50,7 +47,10 @@ class NaviPage(QWidget):
 
             self.ui.prompt_navi.setText("You are already here!!!")
             self.speak_thread = SpeakThread("You are already here!!!")
-            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), SetStyleSheetForbtn(self.ui, btn_name, "#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.ui.prompt_navi.setText("Where do you want to go?")])
+            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), 
+                                                        SetStyleSheetForbtn(self.ui, btn_name, "#ffffff"), 
+                                                        self.ui.btn_home_navi.setEnabled(True), 
+                                                        self.ui.prompt_navi.setText("Where do you want to go?")])
             self.speak_thread.start()
             return
 
@@ -71,7 +71,10 @@ class NaviPage(QWidget):
             return
 
         self.speak_thread = SpeakThread(f"We have arrived at {place}")
-        self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), self._set_navigation_buttons_enabled(True), self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."), SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")])
+        self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), 
+                                                    self._set_navigation_buttons_enabled(True), 
+                                                    self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."), 
+                                                    SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")])
         self.speak_thread.start()
 
     def _set_navigation_buttons_enabled(self, enabled: bool):
