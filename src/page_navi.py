@@ -35,9 +35,9 @@ class NaviPage:
         self._set_navigation_buttons_enabled(False)
         self.speak_thread = SpeakThread(f"Let's move to place {place}")
         self.speak_thread.finished.connect(lambda: [_animate_prompt(base_text=f"Heading to {place}",
-                                                                        label_widget=self.ui.prompt_navi,
-                                                                        duration_ms=10000,  
-                                                                        callback_after=lambda: self._arrive_at(place))])
+                                                                    label_widget=self.ui.prompt_navi,
+                                                                    duration_ms=10000,  
+                                                                    callback_after=lambda: self._arrive_at(place))])
         self.speak_thread.start()
 
     def _arrive_at(self, place: str):

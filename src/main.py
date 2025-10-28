@@ -40,7 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.navi_page = NaviPage(self, self.inactivity_timer)
         self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi(), 
-                                               self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), 
+                                               self.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), 
                                                self.set_color_btn_room("#ffffff"), self.prompt_navi.setText("Where do you want to go?")])
 
         self.lab_page = LabPage(self)
@@ -59,10 +59,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_room_d.setEnabled(enabled)
 
     def set_color_btn_room(self, color):
-        SetStyleSheetForbtn(self.ui, "btn_room_a", color)
-        SetStyleSheetForbtn(self.ui, "btn_room_b", color)
-        SetStyleSheetForbtn(self.ui, "btn_room_c", color)
-        SetStyleSheetForbtn(self.ui, "btn_room_d", color)
+        SetStyleSheetForbtn(self, "btn_room_a", color)
+        SetStyleSheetForbtn(self, "btn_room_b", color)
+        SetStyleSheetForbtn(self, "btn_room_c", color)
+        SetStyleSheetForbtn(self, "btn_room_d", color)
 
     def go_to_main_page(self):
         self.stackedWidget.setCurrentWidget(self.page_main)
