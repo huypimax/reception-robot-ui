@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
 
         # --- Logic điều hướng ---
 
-        self.ui.btn_qna.clicked.connect(lambda: [self.handle_btn_qna(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_qna), self.ui.prompt_qna.setText("Press the microphone button to start a conversation."), self.reset_inactivity_timer(), self.ui.btn_home_qna.setEnabled(False), self.ui.btn_micro.setEnabled(False)])
+        self.ui.btn_qna.clicked.connect(lambda: [self.handle_btn_qna(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_qna), self.ui.prompt_qna.setText("Tap the microphone to ask anything."), self.reset_inactivity_timer(), self.ui.btn_home_qna.setEnabled(False), self.ui.btn_micro.setEnabled(False)])
         self.ui.btn_navi.clicked.connect(lambda: [self.handle_btn_navi(), self.ui.stackedWidget.setCurrentWidget(self.ui.page_navi), self.reset_inactivity_timer(), self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.ui.prompt_navi.setText("Where do you want to go?")])
         self.ui.btn_lab.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_lab),self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
         self.ui.btn_deli.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_deli))

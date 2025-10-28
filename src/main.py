@@ -2,6 +2,7 @@ import os
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QThread
 from ui.main_ui import Ui_MainWindow
 from ui.fonts_conf.font_configurator import apply_custom_fonts
 from ui.widget_conf.apply_utils import apply_shadow
@@ -29,22 +30,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         apply_custom_fonts(self)
         apply_shadow(self)
         self.stackedWidget.setCurrentWidget(self.page_main)
-        self.inactivity_timer = QTimer(self)
-        self.inactivity_timer.setInterval(40000)  
-        self.inactivity_timer.setSingleShot(True)
-        self.inactivity_timer.timeout.connect(self.go_to_main_page)
 
         # Gắn các page
         self.qna_page = QnaPage(self, initial_context)
-        self.btn_qna.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_qna)])
+        self.btn_qna.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_qna), self.prompt_qna.setText("Tap the microphone to ask anything."),
+                                              self.qna_page.start_welcome(), self.btn_home_qna.setEnabled(False), self.btn_micro.setEnabled(False)])
 
-        self.navi_page = NaviPage(self, self.inactivity_timer)
-        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi(), 
-                                               self.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), 
-                                               self.set_color_btn_room("#ffffff"), self.prompt_navi.setText("Where do you want to go?")])
+        self.navi_page = NaviPage(self)
+        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi(), self.btn_home_navi.setEnabled(False), 
+                                               self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.prompt_navi.setText("Where do you want to go?")])
 
         self.lab_page = LabPage(self)
-        self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab_main)])
+        self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab), self.stackedWidget_2.setCurrentWidget(self.page_lab_main)])
 
         self.deli_page = DeliPage(self)
         self.btn_deli.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_deli)])
@@ -66,6 +63,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def go_to_main_page(self):
         self.stackedWidget.setCurrentWidget(self.page_main)
+
+    def cleanup_thread(self, thread: QThread):
+        if thread is not None:
+            thread.quit()
+            thread.wait()
+            thread.deleteLater()
+            thread = None
 
 
 if __name__ == "__main__":

@@ -32,7 +32,7 @@ class ListenThread(QThread):
                 print("🎤 Error:", e)
                 self.finished.emit("Something went wrong while listening.")
                 return
-        self.finished.emit("")
+        self.finished.emit("Speech service is unavailable.")
         return
 
     # async def speak(self, text):
