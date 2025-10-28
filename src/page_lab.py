@@ -2,7 +2,6 @@ from ui.main_ui import Ui_MainWindow
 from thread_speak import SpeakThread
 
 class LabPage:
-
     device_info = {
         "btn_IFM_read": """This training kit demonstrates an industrial automation system using IO-Link communication and PROFINET connectivity integrated with a PLC.The setup includes an IO-Link Master (AL1102) connected to multiple IO-Link devices such as sensors (KT5112, O5C500, TW2000, IF6153, UGT524, RB3100) and I/O modules (AL2401 DI and AL2330 DO). 
                             Power is supplied through a 24V DC power module (DN4012) with a Y-splitter (EBC113) for distribution. The digital outputs control an Omron G2R1-SN relay, light indicators, and an RS775 DC motor, allowing the system to perform monitoring and actuation tasks. 
