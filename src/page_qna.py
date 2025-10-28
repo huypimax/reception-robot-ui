@@ -1,10 +1,10 @@
 from PyQt6.QtCore import QTimer
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn
 from ui.main_ui import Ui_MainWindow
-from speak_thread import SpeakThread
-from listen_thread import ListenThread
-from response_thread import ResponseThread
-from welcome_thread import WelcomeThread
+from thread_speak import SpeakThread
+from thread_listen import ListenThread
+from thread_response import ResponseThread
+from thread_welcome import WelcomeThread
 
 class QnaPage:
     def __init__(self, main: Ui_MainWindow, initial_context):

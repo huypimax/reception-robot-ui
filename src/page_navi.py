@@ -2,7 +2,7 @@ from PyQt6.QtCore import QTimer
 from PyQt6.QtCore import QThread
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 from ui.main_ui import Ui_MainWindow
-from speak_thread import SpeakThread
+from thread_speak import SpeakThread
 
 class NaviPage:
     def __init__(self, main: Ui_MainWindow, inactivity_timer: QTimer):
