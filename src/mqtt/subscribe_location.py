@@ -15,11 +15,11 @@ class LocationSubscriberThread(MQTTSubscriberThread):
             #print(f"[MQTT] Received location data: {message}")
 
             data = json.loads(message)
-            x = float(data.get('x', 0.0))
-            y = float(data.get('y', 0.0))
-            theta = float(data.get('theta', 0.0))
+            x = float(data.get('x', 0.00))
+            y = float(data.get('y', 0.00))
+            theta = float(data.get('theta', 0.00))
 
             self.location_update.emit(x, y, theta)
 
         except (json.JSONDecodeError, ValueError, TypeError) as e:
-            print(f"[MQTT] ❌ Error parsing location data: {e}")
+            print(f"[MQTT] Error parsing location data: {e}")

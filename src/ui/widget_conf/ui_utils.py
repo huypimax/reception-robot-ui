@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QGraphicsDropShadowEffect
 from PyQt6.QtGui import QColor
 from PyQt6.QtCore import QTimer
 
-def _animate_prompt(base_text: str, label_widget, duration_ms, callback_after=None):
+def _animate_prompt(base_text: str, label_widget, callback_after=None):
     """ Hiệu ứng động "..." sau base_text """
     dots = [".", "...", "......"]
     index = 0
@@ -16,9 +16,12 @@ def _animate_prompt(base_text: str, label_widget, duration_ms, callback_after=No
     timer.timeout.connect(update)
     timer.start(500)  # mỗi 500ms update chấm
 
-    # Sau duration_ms thì stop hiệu ứng và gọi callback nếu có
-    QTimer.singleShot(duration_ms, lambda: (timer.stop(), callback_after() if callback_after else None))
+    def stop():
+        timer.stop()
+        if callback_after:
+            callback_after()
 
+    return stop
 
 def shadow(objects, blur=20, x_offset=4, y_offset=4, color=QColor(0, 0, 0, 150)):
     """Áp dụng hiệu ứng bóng cho đối tượng"""

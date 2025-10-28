@@ -22,6 +22,7 @@ class MQTTConfig:
         "attendance": "robot/attendance",
         "status": "robot/status",
         "location": "robot/location",
+        "arrival": "robot/arrival",
         "waypoints" : "robot/waypoints"
     }
     

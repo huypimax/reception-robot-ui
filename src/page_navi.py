@@ -1,13 +1,14 @@
 from PyQt6.QtCore import QTimer, QThread
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 from ui.main_ui import Ui_MainWindow
-from pathplanning import LocationManager
+from pathplanning import LocationManager, ArrivalManager
 from thread_speak import SpeakThread
 
 class NaviPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.location_manager = LocationManager(self.ui)
+        self.arrival_manager = ArrivalManager(self.ui)
         self.current_place = ""
 
         self.place_button_pairs = [
@@ -57,27 +58,34 @@ class NaviPage:
 
         self.location_manager.send_waypoint(place)
         self._set_navigation_buttons_enabled(False)
+        
+        def after_speak():
+            self.stop_prompt = _animate_prompt(
+            base_text=f"Heading to {place}",
+            label_widget=self.ui.prompt_navi
+        )
+
         self.speak_thread = SpeakThread(f"Let's move to {place}")
-        self.speak_thread.finished.connect(lambda checked=False, p=place, b=btn_name: [
-            _animate_prompt(base_text=f"Heading to {p}",
-                            label_widget=self.ui.prompt_navi,
-                            duration_ms=10000,  
-                            callback_after=lambda cchecked=False, pp=p, bb=b: self._arrive_at(pp, bb))
-            ])  # Capture p và b
+        self.speak_thread.finished.connect(after_speak) 
         self.speak_thread.start()
+        self.arrival_manager.start_arrival_subscriber()
+        self.arrival_manager.subscriber_thread.arrival_update.connect(lambda arrived, p=place, b=btn_name: self._arrive_at(arrived, p, b))
 
-    def _arrive_at(self, place: str, btn_name: str):
-        self.current_place = place
-        if btn_name is None:  # Kiểm tra để tránh lỗi
-            print(f"Error: btn_name is None for place '{place}'")
-            return
+    def _arrive_at(self, arrived: bool, place: str, btn_name: str):
+        if arrived:
+            if hasattr(self, "stop_prompt") and self.stop_prompt:
+                self.stop_prompt()
+            self.current_place = place
+            if btn_name is None:  # Kiểm tra để tránh lỗi
+                print(f"Error: btn_name is None for place '{place}'")
+                return
 
-        self.speak_thread = SpeakThread(f"We have arrived at {place}")
-        self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), 
-                                                    self._set_navigation_buttons_enabled(True), 
-                                                    self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."), 
-                                                    SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")])
-        self.speak_thread.start()
+            self.speak_thread = SpeakThread(f"We have arrived at {place}")
+            self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), 
+                                                        self._set_navigation_buttons_enabled(True), 
+                                                        self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."), 
+                                                        SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")])
+            self.speak_thread.start()
 
     def _set_navigation_buttons_enabled(self, enabled: bool):
         # self.ui.btn_micro.setEnabled(enabled)
