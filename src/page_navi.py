@@ -9,6 +9,7 @@ class NaviPage:
         self.ui = main
         self.inactivity_timer = inactivity_timer
         self.current_place = ""
+        self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
         self.ui.btn_room_a.clicked.connect(lambda: [self.start_navigation("A"), SetStyleSheetForbtn(self.ui, "btn_room_a", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
         self.ui.btn_room_b.clicked.connect(lambda: [self.start_navigation("B"), SetStyleSheetForbtn(self.ui, "btn_room_b", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
         self.ui.btn_room_c.clicked.connect(lambda: [self.start_navigation("C"), SetStyleSheetForbtn(self.ui, "btn_room_c", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
@@ -17,10 +18,8 @@ class NaviPage:
     def handle_btn_navi(self):
         self.speak_thread = SpeakThread("Where do you want to go?")
         self.speak_thread.finished.connect(lambda: [
-            self.ui.btn_room_a.setEnabled(True),
-            self.ui.btn_room_b.setEnabled(True),
-            self.ui.btn_room_c.setEnabled(True),
-            self.ui.btn_room_d.setEnabled(True)
+            self.ui.btn_room_a.setEnabled(True), self.ui.btn_room_b.setEnabled(True),
+            self.ui.btn_room_c.setEnabled(True), self.ui.btn_room_d.setEnabled(True)
         ])
         self.speak_thread.start()
 
@@ -59,6 +58,9 @@ class NaviPage:
     def reset_inactivity_timer(self):
         self.inactivity_timer.stop()
         self.inactivity_timer.start()
+
+    def go_to_main_page(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
 
     def cleanup_thread(self, thread: QThread):
         if thread is not None:

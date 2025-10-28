@@ -5,6 +5,7 @@ from PyQt6.QtCore import QTimer
 from ui.main_ui import Ui_MainWindow
 from ui.fonts_conf.font_configurator import apply_custom_fonts
 from ui.widget_conf.apply_utils import apply_shadow
+from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 
 from page_qna import QnaPage
 from page_navi import NaviPage
@@ -38,7 +39,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_qna.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_qna)])
 
         self.navi_page = NaviPage(self, self.inactivity_timer)
-        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi()])
+        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi(), 
+                                               self.ui.btn_home_navi.setEnabled(False), self._set_navigation_buttons_enabled(False), 
+                                               self.set_color_btn_room("#ffffff"), self.prompt_navi.setText("Where do you want to go?")])
 
         self.lab_page = LabPage(self)
         self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab_main)])
@@ -48,6 +51,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.checkin_page = CheckinPage(self)
         self.btn_check_in.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_checkin)])
+
+    def _set_navigation_buttons_enabled(self, enabled: bool):
+        self.btn_room_a.setEnabled(enabled)
+        self.btn_room_b.setEnabled(enabled)
+        self.btn_room_c.setEnabled(enabled)
+        self.btn_room_d.setEnabled(enabled)
+
+    def set_color_btn_room(self, color):
+        SetStyleSheetForbtn(self.ui, "btn_room_a", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_b", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_c", color)
+        SetStyleSheetForbtn(self.ui, "btn_room_d", color)
 
     def go_to_main_page(self):
         self.stackedWidget.setCurrentWidget(self.page_main)
