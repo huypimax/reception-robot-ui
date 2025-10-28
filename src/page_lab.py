@@ -4,6 +4,7 @@ class LabPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.setup_connections()
+        self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)
 
     def setup_connections(self):
         self.ui.btn_lab.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_lab))

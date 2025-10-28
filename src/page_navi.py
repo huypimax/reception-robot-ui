@@ -9,12 +9,24 @@ class NaviPage:
         self.ui = main
         self.inactivity_timer = inactivity_timer
         self.current_place = ""
-        self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
-        self.ui.btn_room_a.clicked.connect(lambda: [self.start_navigation("A"), SetStyleSheetForbtn(self.ui, "btn_room_a", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_b.clicked.connect(lambda: [self.start_navigation("B"), SetStyleSheetForbtn(self.ui, "btn_room_b", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_c.clicked.connect(lambda: [self.start_navigation("C"), SetStyleSheetForbtn(self.ui, "btn_room_c", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
-        self.ui.btn_room_d.clicked.connect(lambda: [self.start_navigation("D"), SetStyleSheetForbtn(self.ui, "btn_room_d", "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])
 
+        self.place_button_pairs = [
+            ("Electrical lab", "btn_room_a"), 
+            ("Robotics lab", "btn_room_b"), 
+            ("Chemistry Hall", "btn_room_c"),  
+            ("Man restroom", "btn_room_d") 
+        ]
+
+        # Dictionary
+        self.place_to_button_map = {place: btn_name for place, btn_name in self.place_button_pairs}
+
+        # connect button 
+        for place, btn_name in self.place_button_pairs:
+            button = getattr(self.ui, btn_name)  # Lấy button object từ tên
+            button.clicked.connect(lambda p=place, b=btn_name: [self.start_navigation(p), SetStyleSheetForbtn(self.ui, b, "#69ff3d"), self.inactivity_timer.stop(), self.ui.btn_home_navi.setEnabled(False)])        
+
+        self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
+        
     def handle_btn_navi(self):
         self.speak_thread = SpeakThread("Where do you want to go?")
         self.speak_thread.finished.connect(lambda: [
@@ -25,7 +37,7 @@ class NaviPage:
 
     def start_navigation(self, place: str):
         if place == self.current_place:
-            btn_name = f"btn_room_{place.lower()}"  
+            btn_name = self.place_to_button_map.get(place, None)
             self.ui.prompt_navi.setText("You are already here!!!")
             self.speak_thread = SpeakThread("You are already here!!!")
             self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), SetStyleSheetForbtn(self.ui, btn_name, "#ffffff"), self.ui.btn_home_navi.setEnabled(True), self.reset_inactivity_timer(), self.ui.prompt_navi.setText("Where do you want to go?")])
@@ -33,7 +45,7 @@ class NaviPage:
             return
 
         self._set_navigation_buttons_enabled(False)
-        self.speak_thread = SpeakThread(f"Let's move to place {place}")
+        self.speak_thread = SpeakThread(f"Let's move to {place}")
         self.speak_thread.finished.connect(lambda: [_animate_prompt(base_text=f"Heading to {place}",
                                                                     label_widget=self.ui.prompt_navi,
                                                                     duration_ms=10000,  
@@ -42,7 +54,7 @@ class NaviPage:
 
     def _arrive_at(self, place: str):
         self.current_place = place
-        btn_name = f"btn_room_{place.lower()}"  
+        btn_name = self.place_to_button_map.get(place, None)
         self.speak_thread = SpeakThread(f"We have arrived at {place}")
         self.speak_thread.finished.connect(lambda: [self.ui.btn_home_navi.setEnabled(True), self._set_navigation_buttons_enabled(True), self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."), SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")])
         self.reset_inactivity_timer()
