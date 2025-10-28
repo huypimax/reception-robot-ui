@@ -14,7 +14,7 @@ class NaviPage:
             ("Electrical lab", "btn_room_a"), 
             ("Robotics lab", "btn_room_b"), 
             ("Chemistry Hall", "btn_room_c"),  
-            ("Man restroom", "btn_room_d") 
+            ("Restroom", "btn_room_d") 
         ]
 
         # Dictionary
