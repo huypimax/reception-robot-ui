@@ -25,10 +25,10 @@ from PyQt6.QtCore import QTimer
 from mqtt_client import MQTTHandler
 import asyncio
 import os
-from welcome_thread import WelcomeThread
-from speak_thread import SpeakThread
-from listen_thread import ListenThread
-from response_thread import ResponseThread
+from thread_welcome import WelcomeThread
+from thread_speak import SpeakThread
+from thread_listen import ListenThread
+from thread_response import ResponseThread
 from call_chatbot import AIkoBot
 #from ui.web import WebTab
 #from ui.web1 import WebTab1
