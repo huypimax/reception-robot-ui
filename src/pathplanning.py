@@ -45,8 +45,8 @@ class LocationManager(BaseManager):
 
     def handle_location_update(self, x, y, theta):
         self.location = {
-            'x': f"{x:.1f}",
-            'y': f"{y:.1f}",
+            'x': f"{x:.2f}",
+            'y': f"{y:.2f}",
             'theta': f"{theta:.1f}"
         }
 

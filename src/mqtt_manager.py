@@ -130,9 +130,6 @@ class BaseManager:
     def _connect_signals(self):
         """Kết nối signals - sẽ được override bởi lớp con"""
         self.mqtt_status = "connected"
-        self.ui.label_mqtt.setText(self.mqtt_status)
-        self.ui.label_mqtt_2.setText(self.mqtt_status)
-        self.ui.label_mqtt_3.setText(self.mqtt_status)
         raise NotImplementedError("Subclass must implement _connect_signals method")
 
     def handle_data_update(self, data):

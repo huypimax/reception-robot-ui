@@ -8,6 +8,7 @@ class NaviPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.location_manager = LocationManager(self.ui)
+        self.location_manager.start_location_subscriber()
         self.arrival_manager = ArrivalManager(self.ui)
         self.current_place = ""
 

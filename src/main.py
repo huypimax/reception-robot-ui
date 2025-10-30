@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
 from PyQt6.QtCore import QThread
 from ui.main_ui import Ui_MainWindow
+from pathplanning import LocationManager
 from ui.fonts_conf.font_configurator import apply_custom_fonts
 from ui.widget_conf.apply_utils import apply_shadow
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
@@ -37,8 +38,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                               self.qna_page.start_welcome(), self.btn_home_qna.setEnabled(False), self.btn_micro.setEnabled(False)])
 
         self.navi_page = NaviPage(self)
-        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), self.navi_page.handle_btn_navi(), self.btn_home_navi.setEnabled(False), 
-                                               self._set_navigation_buttons_enabled(False), self.set_color_btn_room("#ffffff"), self.prompt_navi.setText("Where do you want to go?")])
+        self.btn_navi.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_navi), 
+                                               self.navi_page.handle_btn_navi(), 
+                                               self.btn_home_navi.setEnabled(False), 
+                                               self._set_navigation_buttons_enabled(False), 
+                                               self.set_color_btn_room("#ffffff"), 
+                                               self.prompt_navi.setText("Where do you want to go?"),
+                                               ])
 
         self.lab_page = LabPage(self)
         self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab), self.stackedWidget_2.setCurrentWidget(self.page_lab_main)])
