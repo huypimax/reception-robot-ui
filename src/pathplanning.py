@@ -59,8 +59,8 @@ class LocationManager(BaseManager):
         waypoint_data = {
             "Electrical lab": [
                 {
-                    "x": 10.04,
-                    "y": 16.72
+                    "x": 9.39,
+                    "y": 16.02
                 },
                 {
                     "x": 21.54,
@@ -69,8 +69,8 @@ class LocationManager(BaseManager):
                 ],
             "Robotics lab": [
                 {
-                    "x": 8.69,
-                    "y": 13.97
+                    "x": 9.39,
+                    "y": 16.02
                 },
                 {
                     "x": 0.14,
@@ -83,11 +83,11 @@ class LocationManager(BaseManager):
                     "y": 19.72
                 },
                 {
-                    "x": -1.46,
-                    "y": 22.82
+                    "x": -2.21,
+                    "y": 22.32
                 },
                 {
-                    "x": -1.21,
+                    "x": -0.81,
                     "y": 25.02
                 },
                 {
@@ -97,12 +97,12 @@ class LocationManager(BaseManager):
                 ],
             "Restroom": [
                 {
-                    "x": 3.54,
-                    "y": 19.72
+                    "x": -2.21,
+                    "y": 22.32
                 },
                 {
-                    "x": -3.21,
-                    "y": 21.87
+                    "x": -4.31,
+                    "y": 20.27
                 }
                 ]
         }
