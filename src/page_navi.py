@@ -7,9 +7,10 @@ from thread_speak import SpeakThread
 class NaviPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
-        self.location_manager = LocationManager(self.ui)
-        self.location_manager.start_location_subscriber()
         self.arrival_manager = ArrivalManager(self.ui)
+        self.arrival_manager.start_arrival_subscriber()
+        self.location_manager = LocationManager(self.ui, self.arrival_manager)
+        self.location_manager.start_location_subscriber()
         self.current_place = ""
 
         self.place_button_pairs = [
@@ -70,7 +71,8 @@ class NaviPage:
         self.speak_thread.finished.connect(after_speak) 
         self.speak_thread.start()
         self.arrival_manager.start_arrival_subscriber()
-        self.arrival_manager.subscriber_thread.arrival_update.connect(lambda arrived, p=place, b=btn_name: self._arrive_at(arrived, p, b))
+        self.arrival_manager.subscriber_thread.arrival_update.connect(lambda arrived, p=place, b=btn_name: (self._arrive_at(arrived, p, b),
+                                                                                                            self.location_manager.export_path_comparison()))
 
     def _arrive_at(self, arrived: bool, place: str, btn_name: str):
         if arrived:
