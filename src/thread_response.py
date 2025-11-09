@@ -89,7 +89,7 @@ class ResponseThread(QThread):
             "who created you", "your creator", "who made you", "who built you", 
             "who developed you", "who designed you", "who creates you"
         ]):
-            return "I was created by a group of students from Fablab laboratory, including members from Electrical, Mechanical, and Computer Science departments."
+            return "I was created by a group of students from Fablab laboratory, including members from Electrical and Mechanical departments."
 
         elif any(kw in query for kw in [
             "what's your name", "what is your name", "your name", "who are you"
