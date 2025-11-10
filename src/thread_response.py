@@ -5,6 +5,10 @@ import google.generativeai as genai
 
 
 ASSISTANT_NAME = "AIko"
+conversation_history = [
+    {"role": "user", "parts": [{"text": "You are AIko, a friendly, concise receptionist assistant from Fablab HCMUT."}]},
+    {"role": "model", "parts": [{"text": "Got it! I'm AIko, nice to meet you."}]},
+]
 last_reply = ""
 
 class ResponseThread(QThread):
@@ -19,43 +23,27 @@ class ResponseThread(QThread):
         self.initial_context = intial_context
 
     def run(self):
-        if any(kw in self.query for kw in ["stop", "thank you", "bye"]):
-            self.finished.emit("You're welcome. Goodbye.")
-            last_reply = "You're welcome. Goodbye."
-            return
+        global last_reply, conversation_history
 
+        if any(kw in self.query for kw in ["stop", "bye", "thank you"]):
+            reply = "You're welcome. Goodbye!"
         elif "time" in self.query:
-            self.current_time = datetime.datetime.now().strftime("%I:%M %p")
-            self.finished.emit(f"It is {self.current_time}.")
-            last_reply = f"It is {self.current_time}."
-            return
-                
-        elif "what day is today" in self.query or "what date is today" in self.query:
-            self.now = datetime.datetime.now()
-            self.date_str = self.now.strftime("%A, %B %d, %Y")  # Friday, August 02, 2025
-            self.finished.emit(f"Today is {self.date_str}.")
-            last_reply = f"Today is {self.date_str}."
-            return
-
-        elif any(kw in self.query for kw in ["repeat", "repeat that", "say it again"]):
-            if last_reply:
-                self.finished.emit(last_reply)
-                return
-            else:
-                self.finished.emit("I haven't said anything yet.")
-                return
-                
+            reply = f"It is {datetime.datetime.now().strftime('%I:%M %p')}."
+        elif any(kw in self.query for kw in ["what day", "what date"]):
+            reply = f"Today is {datetime.datetime.now().strftime('%A, %B %d, %Y')}."
+        elif any(kw in self.query for kw in ["repeat", "say it again"]):
+            reply = last_reply or "I haven't said anything yet."
         else:
-            self.faq_answer = self.check_faq(self.query)
-            if self.faq_answer:
-                self.finished.emit(self.faq_answer)
-                last_reply = self.faq_answer
-                return
+            # --- Câu hỏi FAQ ---
+            faq_answer = self.check_faq(self.query)
+            if faq_answer:
+                reply = faq_answer
             else:
-                self.reply = asyncio.run(self.ask_gemini(self.query))
-                last_reply = self.reply
-                self.finished.emit(self.reply)
-                return
+                # --- Câu hỏi chung: gửi qua Gemini ---
+                reply = self.ask_gemini(self.query)
+
+        last_reply = reply
+        self.finished.emit(reply)
 
     def check_faq(self, query: str):
         self.query = query.lower()
