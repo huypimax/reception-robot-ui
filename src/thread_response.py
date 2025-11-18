@@ -16,11 +16,10 @@ class ResponseThread(QThread):
     def __init__(self, query, intial_context=None):
         super().__init__()
         self.query = query.lower()  # Normalize the query to lowercase
-        self.api_key = "AIzaSyCsnVbGzLouYNPXIJxnYdmQFa2BrRo1uqA"  # ← thay bằng key thật
+        self.api_key = "AIzaSyBXB9WorUWhgIVTZxqgSnZwC04HLgMTzis"  # ← thay bằng key thật
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel("gemini-2.0-flash")
 
-        self.initial_context = intial_context
 
     def run(self):
         global last_reply, conversation_history
@@ -34,7 +33,6 @@ class ResponseThread(QThread):
         elif any(kw in self.query for kw in ["repeat", "say it again"]):
             reply = last_reply or "I haven't said anything yet."
         else:
-            # --- Câu hỏi FAQ ---
             faq_answer = self.check_faq(self.query)
             if faq_answer:
                 reply = faq_answer
@@ -44,6 +42,8 @@ class ResponseThread(QThread):
 
         last_reply = reply
         self.finished.emit(reply)
+
+
 
     def check_faq(self, query: str):
         self.query = query.lower()
@@ -88,13 +88,25 @@ class ResponseThread(QThread):
         else:
             return None
         
-    async def ask_gemini(self, prompt):
+    def ask_gemini(self, prompt):
+        global conversation_history
         try:
-            self.initial_context = self.initial_context + [{"role": "user", "parts": [{"text": prompt}]}]
-            self.response = self.model.generate_content(self.initial_context)
-            self.initial_context = self.initial_context + [ {"role": "assistant", "parts": [{"text": self.response.text.strip()}]}]
+            # Thêm câu hỏi mới của user vào history
+            conversation_history.append({"role": "user", "parts": [{"text": prompt}]})
             
-            return self.response.text.strip()
+            # Gọi API với toàn bộ history
+            response = self.model.generate_content(conversation_history)
+            
+            # Lấy text trả lời
+            reply_text = response.text.strip()
+
+            # Thêm phản hồi vào history để duy trì hội thoại
+            conversation_history.append({"role": "model", "parts": [{"text": reply_text}]})
+            
+            return reply_text
         except Exception as e:
             print("Gemini error:", e)
             return "Sorry, I have trouble getting an answer."
+
+
+
