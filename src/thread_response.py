@@ -2,6 +2,8 @@ from PyQt6.QtCore import QThread, pyqtSignal
 import asyncio
 import datetime
 import google.generativeai as genai
+import json
+import os
 
 
 ASSISTANT_NAME = "AIko"
@@ -16,7 +18,12 @@ class ResponseThread(QThread):
     def __init__(self, query, intial_context=None):
         super().__init__()
         self.query = query.lower()  # Normalize the query to lowercase
-        self.api_key = "AIzaSyCsnVbGzLouYNPXIJxnYdmQFa2BrRo1uqA"  # ← thay bằng key thật
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(base_dir, "config.json")
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+
+        self.api_key = config["api_key"]
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel("gemini-2.0-flash")
 
@@ -40,7 +47,10 @@ class ResponseThread(QThread):
                 reply = faq_answer
             else:
                 # --- Câu hỏi chung: gửi qua Gemini ---
-                reply = self.ask_gemini(self.query)
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                reply = loop.run_until_complete(self.ask_gemini(self.query))
+                loop.close()
 
         last_reply = reply
         self.finished.emit(reply)
@@ -88,13 +98,21 @@ class ResponseThread(QThread):
         else:
             return None
         
-    async def ask_gemini(self, prompt):
+    async def ask_gemini(self, prompt: str):
+        global conversation_history
         try:
-            self.initial_context = self.initial_context + [{"role": "user", "parts": [{"text": prompt}]}]
-            self.response = self.model.generate_content(self.initial_context)
-            self.initial_context = self.initial_context + [ {"role": "assistant", "parts": [{"text": self.response.text.strip()}]}]
-            
+            self.initial_context = self.initial_context + [
+                {"role": "user", "parts": [{"text": prompt}]}
+            ]
+
+            self.response = await self.model.generate_content_async(self.initial_context)
+
+            self.initial_context = self.initial_context + [
+                {"role": "assistant", "parts": [{"text": self.response.text.strip()}]}
+            ]
+
             return self.response.text.strip()
         except Exception as e:
             print("Gemini error:", e)
             return "Sorry, I have trouble getting an answer."
+
