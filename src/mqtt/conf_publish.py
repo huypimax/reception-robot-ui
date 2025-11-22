@@ -26,7 +26,8 @@ MQTT_CONFIG = {
 # Topics Configuration
 TOPICS = {
     "waypoints": "robot/waypoints",
-    "arrival": "robot/arrival"
+    "arrival": "robot/arrival",
+    "goal": "robot/goal"
 }
 
 # Message Settings

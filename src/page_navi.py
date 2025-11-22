@@ -58,7 +58,7 @@ class NaviPage:
             self.speak_thread.start()
             return
 
-        self.location_manager.send_waypoint(place)
+        self.location_manager.send_goal(place)
         self._set_navigation_buttons_enabled(False)
         
         def after_speak():
