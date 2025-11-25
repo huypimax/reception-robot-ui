@@ -71,8 +71,7 @@ class NaviPage:
         self.speak_thread.finished.connect(after_speak) 
         self.speak_thread.start()
         self.arrival_manager.start_arrival_subscriber()
-        self.arrival_manager.subscriber_thread.arrival_update.connect(lambda arrived, p=place, b=btn_name: (self._arrive_at(arrived, p, b),
-                                                                                                            self.location_manager.export_path_comparison()))
+        self.arrival_manager.subscriber_thread.arrival_update.connect(lambda arrived, p=place, b=btn_name: (self._arrive_at(arrived, p, b)))
 
     def _arrive_at(self, arrived: bool, place: str, btn_name: str):
         if arrived:
