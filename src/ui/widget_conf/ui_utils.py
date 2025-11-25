@@ -55,3 +55,13 @@ def SetStyleSheetForbtn(ui, btn, background_color, text_color="black", hover_bac
         }}
     """)
 
+
+def _set_navigation_buttons_enabled(ui, enabled: bool):
+    for name in ["btn_room_a", "btn_room_b", "btn_room_c", "btn_room_d"]:
+        getattr(ui, name).setEnabled(enabled)
+
+def set_color_btn_room(ui, color):
+    SetStyleSheetForbtn(ui, "btn_room_a", color)
+    SetStyleSheetForbtn(ui, "btn_room_b", color)
+    SetStyleSheetForbtn(ui, "btn_room_c", color)
+    SetStyleSheetForbtn(ui, "btn_room_d", color)
