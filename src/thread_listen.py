@@ -1,48 +1,31 @@
-from PyQt6.QtCore import QThread, pyqtSignal
-import asyncio
-import speech_recognition as sr
+# thread_listen.py
+from PyQt6.QtCore import QThread
+import sounddevice as sd
+import numpy as np
+from queue import Queue
 
 class ListenThread(QThread):
-    finished = pyqtSignal(str)
-    def __init__(self):
+    """
+    Thread liên tục đọc micro và push audio vào queue
+    """
+    def __init__(self, audio_queue: Queue, samplerate=16000, chunk=2048):
         super().__init__()
+        self.audio_queue = audio_queue
+        self.running = True
+        self.samplerate = samplerate
+        self.chunk = chunk
 
     def run(self):
-        self.r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("🎤 Calibrating noise (1.0s)...")
-            self.r.adjust_for_ambient_noise(source, duration=0.5)
-            print("🎤 Listening...")
+        while self.running:
             try:
-                self.audio = self.r.listen(source, timeout=6, phrase_time_limit=12)
-                self.query = self.r.recognize_google(self.audio, language="en-US")
-                print("You:", self.query)
-                self.finished.emit(self.query)
-                return
-            except sr.UnknownValueError:
-                self.finished.emit("Hmm, I didn't quite catch that. Could you please repeat?")
-                return
-            except sr.RequestError:
-                self.finished.emit("Speech service is unavailable.")
-                return
-            except sr.WaitTimeoutError:
-                self.finished.emit("Are you still there?")
-                return
+                audio = sd.rec(self.chunk, samplerate=self.samplerate, channels=1, dtype='float32')
+                sd.wait()
+                # Push audio dạng 1D float32
+                self.audio_queue.put(audio.flatten())
             except Exception as e:
-                print("🎤 Error:", e)
-                self.finished.emit("Something went wrong while listening.")
-                return
-        self.finished.emit("Speech service is unavailable.")
-        return
+                print("🎤 ListenThread error:", e)
+                # Nếu có lỗi, push empty array để TranscribeThread nhận và skip
+                self.audio_queue.put(np.array([], dtype=np.float32))
 
-    # async def speak(self, text):
-    #     from edge_tts import Communicate
-    #     import playsound, os
-
-    #     try:
-    #         communicate = Communicate(text, voice="en-US-GuyNeural", rate="-10%")
-    #         await communicate.save("tts.mp3")
-    #         playsound.playsound("tts.mp3")
-    #         os.remove("tts.mp3")
-    #     except Exception as e:
-    #         print("🔊 Error in thread speak:", e)
+    def stop(self):
+        self.running = False
