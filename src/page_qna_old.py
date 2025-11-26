@@ -3,7 +3,6 @@ from ui.widget_conf.ui_utils import SetStyleSheetForbtn
 from ui.main_ui import Ui_MainWindow
 from thread_speak import SpeakThread
 from thread_listen import ListenThread
-from thread_transcribe import TranscribeThread
 from thread_response import ResponseThread, get_weather, search_web
 from thread_welcome import WelcomeThread
 import google.genai as genai
@@ -41,17 +40,6 @@ class QnaPage:
             config=generation_config 
         )
 
-        self.audio_queue = Queue()
-        self.listen_thread = ListenThread(self.audio_queue)
-        self.transcribe_thread = TranscribeThread(self.audio_queue)
-
-        # Khi transcribe xong, gọi get_response
-        self.transcribe_thread.text_ready.connect(self.get_response)
-
-        # Start các thread
-        self.listen_thread.start()
-        self.transcribe_thread.start()
-
     def start_welcome(self):
         SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")
         self.welcome_thread = WelcomeThread()
@@ -62,41 +50,28 @@ class QnaPage:
     def listen(self):
         self.ui.btn_home_qna.setEnabled(False)
         self.ui.prompt_qna.setText("Listening...")
+        self.listen_thread = ListenThread()
+        self.listen_thread.finished.connect(self.get_response)
+        self.listen_thread.finished.connect(lambda: [self.cleanup_thread(self.listen_thread), self.ui.btn_micro.setEnabled(False), 
+                                                    SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff"), SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")])
+        self.listen_thread.start()
 
-        # Không cần tạo ListenThread mới, nó đã chạy
-        # UI chỉ cần bật/tắt nút micro
-        self.ui.btn_micro.setEnabled(False)
-        SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff")
-        SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d")
-
-
-    def get_response(self, result):
-        query, lang = result
-        print(f"You ({lang}): {query}")
-
-        if query in ["Are you still there?", "Hmm, I didn't quite catch that. Could you please repeat?",
-                    "Something went wrong while listening.", "Speech service is unavailable."]:
+    def get_response(self, query: str, lang: str):
+        self.query = query
+        if self.query == "Are you still there?" or self.query == "Hmm, I didn't quite catch that. Could you please repeat?" or self.query == "Something went wrong while listening." or self.query == "Speech service is unavailable.":
+            print(f"AIko: {query}")
             self.ui.prompt_qna.setText(self.query)
             self.speak_thread = SpeakThread(self.query)
-            self.speak_thread.finished.connect(lambda: [
-                self.cleanup_thread(self.speak_thread),
-                self.ui.btn_micro.setEnabled(True),
-                self.ui.btn_home_qna.setEnabled(True),
-                SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")
-            ])
+            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_micro.setEnabled(True), self.ui.btn_home_qna.setEnabled(True),
+                                                        SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff")])
             self.speak_thread.start()
         else:
             self.query = query.lower()
-            self.response_thread = ResponseThread(
-                self.query,
-                chat_session=self.global_chat_session,
-                initial_context=self.initial_context,
-                lang=lang  # dùng để Gemini trả cùng ngôn ngữ
-            )
+            print(f"You: {self.query}")
+            self.response_thread = ResponseThread(self.query, chat_session=self.global_chat_session, initial_context=self.initial_context)
             self.response_thread.finished.connect(self.answer)
             self.response_thread.finished.connect(lambda: [self.cleanup_thread(self.response_thread)])
             self.response_thread.start()
-
 
     def answer(self, text: str):
         self.ui.prompt_qna.setText(text)
