@@ -1,4 +1,13 @@
+# ==== FIX WHISPER + PYTORCH + PYQT6 TRÊN WINDOWS INTEL UHD ====
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"          # vẫn cần
+os.environ["OMP_NUM_THREADS"] = "1"
+
+# Dòng thần thánh cứu cả Whisper và faster-whisper
+os.environ["MKL_THREADING_LAYER"] = "GNU"            # <<< quan trọng nhất
+os.environ["KMP_AFFINITY"] = "disabled"              # tắt Intel OpenMP hoàn toàn
+os.environ["CUDA_VISIBLE_DEVICES"] = ""   # phòng trường hợp nó tìm GPU
+# =============================================================
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer

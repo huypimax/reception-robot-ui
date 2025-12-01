@@ -16,7 +16,7 @@ class NaviPage:
         self.current_place = ""
 
         self.place_button_pairs = [
-            ("Electrical lab", "btn_room_a"), 
+            ("Stairs", "btn_room_a"), 
             ("Robotics lab", "btn_room_b"), 
             ("Chemistry Hall", "btn_room_c"),  
             ("Restroom", "btn_room_d") 

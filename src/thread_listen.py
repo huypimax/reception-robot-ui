@@ -2,7 +2,9 @@ from PyQt6.QtCore import QThread, pyqtSignal
 import asyncio
 import speech_recognition as sr
 
+
 class ListenThread(QThread):
+<<<<<<< HEAD
     finished = pyqtSignal(str)
     def __init__(self):
         super().__init__()
@@ -94,3 +96,44 @@ class ListenThread(QThread):
 #             print("🎤 Error:", e)
 #             self.finished.emit("Something went wrong while listening.")
 
+=======
+    def __init__(self, audio_queue: Queue, samplerate=16000, chunk=2048, device=1):
+        super().__init__()
+        self.audio_queue = audio_queue
+        self.running = True
+        self.samplerate = samplerate
+        self.chunk = chunk
+        self.device = device  # Cho phép cấu hình, không hardcode vào run()
+
+    def run(self):
+        try:
+            with sd.InputStream(
+                samplerate=self.samplerate,
+                channels=1,
+                dtype="float32",
+                blocksize=self.chunk,
+                device=self.device
+            ) as stream:
+                print("Micro bật rồi, nói thử xem.")
+
+                while self.running:
+                    audio, overflowed = stream.read(self.chunk)
+
+                    if overflowed:
+                        print("Micro bị overflow")
+                        continue
+
+                    volume = np.linalg.norm(audio)
+                    if volume > 10:
+                        print(f"Phát hiện âm lượng: {volume:.1f}")
+
+                    self.audio_queue.put(audio.flatten())
+
+        except Exception as e:
+            print("Lỗi ListenThread:", e)
+
+    def stop(self):
+        self.running = False
+        self.quit()
+        self.wait(3000)
+>>>>>>> edf3dc11cc29a00eedcf7a324a36204c19ee9864

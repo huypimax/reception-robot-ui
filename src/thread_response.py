@@ -15,11 +15,12 @@ last_reply = ""
 
 class ResponseThread(QThread):
     finished = pyqtSignal(str)  # Signal to emit the response text
-    def __init__(self, query, chat_session, initial_context=None):
+    def __init__(self, query, chat_session, initial_context=None,lang: str = "en"):
         super().__init__()
         self.query = query.lower()
         self.chat_session = chat_session 
         self.initial_context = initial_context
+        self.lang = lang
 
     def run(self):
         global last_reply, conversation_history
