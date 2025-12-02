@@ -28,16 +28,16 @@ class DeliPage:
         dest = self.ui.deli_combobox.currentText()
 
         if dest == " Choose a destination":
-            show_custom_dialog("Delivery Failed", "Destination is not chosen yet", main_window=self.ui)
+            show_custom_dialog("Delivery Failed", "Oops! You haven’t chosen a destination yet", main_window=self.ui)
             return
         if sender == "":
-            show_custom_dialog("Delivery Failed", "Please fill in sender", main_window=self.ui)
+            show_custom_dialog("Delivery Failed", "Enter the sender, please", main_window=self.ui)
             return
         if receiver == "":
-            show_custom_dialog("Delivery Failed", "Please fill in receiver", main_window=self.ui)
+            show_custom_dialog("Delivery Failed", "Enter the receiver, please", main_window=self.ui)
             return
         if item == "":
-            show_custom_dialog("Delivery Failed", "Please fill in item", main_window=self.ui)
+            show_custom_dialog("Delivery Failed", "Enter the item, please", main_window=self.ui)
             return
         
         self.location_manager.send_goal(dest.strip())
@@ -48,7 +48,7 @@ class DeliPage:
         self.form_enable_status(False)
         SetStyleSheetForbtn(self.ui, "start_deli_btn", "#ac0000", border_radius="10px", text_color="white", hover_background="#ac0000", hover_color="white")
         self.stop_prompt = _animate_prompt(
-            base_text=f"I am on delivery",
+            base_text=f"I’m delivering your item now",
             label_widget=self.ui.prompt_deli
         )
         self.arrival_manager.start_arrival_subscriber()
@@ -61,7 +61,7 @@ class DeliPage:
             if hasattr(self, "stop_prompt") and self.stop_prompt:
                 self.stop_prompt()
                 self.stop_prompt = None
-            self.ui.prompt_deli.setText("Please pick up the item and click the button received on the bottom-left of the form")
+            self.ui.prompt_deli.setText("Your item is here! Please collect it and press ‘Received’ on the bottom-left of the form")
             self.ui.start_deli_btn.setText("Received")
             SetStyleSheetForbtn(self.ui, "start_deli_btn", "#00294D", border_radius="10px", text_color="white", hover_background="#D8E5FE", hover_color="#00294D")
             self.ui.start_deli_btn.setEnabled(True)
