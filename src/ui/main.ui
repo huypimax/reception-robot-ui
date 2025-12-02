@@ -39,7 +39,7 @@ font-family:  &quot;Roboto&quot;;
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_main">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -1369,7 +1369,7 @@ border-radius:  20px;
                     <widget class="QPushButton" name="btn_room_b">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
@@ -1408,7 +1408,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_a">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
@@ -1447,7 +1447,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_d">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
@@ -1486,7 +1486,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_e">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
@@ -1525,7 +1525,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_c">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
@@ -1564,7 +1564,7 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     <widget class="QPushButton" name="btn_room_f">
                      <property name="minimumSize">
                       <size>
-                       <width>550</width>
+                       <width>400</width>
                        <height>150</height>
                       </size>
                      </property>
