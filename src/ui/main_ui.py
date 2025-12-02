@@ -1899,18 +1899,18 @@ class Ui_MainWindow(object):
         self.btn_deli_create.setObjectName("btn_deli_create")
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout(self.btn_deli_create)
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.Signup_btn_signup = QtWidgets.QPushButton(parent=self.btn_deli_create)
-        self.Signup_btn_signup.setMinimumSize(QtCore.QSize(250, 50))
-        self.Signup_btn_signup.setMaximumSize(QtCore.QSize(250, 50))
+        self.start_deli_btn = QtWidgets.QPushButton(parent=self.btn_deli_create)
+        self.start_deli_btn.setMinimumSize(QtCore.QSize(250, 50))
+        self.start_deli_btn.setMaximumSize(QtCore.QSize(250, 50))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(17)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.Signup_btn_signup.setFont(font)
-        self.Signup_btn_signup.setFocusPolicy(QtCore.Qt.FocusPolicy.TabFocus)
-        self.Signup_btn_signup.setStyleSheet("\n"
+        self.start_deli_btn.setFont(font)
+        self.start_deli_btn.setFocusPolicy(QtCore.Qt.FocusPolicy.TabFocus)
+        self.start_deli_btn.setStyleSheet("\n"
 "QPushButton{\n"
 "background-color: rgb(0, 41, 77);\n"
 "color: rgb(255, 255, 255);\n"
@@ -1920,10 +1920,10 @@ class Ui_MainWindow(object):
 "    background-color: rgb(216, 229, 254);\n"
 "    color: rgb(0, 41, 77);\n"
 "}")
-        self.Signup_btn_signup.setDefault(True)
-        self.Signup_btn_signup.setFlat(True)
-        self.Signup_btn_signup.setObjectName("Signup_btn_signup")
-        self.horizontalLayout_16.addWidget(self.Signup_btn_signup)
+        self.start_deli_btn.setDefault(True)
+        self.start_deli_btn.setFlat(True)
+        self.start_deli_btn.setObjectName("start_deli_btn")
+        self.horizontalLayout_16.addWidget(self.start_deli_btn)
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.ItemRole.LabelRole, self.btn_deli_create)
         self.LineEdit_signup = QtWidgets.QFrame(parent=self.Deli_form)
         self.LineEdit_signup.setMinimumSize(QtCore.QSize(800, 500))
@@ -2218,7 +2218,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(4)
         self.stackedWidget_2.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -2267,7 +2267,7 @@ class Ui_MainWindow(object):
         self.btn_HMI_read.setText(_translate("MainWindow", "Read Aloud"))
         self.prompt_deli.setText(_translate("MainWindow", "Let’s get your delivery ready! Please fill in the form and tap \'Start delivery\' when done."))
         self.label_9.setText(_translate("MainWindow", "DELIVERY FORM"))
-        self.Signup_btn_signup.setText(_translate("MainWindow", "Start delivery"))
+        self.start_deli_btn.setText(_translate("MainWindow", "Start delivery"))
         self.deli_combobox.setCurrentText(_translate("MainWindow", " Choose a destination"))
         self.deli_combobox.setItemText(0, _translate("MainWindow", " Choose a destination"))
         self.deli_combobox.setItemText(1, _translate("MainWindow", " Robotics Lab"))

@@ -32,12 +32,12 @@ def shadow(objects, blur=20, x_offset=4, y_offset=4, color=QColor(0, 0, 0, 150))
     shadow.setColor(color)
     objects.setGraphicsEffect(shadow)
 
-def SetStyleSheetForbtn(ui, btn, background_color, text_color="black", hover_background="#ffffff"):
+def SetStyleSheetForbtn(ui, btn, background_color, border_radius="30px", text_color="black", hover_background="#ffffff", hover_color="black"):
     """Set background cho nút"""
     button = getattr(ui, btn)
     button.setStyleSheet(f"""
         QPushButton#{btn} {{
-            border-radius: 30px;
+            border-radius: {border_radius};
             border-color: white;
             background-color: {background_color};
             color: {text_color};
@@ -47,6 +47,7 @@ def SetStyleSheetForbtn(ui, btn, background_color, text_color="black", hover_bac
 
         QPushButton#{btn}:hover {{
             background-color: {hover_background};
+            color: {hover_color};
         }}
 
         QPushButton#{btn}:pressed {{
