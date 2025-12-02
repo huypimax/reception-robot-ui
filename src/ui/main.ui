@@ -1360,21 +1360,6 @@ border-radius:  20px;
 }</string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                 <property name="spacing">
-                  <number>50</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>13</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>13</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>13</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>13</number>
-                 </property>
                  <item>
                   <layout class="QGridLayout" name="gridLayout">
                    <property name="spacing">
@@ -1409,7 +1394,7 @@ border-radius:  20px;
 border: 4px ridge rgb(141, 141, 141);</string>
                      </property>
                      <property name="text">
-                      <string>Youth Union Office</string>
+                      <string>Water Intake</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1448,7 +1433,7 @@ border-radius:  20px;
 border: 4px ridge rgb(141, 141, 141);</string>
                      </property>
                      <property name="text">
-                      <string>Lab</string>
+                      <string>Restroom</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1459,45 +1444,6 @@ border: 4px ridge rgb(141, 141, 141);</string>
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QPushButton" name="btn_room_c">
-                     <property name="minimumSize">
-                      <size>
-                       <width>550</width>
-                       <height>150</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>150</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>Roboto</family>
-                       <pointsize>18</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 41, 77);
-border-radius:  20px;
-border: 4px ridge rgb(141, 141, 141);</string>
-                     </property>
-                     <property name="text">
-                      <string>Electrical Lab</string>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>150</width>
-                       <height>150</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
                     <widget class="QPushButton" name="btn_room_d">
                      <property name="minimumSize">
                       <size>
@@ -1526,7 +1472,124 @@ border-radius:  20px;
 border: 4px ridge rgb(141, 141, 141);</string>
                      </property>
                      <property name="text">
-                      <string>Lecture Room</string>
+                      <string>Robotics Lab</string>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>150</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QPushButton" name="btn_room_e">
+                     <property name="minimumSize">
+                      <size>
+                       <width>550</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Roboto</family>
+                       <pointsize>18</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  20px;
+border: 4px ridge rgb(141, 141, 141);</string>
+                     </property>
+                     <property name="text">
+                      <string>Stairs</string>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>150</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QPushButton" name="btn_room_c">
+                     <property name="minimumSize">
+                      <size>
+                       <width>550</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Roboto</family>
+                       <pointsize>18</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  20px;
+border: 4px ridge rgb(141, 141, 141);</string>
+                     </property>
+                     <property name="text">
+                      <string>Chemistry Hall</string>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>150</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="QPushButton" name="btn_room_f">
+                     <property name="minimumSize">
+                      <size>
+                       <width>550</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>150</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Roboto</family>
+                       <pointsize>18</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 41, 77);
+border-radius:  20px;
+border: 4px ridge rgb(141, 141, 141);</string>
+                     </property>
+                     <property name="text">
+                      <string>Electrical Lab</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -2082,7 +2145,7 @@ border-radius:  10px;</string>
                           <x>20</x>
                           <y>0</y>
                           <width>721</width>
-                          <height>500</height>
+                          <height>480</height>
                          </rect>
                         </property>
                         <property name="minimumSize">
@@ -4550,14 +4613,14 @@ padding: 10px
             <widget class="QFrame" name="Deli_form">
              <property name="minimumSize">
               <size>
-               <width>900</width>
+               <width>800</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>900</width>
-               <height>650</height>
+               <width>800</width>
+               <height>670</height>
               </size>
              </property>
              <property name="styleSheet">
@@ -4594,13 +4657,13 @@ color: rgb(0, 41, 77);</string>
                <widget class="QLabel" name="label_9">
                 <property name="minimumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>70</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>70</height>
                  </size>
                 </property>
@@ -4624,13 +4687,13 @@ color: rgb(0, 41, 77);</string>
                <widget class="QFrame" name="btn_deli_create">
                 <property name="minimumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>100</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>100</height>
                  </size>
                 </property>
@@ -4697,13 +4760,13 @@ QPushButton:hover{
                <widget class="QFrame" name="LineEdit_signup">
                 <property name="minimumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>500</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>900</width>
+                  <width>800</width>
                   <height>500</height>
                  </size>
                 </property>
@@ -4731,13 +4794,13 @@ QPushButton:hover{
                   <widget class="QComboBox" name="deli_combobox">
                    <property name="minimumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
@@ -4761,22 +4824,32 @@ color: rgb(0, 41, 77);</string>
                    </item>
                    <item>
                     <property name="text">
-                     <string> Lab</string>
+                     <string> Robotics Lab</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string> Youth Union Office</string>
+                     <string> Electrical Lab </string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string> Electrical Lab</string>
+                     <string> Chemistry Hall</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string> Lecture Room</string>
+                     <string> Water Intake</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string> Restroom</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string> Stairs</string>
                     </property>
                    </item>
                   </widget>
@@ -4791,13 +4864,13 @@ color: rgb(0, 41, 77);</string>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
@@ -4840,13 +4913,13 @@ padding-left: 11px; </string>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
@@ -4888,13 +4961,13 @@ padding-left: 11px; </string>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
@@ -4937,13 +5010,13 @@ padding-left: 11px; </string>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>600</width>
+                     <width>500</width>
                      <height>50</height>
                     </size>
                    </property>

@@ -16,10 +16,12 @@ class NaviPage:
         self.current_place = ""
 
         self.place_button_pairs = [
-            ("Stairs", "btn_room_a"), 
-            ("Robotics lab", "btn_room_b"), 
-            ("Chemistry Hall", "btn_room_c"),  
-            ("Restroom", "btn_room_d") 
+            ("Water Intake", "btn_room_a"),
+            ("Chemistry Hall", "btn_room_b"),  
+            ("Restroom", "btn_room_c"),
+            ("Stairs", "btn_room_d"), 
+            ("Robotics Lab", "btn_room_e"), 
+            ("Electrical Lab", "btn_room_f"),
         ]
 
         # Dictionary

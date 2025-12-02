@@ -20,6 +20,8 @@ def apply_custom_fonts(ui):
     set_bold(ui.btn_room_b)
     set_bold(ui.btn_room_c)
     set_bold(ui.btn_room_d)
+    set_bold(ui.btn_room_e)
+    set_bold(ui.btn_room_f)
 
     #deli
     set_bold(ui.prompt_deli)

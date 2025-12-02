@@ -54,6 +54,8 @@ def apply_shadow(ui):
         shadow(ui.btn_room_b) 
         shadow(ui.btn_room_c) 
         shadow(ui.btn_room_d)
+        shadow(ui.btn_room_e)
+        shadow(ui.btn_room_f)
     
     #deli
         shadow(ui.btn_home_deli) 
