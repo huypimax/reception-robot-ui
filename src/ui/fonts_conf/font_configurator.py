@@ -7,7 +7,7 @@ def apply_custom_fonts(ui):
     set_bold(ui.prompt_main)
     set_bold(ui.label_2)
     set_bold(ui.label_5)
-    set_bold(ui.label_21)
+    # set_bold(ui.label_21)
     set_bold(ui.label_22)
     set_bold(ui.label_23)
 

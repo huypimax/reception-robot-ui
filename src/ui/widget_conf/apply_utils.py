@@ -4,7 +4,7 @@ def apply_shadow(ui):
     #home
         shadow(ui.widget)
         shadow(ui.btn_lab)
-        shadow(ui.btn_check_in) 
+        # shadow(ui.btn_check_in) 
         shadow(ui.btn_qna) 
         shadow(ui.btn_navi) 
         shadow(ui.btn_deli)
