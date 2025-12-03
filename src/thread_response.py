@@ -141,7 +141,7 @@ class ResponseThread(QThread):
         ]):
             return "My name is AIko, your friendly receptionist assistant."
         elif any(kw in query for kw in ["help", "what can you do", "what are your functions"]):
-            return ("I can answer questions, tell the time, and guide you with basic information. Just ask me anything.")
+            return ("I can chat and provide information, guide you to rooms and deliver items, and also introduce labs and services.")
         else:
             return None
 
