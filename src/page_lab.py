@@ -65,6 +65,8 @@ class LabPage:
         self.ui.btn_back_lab_HMI.setEnabled(False)
         self.ui.btn_IFM_read.setEnabled(False)
         self.ui.btn_step_read.setEnabled(False)
+        self.ui.btn_HMI_read.setEnabled(False)
+        self.ui.btn_PLC_read.setEnabled(False)
 
     def enable_all_buttons(self):
         self.ui.btn_IFM_2.setEnabled(True)
@@ -82,6 +84,8 @@ class LabPage:
         self.ui.btn_back_lab_HMI.setEnabled(True)
         self.ui.btn_IFM_read.setEnabled(True)
         self.ui.btn_step_read.setEnabled(True)
+        self.ui.btn_HMI_read.setEnabled(True)
+        self.ui.btn_PLC_read.setEnabled(True)
 
     def cleanup_thread(self, thread: SpeakThread):
         if thread is not None:

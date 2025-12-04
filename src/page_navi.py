@@ -39,6 +39,7 @@ class NaviPage:
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
         
     def handle_btn_navi(self):
+        self.ui.prompt_navi.setText("Where do you want to go")
         self.speaker.say("Where do you want to go?")
         self.speaker.connect_finished(lambda: [
             self.ui.btn_home_navi.setEnabled(True),
