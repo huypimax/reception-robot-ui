@@ -1,5 +1,6 @@
 from ui.main_ui import Ui_MainWindow
-from thread_speak import SpeakThread
+# from thread_speak import SpeakThread
+from thread_speak_new import SpeakManager
 
 class LabPage:
     device_info = {
@@ -20,6 +21,7 @@ class LabPage:
 
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
+        self.speaker = SpeakManager()
 
         self.ui.btn_IFM_2.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM)])
         self.ui.btn_step_2.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step)])
@@ -45,9 +47,8 @@ class LabPage:
     def read_btn_handle(self, btn: str):
         self.disable_all_buttons()
         btn_text = self.device_info[btn]
-        self.speak_thread = SpeakThread(btn_text)
-        self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.enable_all_buttons()])
-        self.speak_thread.start()
+        self.speaker.say(btn_text)
+        self.speaker.connect_finished(lambda: self.enable_all_buttons())
 
     def disable_all_buttons(self):
         self.ui.btn_IFM_2.setEnabled(False)
@@ -87,9 +88,9 @@ class LabPage:
         self.ui.btn_HMI_read.setEnabled(True)
         self.ui.btn_PLC_read.setEnabled(True)
 
-    def cleanup_thread(self, thread: SpeakThread):
-        if thread is not None:
-            thread.quit()
-            thread.wait()
-            thread.deleteLater()
-            thread = None
+    # def cleanup_thread(self, thread: SpeakThread):
+    #     if thread is not None:
+    #         thread.quit()
+    #         thread.wait()
+    #         thread.deleteLater()
+    #         thread = None
