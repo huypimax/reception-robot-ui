@@ -1,13 +1,4 @@
-# ==== FIX WHISPER + PYTORCH + PYQT6 TRÊN WINDOWS INTEL UHD ====
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"          # vẫn cần
-os.environ["OMP_NUM_THREADS"] = "1"
-
-# Dòng thần thánh cứu cả Whisper và faster-whisper
-os.environ["MKL_THREADING_LAYER"] = "GNU"            # <<< quan trọng nhất
-os.environ["KMP_AFFINITY"] = "disabled"              # tắt Intel OpenMP hoàn toàn
-os.environ["CUDA_VISIBLE_DEVICES"] = ""   # phòng trường hợp nó tìm GPU
-# =============================================================
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QTimer
@@ -17,6 +8,7 @@ from pathplanning import LocationManager
 from ui.fonts_conf.font_configurator import apply_custom_fonts
 from ui.widget_conf.apply_utils import apply_shadow
 from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt, _set_navigation_buttons_enabled, set_color_btn_room
+
 
 from page_qna import QnaPage
 from page_navi import NaviPage
@@ -32,6 +24,7 @@ initial_context = [
     {"role": "user", "parts": [{"text": "When replying, use 1–2 sentences, under 35 words."}]},
     {"role": "model", "parts": [{"text": "Understood. I'll keep it concise and friendly."}]},
 ]
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):

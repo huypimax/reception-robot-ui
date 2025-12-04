@@ -9,6 +9,7 @@ import google.genai as genai
 from google.genai import Client, types
 import os, json
 from queue import Queue
+from thread_speak_new import SpeakManager
 
 
 ASSISTANT_NAME = "AIko"
@@ -23,6 +24,7 @@ class QnaPage:
     def __init__(self, main: Ui_MainWindow, initial_context):
         self.ui = main
         self.initial_context = initial_context
+        self.speaker = SpeakManager()
 
         self.ui.btn_micro.clicked.connect(lambda: [self.listen(), self.ui.btn_home_qna.setEnabled(False)])
         self.ui.btn_home_qna.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)])
@@ -42,14 +44,14 @@ class QnaPage:
 
     def start_welcome(self):
         SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d", hover_background="#69ff3d")
-        self.welcome_thread = WelcomeThread()
-        self.welcome_thread.finished.connect(lambda: [self.cleanup_thread(self.welcome_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True),
-                                                    SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff")])
+        self.welcome_thread = WelcomeThread(self.speaker)
+        self.welcome_thread.finished.connect(lambda: [self.cleanup_thread(self.welcome_thread), self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True)])
         self.welcome_thread.start()
 
     def listen(self):
         self.ui.btn_home_qna.setEnabled(False)
         self.start_animate("I’m listening", self.ui.prompt_qna)
+        SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff")
         SetStyleSheetForbtn(self.ui, "btn_micro", "#69ff3d", hover_background="#69ff3d")
         self.listen_thread = ListenThread()
         self.listen_thread.finished.connect(self.get_response)
@@ -68,10 +70,10 @@ class QnaPage:
             self.ui.prompt_qna.setText(self.query)
             SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff", hover_background="#ffffff")
             SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d", hover_background="#69ff3d")
-            self.speak_thread = SpeakThread(self.query)
-            self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), self.ui.btn_micro.setEnabled(True), self.ui.btn_home_qna.setEnabled(True),
+            self.speaker.say(self.query)
+            self.speaker.connect_finished(lambda: [self.ui.btn_micro.setEnabled(True), self.ui.btn_home_qna.setEnabled(True),
                                                         SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff")])
-            self.speak_thread.start()
+            # self.speak_thread.start()
         else:
             self.query = query.lower()
             print(f"You: {self.query}")
@@ -89,10 +91,10 @@ class QnaPage:
         self.ui.prompt_qna.setText(text)
         SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff", hover_background="#ffffff")
         SetStyleSheetForbtn(self.ui, "btn_speaker", "#69ff3d", hover_background="#69ff3d")
-        self.speak_thread = SpeakThread(text)
-        self.speak_thread.finished.connect(lambda: [self.cleanup_thread(self.speak_thread), SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff"), 
+        self.speaker.say(text)
+        self.speaker.connect_finished(lambda: [SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff"), 
                                                     self.ui.btn_home_qna.setEnabled(True), self.ui.btn_micro.setEnabled(True)])
-        self.speak_thread.start()
+        # self.speak_thread.start()
 
 
     def cleanup_thread(self, thread: QThread):
