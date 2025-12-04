@@ -111,6 +111,7 @@ class NaviPage:
 
     def go_to_main_page(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)
+        self.ui.prompt_navi.setText("Where do you want to go")
 
     def cleanup_thread(self, thread: QThread):
         if thread is not None:
