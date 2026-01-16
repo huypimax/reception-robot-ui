@@ -1,6 +1,6 @@
 from ui.main_ui import Ui_MainWindow
 # from thread_speak import SpeakThread
-from thread_speak_new import SpeakManager
+from thread_speak import SpeakManager
 
 class LabPage:
     device_info = {

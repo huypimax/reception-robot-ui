@@ -9,7 +9,7 @@ import google.genai as genai
 from google.genai import Client, types
 import os, json
 from queue import Queue
-from thread_speak_new import SpeakManager
+from thread_speak import SpeakManager
 
 
 ASSISTANT_NAME = "AIko"

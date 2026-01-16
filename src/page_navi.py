@@ -3,7 +3,7 @@ from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt, set_co
 from ui.main_ui import Ui_MainWindow
 from pathplanning import LocationManager, ArrivalManager
 from thread_speak import SpeakThread
-from thread_speak_new import SpeakManager
+from thread_speak import SpeakManager
 
 class NaviPage:
     def __init__(self, main: Ui_MainWindow):
