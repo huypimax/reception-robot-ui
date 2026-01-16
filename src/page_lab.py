@@ -22,75 +22,53 @@ class LabPage:
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.speaker = SpeakManager()
+        self.speaker.connect_finished(self.on_speak_finished)
 
-        self.ui.btn_IFM_2.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM)])
-        self.ui.btn_step_2.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step)])
-        self.ui.btn_PLC.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_PLC)])
-        self.ui.btn_HMI.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_HMI)])
+        self.ui.btn_IFM_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM))
+        self.ui.btn_step_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step))
+        self.ui.btn_PLC.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_PLC))
+        self.ui.btn_HMI.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_HMI))
 
-        self.ui.btn_home_lab_main.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main), self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
-        self.ui.btn_home_lab_IFM.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main), self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
-        self.ui.btn_home_lab_PLC.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main), self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM)])
-        self.ui.btn_home_lab_step.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main), self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step)])
-        self.ui.btn_home_lab_HMI.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main), self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_PLC)])
+        self.ui.btn_home_lab_main.clicked.connect(lambda: self.home_with_stop(self.ui.page_main, self.ui.page_lab_main))
+        self.ui.btn_home_lab_IFM.clicked.connect(lambda: self.home_with_stop(self.ui.page_main, self.ui.page_lab_main))
+        self.ui.btn_home_lab_PLC.clicked.connect(lambda: self.home_with_stop(self.ui.page_main, self.ui.page_lab_IFM))
+        self.ui.btn_home_lab_step.clicked.connect(lambda: self.home_with_stop(self.ui.page_main, self.ui.page_lab_step))
+        self.ui.btn_home_lab_HMI.clicked.connect(lambda: self.home_with_stop(self.ui.page_main, self.ui.page_lab_PLC))
 
-        self.ui.btn_back_lab_IFM.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
-        self.ui.btn_back_lab_step.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_main)])
-        self.ui.btn_back_lab_PLC.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM)])
-        self.ui.btn_back_lab_HMI.clicked.connect(lambda: [self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step)])
+        self.ui.btn_back_lab_IFM.clicked.connect(lambda: self.back_with_stop(self.ui.page_lab_main))
+        self.ui.btn_back_lab_step.clicked.connect(lambda: self.back_with_stop(self.ui.page_lab_main))
+        self.ui.btn_back_lab_PLC.clicked.connect(lambda: self.back_with_stop(self.ui.page_lab_IFM))
+        self.ui.btn_back_lab_HMI.clicked.connect(lambda: self.back_with_stop(self.ui.page_lab_step))
 
-        self.ui.btn_IFM_read.clicked.connect(lambda: [self.read_btn_handle("btn_IFM_read")])
-        self.ui.btn_step_read.clicked.connect(lambda: [self.read_btn_handle("btn_step_read")])
-        self.ui.btn_PLC_read.clicked.connect(lambda: [self.read_btn_handle("btn_PLC_read")])
-        self.ui.btn_HMI_read.clicked.connect(lambda: [self.read_btn_handle("btn_HMI_read")])
+        self.ui.btn_IFM_read.clicked.connect(lambda: self.on_read_clicked("btn_IFM_read", self.ui.btn_IFM_read))
+        self.ui.btn_step_read.clicked.connect(lambda: self.on_read_clicked("btn_step_read", self.ui.btn_step_read))
+        self.ui.btn_PLC_read.clicked.connect(lambda: self.on_read_clicked("btn_PLC_read", self.ui.btn_PLC_read))
+        self.ui.btn_HMI_read.clicked.connect(lambda: self.on_read_clicked("btn_HMI_read", self.ui.btn_HMI_read))
 
     def read_btn_handle(self, btn: str):
-        self.disable_all_buttons()
         btn_text = self.device_info[btn]
         self.speaker.say(btn_text)
-        self.speaker.connect_finished(lambda: self.enable_all_buttons())
 
-    def disable_all_buttons(self):
-        self.ui.btn_IFM_2.setEnabled(False)
-        self.ui.btn_step_2.setEnabled(False)
-        self.ui.btn_PLC.setEnabled(False)
-        self.ui.btn_HMI.setEnabled(False)
-        self.ui.btn_home_lab_main.setEnabled(False)
-        self.ui.btn_home_lab_IFM.setEnabled(False)
-        self.ui.btn_home_lab_PLC.setEnabled(False)
-        self.ui.btn_home_lab_step.setEnabled(False)
-        self.ui.btn_home_lab_HMI.setEnabled(False)
-        self.ui.btn_back_lab_IFM.setEnabled(False)
-        self.ui.btn_back_lab_step.setEnabled(False)
-        self.ui.btn_back_lab_PLC.setEnabled(False)
-        self.ui.btn_back_lab_HMI.setEnabled(False)
-        self.ui.btn_IFM_read.setEnabled(False)
-        self.ui.btn_step_read.setEnabled(False)
-        self.ui.btn_HMI_read.setEnabled(False)
-        self.ui.btn_PLC_read.setEnabled(False)
+    def on_speak_finished(self, _text):
+        self.enable_read_buttons()
 
-    def enable_all_buttons(self):
-        self.ui.btn_IFM_2.setEnabled(True)
-        self.ui.btn_step_2.setEnabled(True)
-        self.ui.btn_PLC.setEnabled(True)
-        self.ui.btn_HMI.setEnabled(True)
-        self.ui.btn_home_lab_main.setEnabled(True)
-        self.ui.btn_home_lab_IFM.setEnabled(True)
-        self.ui.btn_home_lab_PLC.setEnabled(True)
-        self.ui.btn_home_lab_step.setEnabled(True)
-        self.ui.btn_home_lab_HMI.setEnabled(True)
-        self.ui.btn_back_lab_IFM.setEnabled(True)
-        self.ui.btn_back_lab_step.setEnabled(True)
-        self.ui.btn_back_lab_PLC.setEnabled(True)
-        self.ui.btn_back_lab_HMI.setEnabled(True)
+    def on_read_clicked(self, key, button):
+        button.setEnabled(False)
+        self.read_btn_handle(key)
+
+    def enable_read_buttons(self):
         self.ui.btn_IFM_read.setEnabled(True)
         self.ui.btn_step_read.setEnabled(True)
-        self.ui.btn_HMI_read.setEnabled(True)
         self.ui.btn_PLC_read.setEnabled(True)
+        self.ui.btn_HMI_read.setEnabled(True)
 
-    # def cleanup_thread(self, thread: SpeakThread):
-    #     if thread is not None:
-    #         thread.quit()
-    #         thread.wait()
-    #         thread.deleteLater()
-    #         thread = None
+    def back_with_stop(self, widget):
+        self.speaker.stop()
+        self.enable_read_buttons()
+        self.ui.stackedWidget_2.setCurrentWidget(widget)
+
+    def home_with_stop(self, widget1, widget2):
+        self.speaker.stop()
+        self.enable_read_buttons()
+        self.ui.stackedWidget.setCurrentWidget(widget1)
+        self.ui.stackedWidget_2.setCurrentWidget(widget2)
