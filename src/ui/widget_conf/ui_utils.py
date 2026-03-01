@@ -58,13 +58,24 @@ def SetStyleSheetForbtn(ui, btn, background_color, border_radius="30px", text_co
 
 
 def _set_navigation_buttons_enabled(ui, enabled: bool):
-    for name in ["btn_room_a", "btn_room_b", "btn_room_c", "btn_room_d", "btn_room_e", "btn_room_f"]:
+    for name in ["btn_room_1", 
+                 "btn_room_2", 
+                 "btn_room_3", 
+                 "btn_room_4", 
+                 "btn_room_5", 
+                 "btn_room_6", 
+                 "btn_room_7", 
+                 "btn_room_8", 
+                 "btn_room_9"]:
         getattr(ui, name).setEnabled(enabled)
 
 def set_color_btn_room(ui, color):
-    SetStyleSheetForbtn(ui, "btn_room_a", color)
-    SetStyleSheetForbtn(ui, "btn_room_b", color)
-    SetStyleSheetForbtn(ui, "btn_room_c", color)
-    SetStyleSheetForbtn(ui, "btn_room_d", color)
-    SetStyleSheetForbtn(ui, "btn_room_e", color)
-    SetStyleSheetForbtn(ui, "btn_room_f", color)
+    SetStyleSheetForbtn(ui, "btn_room_1", color)
+    SetStyleSheetForbtn(ui, "btn_room_2", color)
+    SetStyleSheetForbtn(ui, "btn_room_3", color)
+    SetStyleSheetForbtn(ui, "btn_room_4", color)
+    SetStyleSheetForbtn(ui, "btn_room_5", color)
+    SetStyleSheetForbtn(ui, "btn_room_6", color)
+    SetStyleSheetForbtn(ui, "btn_room_7", color)
+    SetStyleSheetForbtn(ui, "btn_room_8", color)
+    SetStyleSheetForbtn(ui, "btn_room_9", color)

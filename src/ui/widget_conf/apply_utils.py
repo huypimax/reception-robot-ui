@@ -2,12 +2,12 @@ from ui.widget_conf.ui_utils import shadow
 
 def apply_shadow(ui):
     #home
-        shadow(ui.widget)
-        shadow(ui.btn_lab)
+        # shadow(ui.widget)
+        # shadow(ui.btn_lab)
         # shadow(ui.btn_check_in) 
         shadow(ui.btn_qna) 
         shadow(ui.btn_navi) 
-        shadow(ui.btn_deli)
+        # shadow(ui.btn_deli)
 
     #lab_info 
         shadow(ui.btn_home_lab_main) 
@@ -49,13 +49,16 @@ def apply_shadow(ui):
 
     #navi
         shadow(ui.btn_home_navi) 
-        shadow(ui.widget_12) 
-        shadow(ui.btn_room_a) 
-        shadow(ui.btn_room_b) 
-        shadow(ui.btn_room_c) 
-        shadow(ui.btn_room_d)
-        shadow(ui.btn_room_e)
-        shadow(ui.btn_room_f)
+        # shadow(ui.widget_12) 
+        shadow(ui.btn_room_1) 
+        shadow(ui.btn_room_2) 
+        shadow(ui.btn_room_3) 
+        shadow(ui.btn_room_4)
+        shadow(ui.btn_room_5)
+        shadow(ui.btn_room_6)
+        shadow(ui.btn_room_7)
+        shadow(ui.btn_room_8)
+        shadow(ui.btn_room_9)
     
     #deli
         shadow(ui.btn_home_deli) 

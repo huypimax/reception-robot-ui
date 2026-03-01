@@ -44,17 +44,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                self.navi_page.handle_btn_navi(), 
                                                self.btn_home_navi.setEnabled(False), 
                                                _set_navigation_buttons_enabled(self, False), 
-                                               set_color_btn_room(self, "#ffffff"), 
-                                               self.prompt_navi.setText("Where do you want to go?"),
+                                            #    set_color_btn_room(self, "#ffffff"), 
+                                            #    self.prompt_navi.setText("Where do you want to go?"),
                                                ])
 
-        self.lab_page = LabPage(self)
-        self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab), self.stackedWidget_2.setCurrentWidget(self.page_lab_main)])
+        # self.lab_page = LabPage(self)
+        # self.btn_lab.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_lab), self.stackedWidget_2.setCurrentWidget(self.page_lab_main)])
 
-        self.deli_page = DeliPage(self)
-        self.btn_deli.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_deli)])
+        # self.deli_page = DeliPage(self)
+        # self.btn_deli.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_deli)])
 
-        self.checkin_page = CheckinPage(self)
+        # self.checkin_page = CheckinPage(self)
         # self.btn_check_in.clicked.connect(lambda: [self.stackedWidget.setCurrentWidget(self.page_checkin)])
 
 

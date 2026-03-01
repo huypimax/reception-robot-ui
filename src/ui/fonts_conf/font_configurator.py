@@ -4,24 +4,23 @@ from ui.fonts_conf.fonts import set_bold, set_regular
 
 def apply_custom_fonts(ui):
     #main 
-    set_bold(ui.prompt_main)
-    set_bold(ui.label_2)
-    set_bold(ui.label_5)
-    # set_bold(ui.label_21)
-    set_bold(ui.label_22)
-    set_bold(ui.label_23)
+    set_bold(ui.btn_qna)
+    set_bold(ui.btn_navi)
 
     #qna
     set_bold(ui.prompt_qna)
     
     #navi 
-    set_bold(ui.prompt_navi)
-    set_bold(ui.btn_room_a)
-    set_bold(ui.btn_room_b)
-    set_bold(ui.btn_room_c)
-    set_bold(ui.btn_room_d)
-    set_bold(ui.btn_room_e)
-    set_bold(ui.btn_room_f)
+    set_bold(ui.btn_home_navi)
+    set_bold(ui.btn_room_1)
+    set_bold(ui.btn_room_2)
+    set_bold(ui.btn_room_3)
+    set_bold(ui.btn_room_4)
+    set_bold(ui.btn_room_5)
+    set_bold(ui.btn_room_6)
+    set_bold(ui.btn_room_7)
+    set_bold(ui.btn_room_8)
+    set_bold(ui.btn_room_9)
 
     #deli
     set_bold(ui.prompt_deli)

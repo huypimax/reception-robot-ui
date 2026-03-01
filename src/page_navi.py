@@ -15,20 +15,24 @@ class NaviPage:
         self.location_manager.start_location_subscriber()
         self.current_place = ""
 
-        self.place_button_pairs = [
-            ("Water Intake", "btn_room_a"),
-            ("Chemistry Hall", "btn_room_b"),  
-            ("Restroom", "btn_room_c"),
-            ("Stairs", "btn_room_d"), 
-            ("Robotics Lab", "btn_room_e"), 
-            ("Electrical Lab", "btn_room_f"),
+        self.places = [
+            "QUẦY 1. CHỨNG THỰC BẢN SAO",
+            "QUẦY 2. CHỨNG THỰC CHỮ KÝ",
+            "QUẦY 3. TRẢ KẾT QUẢ HỒ SƠ \nHÀNH CHÍNH",
+            "QUẦY 4. TƯ PHÁP - HỘ TỊCH",
+            "QUẦY 5. TRẢ KẾT QUẢ LĨNH VỰC \nTƯ PHÁP HỘ TỊCH - \nTIẾP NHẬN ĐƠN THƯ",
+            "QUẦY 6. VĂN HÓA - XÃ HỘI",
+            "QUẦY 7. KINH TẾ - MÔI TRƯỜNG",
+            "QUẦY 8. ĐẤT ĐAI - XÂY DỰNG - \nHẠ TẦNG ĐÔ THỊ",
+            "QUẦY 9. BẢO HIỂM Y TẾ - \nBẢO HIỂM XÃ HỘI"
         ]
 
-        # Dictionary
-        self.place_to_button_map = {place: btn_name for place, btn_name in self.place_button_pairs}
+        self.place_to_button_map = {
+            place: f"btn_room_{i+1}" for i, place in enumerate(self.places)
+        }
 
         # connect button 
-        for place, btn_name in self.place_button_pairs:
+        for place, btn_name in self.place_to_button_map.items():
             button = getattr(self.ui, btn_name)  # Lấy button object từ tên
             button.setText(f"{place}")
             button.clicked.connect(lambda checked=False, p=place, b=btn_name: [
@@ -39,7 +43,7 @@ class NaviPage:
         self.ui.btn_home_navi.clicked.connect(lambda: self.go_to_main_page())
         
     def handle_btn_navi(self):
-        self.ui.prompt_navi.setText("Where do you want to go")
+        # self.ui.prompt_navi.setText("Where do you want to go")
         self.speaker.say("Where do you want to go?")
         self.speaker.connect_finished(lambda: [
             self.ui.btn_home_navi.setEnabled(True),
@@ -77,11 +81,11 @@ class NaviPage:
         self.speaker.connect_finished(lambda:[_set_navigation_buttons_enabled(self.ui, False),
                                               self.ui.btn_home_navi.setEnabled(False)])
         
-        if self.current_place != place:
-            self.stop_prompt = _animate_prompt(
-                base_text=f"Heading to {place}",
-                label_widget=self.ui.prompt_navi
-            )
+        # if self.current_place != place:
+        #     self.stop_prompt = _animate_prompt(
+        #         base_text=f"Heading to {place}",
+        #         label_widget=self.ui.prompt_navi
+        #     )
         
         self.arrival_manager.subscriber_thread.arrival_update.connect(
             lambda arrived, p=place, b=btn_name: self._arrive_at(arrived, p, b)
@@ -91,9 +95,9 @@ class NaviPage:
     def _arrive_at(self, arrived: bool, place: str, btn_name: str):
         if arrived:
             # Dừng animation nếu đang chạy
-            if hasattr(self, "stop_prompt") and self.stop_prompt:
-                self.stop_prompt()
-                self.stop_prompt = None
+            # if hasattr(self, "stop_prompt") and self.stop_prompt:
+            #     self.stop_prompt()
+            #     self.stop_prompt = None
 
             self.current_place = place
             if btn_name is None:
@@ -104,7 +108,7 @@ class NaviPage:
             self.speaker.connect_finished(lambda: [
                 self.ui.btn_home_navi.setEnabled(True),
                 _set_navigation_buttons_enabled(self.ui, True),
-                self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."),
+                # self.ui.prompt_navi.setText(f"Arrived at {place}. Ready for next destination."),
                 SetStyleSheetForbtn(self.ui, btn_name, "#ffffff")
             ])
 

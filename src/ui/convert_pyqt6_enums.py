@@ -101,3 +101,9 @@ if __name__ == "__main__":
 from PyQt6.QtGui import QPixmap
 from ui.resources import resources_rc
 '''
+
+'''
+pyside6-rcc resources.qrc -o resources_rc.py
+pyuic6 main.ui -o main_ui.py
+convert enum 
+'''

@@ -4,6 +4,11 @@
     <file>robot/reception-robot-on-delivery-Photoroom.png</file>
     <file>robot/reception-robot-Photoroom.png</file>
   </qresource>
+  <qresource prefix="background">
+    <file>background/2-hinh-nen-powerpoint-trong-dong.png</file>
+    <file>background/lotus_bg.png</file>
+    <file>background/lotus_banner.png</file>
+  </qresource>
   <qresource prefix="lab_equipment">
     <file>lab_equipment/HMI_1.png</file>
     <file>lab_equipment/HMI_2.png</file>
@@ -20,6 +25,7 @@
   </qresource>
   <qresource prefix="icon">
     <file>icon/basic-ui_17055247.png</file>
+    <file>icon/arrows.png</file>
     <file>icon/chat_14359920.png</file>
     <file>icon/speaker.png</file>
     <file>icon/community_14359834.png</file>
