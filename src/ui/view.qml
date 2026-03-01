@@ -3,130 +3,144 @@ import QtQuick.Controls
 import QtQuick.Shapes
 
 ApplicationWindow {
-    id: root 
+    id: root
     visible: true
-    width: 1920 // Kích thước màn hình 
-    height: 1080
-    title: "Robot Face Animation"
-    color: "black" // Nền đen 
+    width: 1920; height: 1080
+    color: "black"
+    title: "Robot Face Morphing - Clean"
 
-    // --- KHU VỰC CẤU HÌNH (Sửa thông số ở đây) ---
     readonly property color robotBlue: "#00BFFF"
-    
-    // --- CONTAINER CHÍNH (Nhóm các bộ phận lại để dễ căn giữa) ---
+
     Item {
         id: face
         width: 1000; height: 700
         anchors.centerIn: parent
 
-        // Chiều cao mắt
-        property int eyeWidth: 250      // Chiều rộng mắt
-        property int eyeNormalHeight: 250 // Chiều cao lúc mở (Sửa ở đây là ăn hết)
-        property int eyeBlinkHeight: 15   // Chiều cao lúc nhắm
+        // --- CẤU HÌNH KÍCH THƯỚC ---
+        property int eyeWidth: 250
+        property int eyeNormalHeight: 250
+        property int eyeBlinkHeight: 15
+        
+        state: "normal" // Đổi thành "happy" để xem mắt cười
 
-        // =================== CON MẮT TRÁI ===================
-        Rectangle {
-            id: leftEye
+        // --- COMPONENT MẮT ---
+        component RobotEye : Shape {
+            id: eyeShape
             width: face.eyeWidth
-            height: face.eyeNormalHeight     
-            radius: width / 2 // Bo tròn 50% để tạo hình tròn
-            color: robotBlue // Màu nền của mắt (vòng ngoài)
-            
-            // Căn vị trí: nằm giữa theo chiều dọc, lệch sang trái so với tâm
+            height: face.eyeNormalHeight 
+
+            // Điểm điều khiển độ cong
+            property int topCy: 0       // Đỉnh cong trên
+            property int bottomCy: height // Đỉnh cong dưới
+
+            // Quan trọng: Bật antialiasing để đường cong mịn màng
+            layer.enabled: true
+            layer.samples: 4
+
+            ShapePath {
+                // Mấu chốt để bo tròn dấu ^ là dùng Stroke (viền) kết hợp Fill (tô)
+                strokeColor: root.robotBlue
+                fillColor: root.robotBlue
+                strokeWidth: 20 // Độ dày của nét vẽ (giúp bo tròn đầu mút)
+                
+                // Bo tròn các đầu mút
+                capStyle: ShapePath.RoundCap 
+                joinStyle: ShapePath.RoundJoin
+
+                // Bắt đầu vẽ từ giữa cạnh trái
+                startX: 0; startY: eyeShape.height / 2
+
+                // 1. Đường cong trên
+                PathQuad {
+                    x: eyeShape.width; y: eyeShape.height / 2
+                    controlX: eyeShape.width / 2
+                    controlY: eyeShape.topCy
+                }
+
+                // 2. Đường cong dưới (Vẽ ngược về trái)
+                PathQuad {
+                    x: 0; y: eyeShape.height / 2
+                    controlX: eyeShape.width / 2
+                    controlY: eyeShape.bottomCy
+                }
+            }
+
+            states: [
+                State {
+                    name: "normal"
+                    when: face.state == "normal"
+                    // Normal: Top = 0, Bottom = Height => Tạo thành hình bầu dục/tròn đầy đặn
+                    PropertyChanges { target: eyeShape; topCy: 0; bottomCy: eyeShape.height }
+                },
+                State {
+                    name: "happy"
+                    when: face.state == "happy"
+                    // Happy: Bottom ép sát vào Top (cùng thông số) => Diện tích ở giữa = 0
+                    // Chỉ còn lại cái viền (Stroke) tạo thành hình cong ^
+                    PropertyChanges { target: eyeShape; topCy: -80; bottomCy: -80 }
+                }
+            ]
+
+            // Animation biến hình dẻo
+            transitions: Transition {
+                ParallelAnimation {
+                    NumberAnimation { property: "topCy"; duration: 350; easing.type: Easing.InOutQuad }
+                    NumberAnimation { property: "bottomCy"; duration: 350; easing.type: Easing.InOutQuad }
+                }
+            }
+        }
+
+        // =================== HIỂN THỊ MẮT ===================
+        RobotEye {
+            id: leftEye
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.horizontalCenter
-            anchors.rightMargin: 100 // Khoảng cách giữa 2 mắt
-            
-
-            // --- Đồng tử (Tròng mắt bên trong) ---
-            Rectangle {
-                width: parent.width * 0.6  // Kích thước nhỏ hơn mắt chính
-                height: parent.height * 0.6
-                radius: width / 2
-                color: "#0077be" // Màu xanh đậm hơn một chút để tạo chiều sâu
-                anchors.centerIn: parent // Căn giữa con mắt
-                // Dịch chuyển lên trên một xíu để trông dễ thương hơn
-                anchors.verticalCenterOffset: -parent.height * 0.1
-            }
+            anchors.rightMargin: 80
         }
 
-        // =================== CON MẮT PHẢI ===================
-        Rectangle {
+        RobotEye {
             id: rightEye
-            width: face.eyeWidth
-            height: face.eyeNormalHeight
-            radius: width / 2
-            color: robotBlue
-            
-            // Căn vị trí: nằm giữa theo chiều dọc, lệch sang phải so với tâm
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.horizontalCenter
-            anchors.leftMargin: 100
-
-            // Đồng tử
-            Rectangle {
-                width: parent.width * 0.6
-                height: parent.height * 0.6
-                radius: width / 2
-                color: "#0077be"
-                anchors.centerIn: parent
-                anchors.verticalCenterOffset: -parent.height * 0.1
-            }
+            anchors.leftMargin: 80
         }
+
+        // =================== ĐIỀU KHIỂN ===================
         
-        // =================== HIỆU ỨNG CHỚP MẮT ĐỒNG BỘ ===================
-        // Dùng một SequentialAnimation chung để điều khiển cả 2 mắt cùng lúc
+        // Animation chớp mắt (Chỉ chạy khi Normal)
         SequentialAnimation {
-            running: true // Tự động chạy ngay khi load
-            loops: Animation.Infinite // Lặp lại mãi mãi
-
-            // 1. Thời gian mở mắt bình thường (ngẫu nhiên từ 2 đến 5 giây)
-            PauseAnimation { duration: Math.random() * 3000 + 2000}
-
-            // 2. Nhắm lại nhanh (Giảm chiều cao cả 2 mắt xuống còn 15px)
+            running: face.state == "normal"
+            loops: Animation.Infinite
+            
+            PauseAnimation { duration: Math.random() * 3000 + 2000 }
+            
+            // Nhắm
             ParallelAnimation {
-                NumberAnimation { target: leftEye; property: "height"; to: face.eyeBlinkHeight; duration: 100; easing.type: Easing.InQuad }
-                NumberAnimation { target: rightEye; property: "height"; to: face.eyeBlinkHeight; duration: 100; easing.type: Easing.InQuad }
+                NumberAnimation { target: leftEye; property: "height"; to: face.eyeBlinkHeight; duration: 100 }
+                NumberAnimation { target: rightEye; property: "height"; to: face.eyeBlinkHeight; duration: 100 }
             }
             
-            // 3. Giữ trạng thái nhắm trong tích tắc
             PauseAnimation { duration: 50 }
-
-            // 4. Mở ra nhanh (Trở lại chiều cao gốc 180px)
-            // Sử dụng Easing.OutBack để tạo hiệu ứng bật nảy nhẹ khi mở mắt
+            
+            // Mở
             ParallelAnimation {
                 NumberAnimation { target: leftEye; property: "height"; to: face.eyeNormalHeight; duration: 150; easing.type: Easing.OutBack }
                 NumberAnimation { target: rightEye; property: "height"; to: face.eyeNormalHeight; duration: 150; easing.type: Easing.OutBack }
             }
         }
 
-        // =================== CÁI MIỆNG CƯỜI ===================
-        Shape {
-            // Đặt vị trí miệng nằm dưới 2 mắt
-            anchors.top: leftEye.bottom
-            anchors.topMargin: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            
-            width: 70 // Độ rộng tổng thể của miệng
-            height: 20  // Độ sâu của nụ cười
-
-            // Đối tượng vẽ nét
-            ShapePath {
-                strokeColor: robotBlue // Màu nét vẽ
-                strokeWidth: 12        // Độ dày của nét
-                fillColor: "transparent" // Không tô màu nền bên trong
-                capStyle: ShapePath.RoundCap // Bo tròn 2 đầu mút của nét vẽ cho mềm mại
-
-                // Bắt đầu vẽ từ điểm trên cùng bên trái (0,0)
-                startX: 0; startY: 0
-                
-                // Vẽ một đường cong Quad (Quadratic Bezier)
-                PathQuad {
-                    x: 70; y: 0         // Điểm kết thúc ở trên cùng bên phải
-                    // Điểm điều khiển nằm ở giữa và thấp xuống dưới để tạo độ cong
-                    controlX: 35; controlY: 50 
-                }
+        // Timer tự động đổi biểu cảm (Demo)
+        Timer {
+            interval: 3000; running: true; repeat: true
+            onTriggered: {
+                face.state = (face.state === "normal" ? "happy" : "normal")
             }
+        }
+        
+        // Click chuột để đổi ngay lập tức
+        MouseArea {
+            anchors.fill: parent
+            onClicked: face.state = (face.state === "normal" ? "happy" : "normal")
         }
     }
 }
