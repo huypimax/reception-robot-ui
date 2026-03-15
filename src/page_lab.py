@@ -1,28 +1,14 @@
 from ui.main_ui import Ui_MainWindow
 # from thread_speak import SpeakThread
 from thread_speak import SpeakManager
-
+from language_manager import get_language_manager, get_string
+import utilities.string_ids as stringIds
 class LabPage:
-    device_info = {
-        "btn_IFM_read": """This training kit demonstrates an industrial automation system using IO-Link communication and PROFINET connectivity integrated with a PLC.The setup includes an IO-Link Master (AL1102) connected to multiple IO-Link devices such as sensors (KT5112, O5C500, TW2000, IF6153, UGT524, RB3100) and I/O modules (AL2401 DI and AL2330 DO). 
-                            Power is supplied through a 24V DC power module (DN4012) with a Y-splitter (EBC113) for distribution. The digital outputs control an Omron G2R1-SN relay, light indicators, and an RS775 DC motor, allowing the system to perform monitoring and actuation tasks. 
-                            This kit provides a complete demonstration of sensor integration, signal processing, and control via industrial communication networks, making it ideal for training and automation experiments.""",
-        
-        "btn_step_read": """This training kit demonstrates a motion control system using Siemens PLC S7-1200 with PROFINET communication. The setup includes a Master PLC and a Slave PLC connected through an Ethernet hub, with an HMI for monitoring and control. 
-                            The PLC sends control signals to a TB6600 stepper motor driver, which drives a stepper motor coupled to a lead screw shaft for linear motion. A signal encoder provides A, B, Z feedback signals for position monitoring, enabling precise closed-loop control and synchronization between the PLCs. 
-                            This kit is ideal for studying PLC-based motion control, PROFINET communication, and encoder feedback integration in industrial automation.""",
-        
-        "btn_PLC_read": """A Programmable Logic Controller (PLC) is an industrial digital computer designed to control and automate machines, production lines, or processes. 
-                            It continuously monitors input signals from sensors, processes them according to a user-defined program, and generates output signals to actuators such as motors, relays, and indicators. PLC systems are widely used because of their reliability, flexibility, real-time operation, and ease of programming.""",
-        
-        "btn_HMI_read": """A Human Machine Interface (HMI) is a device or software platform that allows operators to interact with machines, systems, or processes. It displays real-time data from the controller (such as a PLC) and enables users to monitor, control, and adjust system parameters through a graphical interface. 
-                            HMIs can range from simple text displays to advanced touchscreens with animations, alarms, and data logging features. They play a key role in improving system visualization, operational efficiency, and troubleshooting in industrial automation."""
-    }
-
     def __init__(self, main: Ui_MainWindow):
         self.ui = main
         self.speaker = SpeakManager()
         self.speaker.connect_finished(self.on_speak_finished)
+        self.lang_manager = get_language_manager()
 
         self.ui.btn_IFM_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_IFM))
         self.ui.btn_step_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_lab_step))
@@ -72,3 +58,112 @@ class LabPage:
         self.enable_read_buttons()
         self.ui.stackedWidget.setCurrentWidget(widget1)
         self.ui.stackedWidget_2.setCurrentWidget(widget2)
+    
+    def set_language_manager(self, lang_manager):
+        self.lang_manager = lang_manager
+    
+    def update_language(self):
+        self.device_info = {
+            "btn_IFM_read": get_string(stringIds.LAB_DEVICE_IFM),
+            "btn_step_read": get_string(stringIds.LAB_DEVICE_STEP),
+            "btn_PLC_read": get_string(stringIds.LAB_DEVICE_PLC),
+            "btn_HMI_read": get_string(stringIds.LAB_DEVICE_HMI)
+        }
+        
+        if hasattr(self.ui, 'prompt_lab'):
+            self.ui.prompt_lab.setText(get_string(stringIds.LAB_PROMPT))
+        
+        if hasattr(self.ui, 'label_24'):
+            self.ui.label_24.setText(get_string(stringIds.LAB_SYSTEM_DIAGRAM))
+        if hasattr(self.ui, 'label_25'):
+            self.ui.label_25.setText(get_string(stringIds.LAB_SYSTEM_DIAGRAM))
+        
+        if hasattr(self.ui, 'label_15'):
+            self.ui.label_15.setText(get_string(stringIds.LAB_ABOUT_IFM))
+        if hasattr(self.ui, 'label_34'):
+            self.ui.label_34.setText(get_string(stringIds.LAB_ABOUT_PLC))
+        if hasattr(self.ui, 'label_27'):
+            self.ui.label_27.setText(get_string(stringIds.LAB_ABOUT_STEP))
+        if hasattr(self.ui, 'label_40'):
+            self.ui.label_40.setText(get_string(stringIds.LAB_ABOUT_HMI))
+        
+        if hasattr(self.ui, 'btn_IFM_read'):
+            self.ui.btn_IFM_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        if hasattr(self.ui, 'btn_PLC_read'):
+            self.ui.btn_PLC_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        if hasattr(self.ui, 'btn_step_read'):
+            self.ui.btn_step_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        if hasattr(self.ui, 'btn_HMI_read'):
+            self.ui.btn_HMI_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        
+        ifm_full_text = self.device_info["btn_IFM_read"]
+        if hasattr(self.ui, 'label_19'):
+            # First sentence/paragraph of IFM description
+            sentences = ifm_full_text.split('. ')
+            if len(sentences) > 0:
+                self.ui.label_19.setText(sentences[0] + ('.' if not sentences[0].endswith('.') else ''))
+        if hasattr(self.ui, 'label_17'):
+            # Second sentence/paragraph
+            sentences = ifm_full_text.split('. ')
+            if len(sentences) > 1:
+                self.ui.label_17.setText(sentences[1] + ('.' if not sentences[1].endswith('.') else ''))
+        if hasattr(self.ui, 'label_18'):
+            # Third sentence/paragraph
+            sentences = ifm_full_text.split('. ')
+            if len(sentences) > 2:
+                self.ui.label_18.setText(sentences[2] + ('.' if not sentences[2].endswith('.') else ''))
+        if hasattr(self.ui, 'label_20'):
+            # Last sentence/paragraph
+            sentences = ifm_full_text.split('. ')
+            if len(sentences) > 3:
+                self.ui.label_20.setText('. '.join(sentences[3:]))
+        
+        plc_full_text = self.device_info["btn_PLC_read"]
+        if hasattr(self.ui, 'label_35'):
+            sentences = plc_full_text.split('. ')
+            if len(sentences) > 0:
+                self.ui.label_35.setText(sentences[0] + ('.' if not sentences[0].endswith('.') else ''))
+        if hasattr(self.ui, 'label_36'):
+            sentences = plc_full_text.split('. ')
+            if len(sentences) > 1:
+                self.ui.label_36.setText(sentences[1] + ('.' if not sentences[1].endswith('.') else ''))
+        if hasattr(self.ui, 'label_37'):
+            sentences = plc_full_text.split('. ')
+            if len(sentences) > 2:
+                self.ui.label_37.setText('. '.join(sentences[2:]))
+        
+        step_full_text = self.device_info["btn_step_read"]
+        if hasattr(self.ui, 'label_28'):
+            sentences = step_full_text.split('. ')
+            if len(sentences) > 0:
+                self.ui.label_28.setText(sentences[0] + ('.' if not sentences[0].endswith('.') else ''))
+        if hasattr(self.ui, 'label_29'):
+            sentences = step_full_text.split('. ')
+            if len(sentences) > 1:
+                self.ui.label_29.setText(sentences[1] + ('.' if not sentences[1].endswith('.') else ''))
+        if hasattr(self.ui, 'label_30'):
+            sentences = step_full_text.split('. ')
+            if len(sentences) > 2:
+                self.ui.label_30.setText(sentences[2] + ('.' if not sentences[2].endswith('.') else ''))
+        if hasattr(self.ui, 'label_31'):
+            sentences = step_full_text.split('. ')
+            if len(sentences) > 3:
+                self.ui.label_31.setText('. '.join(sentences[3:]))
+        
+        hmi_full_text = self.device_info["btn_HMI_read"]
+        if hasattr(self.ui, 'label_41'):
+            sentences = hmi_full_text.split('. ')
+            if len(sentences) > 0:
+                self.ui.label_41.setText(sentences[0] + ('.' if not sentences[0].endswith('.') else ''))
+        if hasattr(self.ui, 'label_42'):
+            sentences = hmi_full_text.split('. ')
+            if len(sentences) > 1:
+                self.ui.label_42.setText(sentences[1] + ('.' if not sentences[1].endswith('.') else ''))
+        if hasattr(self.ui, 'label_43'):
+            sentences = hmi_full_text.split('. ')
+            if len(sentences) > 2:
+                self.ui.label_43.setText(sentences[2] + ('.' if not sentences[2].endswith('.') else ''))
+        if hasattr(self.ui, 'label_45'):
+            sentences = hmi_full_text.split('. ')
+            if len(sentences) > 3:
+                self.ui.label_45.setText('. '.join(sentences[3:]))

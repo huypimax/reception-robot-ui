@@ -3,28 +3,22 @@ from ui.widget_conf.ui_utils import SetStyleSheetForbtn, _animate_prompt
 from ui.main_ui import Ui_MainWindow
 from thread_speak import SpeakThread
 from thread_listen import ListenThread
-from thread_response import ResponseThread, get_weather, search_web
+from thread_response import ResponseThread
 from thread_welcome import WelcomeThread
-import google.genai as genai
-from google.genai import Client, types
 import os, json
 from queue import Queue
 from thread_speak import SpeakManager
-
-
-ASSISTANT_NAME = "AIko"
-conversation_history = [
-            {"role": "user", "parts": [{"text": "You are AIko, a friendly, concise receptionist assistant from Fablab HCMUT."}]},
-            {"role": "model", "parts": [{"text": "Got it! I'm AIko, nice to meet you."}]},
-]
-MODEL_NAME = "gemini-2.5-pro"
-ALL_TOOLS = [get_weather, search_web]
+from ai.response_graph import ResponseGraph
+from language_manager import get_language_manager, get_string
+import utilities.string_ids as stringIds
+import utilities.constants as constants
 
 class QnaPage:
     def __init__(self, main: Ui_MainWindow, initial_context):
         self.ui = main
         self.initial_context = initial_context
         self.speaker = SpeakManager()
+        self.lang_manager = get_language_manager()
 
         self.ui.btn_micro.clicked.connect(lambda: [self.listen(), self.ui.btn_home_qna.setEnabled(False)])
         self.ui.btn_home_qna.clicked.connect(lambda: [self.ui.stackedWidget.setCurrentWidget(self.ui.page_main)])
@@ -34,12 +28,11 @@ class QnaPage:
         with open(config_path, "r", encoding="utf-8") as f:
             config = json.load(f)
         self.api_key = config["gemini_api_key"]
-        self.client = Client(api_key=self.api_key)        
-        generation_config = types.GenerateContentConfig(tools=ALL_TOOLS)
-        self.global_chat_session = self.client.chats.create(
-            model=MODEL_NAME,
-            history=conversation_history, 
-            config=generation_config 
+        
+        self.response_graph = ResponseGraph(
+            api_key=self.api_key,
+            model_name=constants.MODEL_NAME,
+            initial_context=self.initial_context
         )
 
     def start_welcome(self):
@@ -50,7 +43,7 @@ class QnaPage:
 
     def listen(self):
         self.ui.btn_home_qna.setEnabled(False)
-        self.start_animate("I’m listening", self.ui.prompt_qna)
+        self.start_animate(get_string(stringIds.QNA_LISTENING), self.ui.prompt_qna)
         SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff")
         SetStyleSheetForbtn(self.ui, "btn_micro", "#69ff3d", hover_background="#69ff3d")
         self.listen_thread = ListenThread()
@@ -65,7 +58,13 @@ class QnaPage:
         self.ui.btn_micro.setEnabled(False)
 
         self.query = query
-        if self.query == "Are you still there?" or self.query == "Hmm, I didn't quite catch that. Could you please repeat?" or self.query == "Something went wrong while listening." or self.query == "Speech service is unavailable.":
+        error_messages = [
+            get_string(stringIds.ERROR_STILL_THERE),
+            get_string(stringIds.ERROR_LISTENING),
+            get_string(stringIds.ERROR_SOMETHING_WRONG),
+            get_string(stringIds.ERROR_SPEECH_UNAVAILABLE)
+        ]
+        if self.query in error_messages:
             print(f"AIko: {query}")
             self.ui.prompt_qna.setText(self.query)
             SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff", hover_background="#ffffff")
@@ -77,8 +76,12 @@ class QnaPage:
         else:
             self.query = query.lower()
             print(f"You: {self.query}")
-            self.response_thread = ResponseThread(self.query, chat_session=self.global_chat_session, initial_context=self.initial_context)
-            self.start_animate("I’m finding the best answer for you", self.ui.prompt_qna)
+            # Sử dụng ResponseGraph thay vì chat_session
+            self.response_thread = ResponseThread(
+                query=self.query, 
+                response_graph=self.response_graph
+            )
+            self.start_animate(get_string(stringIds.QNA_FINDING_ANSWER), self.ui.prompt_qna)
             SetStyleSheetForbtn(self.ui, "btn_micro", "#ffffff", hover_background="#ffffff")
             SetStyleSheetForbtn(self.ui, "btn_speaker", "#ffffff", hover_background="#ffffff")
 
@@ -112,3 +115,12 @@ class QnaPage:
         if hasattr(self, "stop_prompt") and self.stop_prompt:
             self.stop_prompt()
             self.stop_prompt = None
+    
+    def set_language_manager(self, lang_manager):
+        self.lang_manager = lang_manager
+    
+    def update_language(self):
+        if hasattr(self, 'response_graph'):
+            self.response_graph.reset_conversation()
+        
+        self.ui.prompt_qna.setText(get_string(stringIds.QNA_TAP_MICROPHONE))

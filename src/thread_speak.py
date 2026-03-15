@@ -8,6 +8,8 @@ import asyncio, os, uuid, tempfile
 from edge_tts import Communicate
 import pygame
 from mixer import play_audio, stop_audio
+from language_manager import get_language_manager
+import utilities.constants as constants
 
 class SpeakThread(QThread):
     finished_one = pyqtSignal(str)
@@ -17,6 +19,13 @@ class SpeakThread(QThread):
         self.queue = Queue()
         self.running = True
         self._stop_current = False
+    
+    def _get_tts_voice(self):
+        lang_manager = get_language_manager()
+        current_lang = lang_manager.get_current_language()
+        voice = constants.TTS_VOICES.get(current_lang, "en-US-GuyNeural")
+        print(f"TTS: Current language is '{current_lang}', selected voice is '{voice}'")
+        return voice
 
     def run(self):
         loop = asyncio.new_event_loop()
@@ -44,7 +53,8 @@ class SpeakThread(QThread):
 
         try:
             # tạo file mp3
-            comm = Communicate(text, voice="en-US-GuyNeural", rate="-10%")
+            voice = self._get_tts_voice()
+            comm = Communicate(text, voice=voice, rate="-10%")
             await comm.save(temp_path)
             # phát qua mixer toàn app
             play_audio(temp_path)

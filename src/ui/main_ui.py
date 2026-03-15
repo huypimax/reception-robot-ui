@@ -8,8 +8,15 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QPixmap
+
+import sys
+import os
 from ui.resources import resources_rc
 
+if __name__ == "__main__":
+    src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if src_dir not in sys.path:
+        sys.path.insert(0, src_dir)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -2180,61 +2187,82 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.prompt_main.setText(_translate("MainWindow", "What would you like me to do?"))
-        self.label_22.setText(_translate("MainWindow", "Lab info"))
-        self.label_2.setText(_translate("MainWindow", "How can I help?"))
-        self.label_5.setText(_translate("MainWindow", "Go somewhere"))
-        self.label_23.setText(_translate("MainWindow", "Start delivery"))
-        self.prompt_qna.setText(_translate("MainWindow", "Please press the microphone and speak your question."))
-        self.prompt_navi.setText(_translate("MainWindow", "Where do you want to go?"))
-        self.btn_room_b.setText(_translate("MainWindow", "Water Intake"))
-        self.btn_room_a.setText(_translate("MainWindow", "Restroom"))
-        self.btn_room_d.setText(_translate("MainWindow", "Robotics Lab"))
-        self.btn_room_e.setText(_translate("MainWindow", "Stairs"))
-        self.btn_room_c.setText(_translate("MainWindow", "Chemistry Hall"))
-        self.btn_room_f.setText(_translate("MainWindow", "Electrical Lab"))
-        self.prompt_lab.setText(_translate("MainWindow", "These are the lab devices you can explore. Tap on a kit to see more details."))
-        self.label_24.setText(_translate("MainWindow", "System Diagram"))
-        self.label_15.setText(_translate("MainWindow", "About Kit Vali IFM"))
-        self.label_19.setText(_translate("MainWindow", "This training kit demonstrates an industrial automation system using IO-Link communication and PROFINET connectivity integrated with a PLC. The setup includes an IO-Link Master (AL1102) connected to multiple IO-Link devices such as sensors (KT5112, O5C500, TW2000, IF6153, UGT524, RB3100) and I/O modules (AL2401 DI and AL2330 DO)."))
-        self.label_17.setText(_translate("MainWindow", "Power is supplied through a 24V DC power module (DN4012) with a Y-splitter (EBC113) for distribution."))
-        self.label_18.setText(_translate("MainWindow", "The digital outputs control an Omron G2R1-SN relay, light indicators, and an RS775 DC motor, allowing the system to perform monitoring and actuation tasks."))
-        self.label_20.setText(_translate("MainWindow", "This kit provides a complete demonstration of sensor integration, signal processing, and control via industrial communication networks, making it ideal for training and automation experiments."))
-        self.btn_IFM_read.setText(_translate("MainWindow", "Read Aloud"))
-        self.label_34.setText(_translate("MainWindow", "About PLC"))
-        self.label_35.setText(_translate("MainWindow", "A Programmable Logic Controller (PLC) is an industrial digital computer designed to control and automate machines, production lines, or processes."))
-        self.label_36.setText(_translate("MainWindow", "It continuously monitors input signals from sensors, processes them according to a user-defined program, and generates output signals to actuators such as motors, relays, and indicators."))
-        self.label_37.setText(_translate("MainWindow", "PLC systems are widely used because of their reliability, flexibility, real-time operation, and ease of programming."))
-        self.btn_PLC_read.setText(_translate("MainWindow", "Read Aloud"))
-        self.label_25.setText(_translate("MainWindow", "System Diagram"))
-        self.label_27.setText(_translate("MainWindow", "About Kit Vali Step motor control"))
-        self.label_28.setText(_translate("MainWindow", "This training kit demonstrates a motion control system using Siemens PLC S7-1200 with PROFINET communication."))
-        self.label_29.setText(_translate("MainWindow", "The setup includes a Master PLC and a Slave PLC connected through an Ethernet hub, with an HMI for monitoring and control. The PLC sends control signals to a TB6600 stepper motor driver, which drives a stepper motor coupled to a lead screw shaft for linear motion."))
-        self.label_30.setText(_translate("MainWindow", "A signal encoder provides A, B, Z feedback signals for position monitoring, enabling precise closed-loop control and synchronization between the PLCs."))
-        self.label_31.setText(_translate("MainWindow", "This kit is ideal for studying PLC-based motion control, PROFINET communication, and encoder feedback integration in industrial automation."))
-        self.btn_step_read.setText(_translate("MainWindow", "Read Aloud"))
-        self.label_40.setText(_translate("MainWindow", "About HMI"))
-        self.label_41.setText(_translate("MainWindow", "A Human Machine Interface (HMI) is a device or software platform that allows operators to interact with machines, systems, or processes."))
-        self.label_42.setText(_translate("MainWindow", "It displays real-time data from the controller (such as a PLC) and enables users to monitor, control, and adjust system parameters through a graphical interface."))
-        self.label_43.setText(_translate("MainWindow", "HMIs can range from simple text displays to advanced touchscreens with animations, alarms, and data logging features."))
-        self.label_45.setText(_translate("MainWindow", "They play a key role in improving system visualization, operational efficiency, and troubleshooting in industrial automation."))
-        self.btn_HMI_read.setText(_translate("MainWindow", "Read Aloud"))
-        self.prompt_deli.setText(_translate("MainWindow", "Let’s get your delivery ready! Please fill in the form and tap \'Start delivery\' when done."))
-        self.label_9.setText(_translate("MainWindow", "DELIVERY FORM"))
-        self.start_deli_btn.setText(_translate("MainWindow", "Start delivery"))
-        self.deli_combobox.setCurrentText(_translate("MainWindow", " Choose a destination"))
-        self.deli_combobox.setItemText(0, _translate("MainWindow", " Choose a destination"))
-        self.deli_combobox.setItemText(1, _translate("MainWindow", " Robotics Lab"))
-        self.deli_combobox.setItemText(2, _translate("MainWindow", " Electrical Lab "))
-        self.deli_combobox.setItemText(3, _translate("MainWindow", " Chemistry Hall"))
-        self.deli_combobox.setItemText(4, _translate("MainWindow", " Water Intake"))
-        self.deli_combobox.setItemText(5, _translate("MainWindow", " Restroom"))
-        self.deli_combobox.setItemText(6, _translate("MainWindow", " Stairs"))
-        self.label_12.setText(_translate("MainWindow", "Destination:"))
-        self.label_11.setText(_translate("MainWindow", "Item:"))
-        self.label_13.setText(_translate("MainWindow", "Receiver name:"))
-        self.label_10.setText(_translate("MainWindow", "Sender name:"))
-        self.label_14.setText(_translate("MainWindow", "Note:"))
-        self.prompt_checkin.setText(_translate("MainWindow", "Please tap your card on the scanner at the bottom right corner"))
+        # Import language manager functions
+        try:
+            import sys
+            import os
+            # Add src to path if needed
+            if __name__ == "__main__":
+                src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                if src_dir not in sys.path:
+                    sys.path.insert(0, src_dir)
+            from language_manager import get_string
+            import utilities.string_ids as stringIds
+        except ImportError:
+            # Fallback to hardcoded English if language manager is not available
+            _translate = QtCore.QCoreApplication.translate
+            MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+            return
+        
+        # Use language manager for all text
+        MainWindow.setWindowTitle("Robot HRI")
+        self.prompt_main.setText(get_string(stringIds.MAIN_TITLE))
+        self.label_22.setText(get_string(stringIds.MAIN_LAB))
+        self.label_2.setText(get_string(stringIds.MAIN_QNA))
+        self.label_5.setText(get_string(stringIds.MAIN_NAVIGATION))
+        self.label_23.setText(get_string(stringIds.MAIN_DELIVERY))
+        self.prompt_qna.setText(get_string(stringIds.QNA_TAP_MICROPHONE))
+        self.prompt_navi.setText(get_string(stringIds.NAV_WHERE_TO_GO))
+        
+        # Room buttons - these use constants, so we'll keep them as is for now
+        # (They should be updated in NaviPage.update_language() if needed)
+        
+        self.prompt_lab.setText(get_string(stringIds.LAB_PROMPT))
+        self.label_24.setText(get_string(stringIds.LAB_SYSTEM_DIAGRAM))
+        self.label_15.setText(get_string(stringIds.LAB_ABOUT_IFM))
+        
+        # IFM description labels - will be updated by LabPage.update_language()
+        # Keeping structure but will be overridden by page update methods
+        
+        self.btn_IFM_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        self.label_34.setText(get_string(stringIds.LAB_ABOUT_PLC))
+        
+        # PLC description labels - will be updated by LabPage.update_language()
+        
+        self.btn_PLC_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        self.label_25.setText(get_string(stringIds.LAB_SYSTEM_DIAGRAM))
+        self.label_27.setText(get_string(stringIds.LAB_ABOUT_STEP))
+        
+        # Step motor description labels - will be updated by LabPage.update_language()
+        
+        self.btn_step_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        self.label_40.setText(get_string(stringIds.LAB_ABOUT_HMI))
+        
+        # HMI description labels - will be updated by LabPage.update_language()
+        
+        self.btn_HMI_read.setText(get_string(stringIds.LAB_READ_ALOUD))
+        self.prompt_deli.setText(get_string(stringIds.DELI_GET_READY))
+        self.label_9.setText(get_string(stringIds.DELI_FORM_TITLE))
+        self.start_deli_btn.setText(get_string(stringIds.DELI_START_DELIVERY))
+        
+        # Delivery combobox items
+        placeholder = get_string(stringIds.DELI_CHOOSE_DESTINATION)
+        self.deli_combobox.setCurrentText(placeholder)
+        self.deli_combobox.setItemText(0, placeholder)
+        # Room names in combobox - these should match the room constants
+        # They will be updated by DeliPage.update_language() if needed
+        
+        self.label_12.setText(get_string(stringIds.DELI_DESTINATION))
+        self.label_11.setText(get_string(stringIds.DELI_ITEM_LABEL))
+        self.label_13.setText(get_string(stringIds.DELI_RECEIVER_LABEL))
+        self.label_10.setText(get_string(stringIds.DELI_SENDER_LABEL))
+        self.label_14.setText(get_string(stringIds.DELI_NOTE_LABEL))
+        
+        # Check-in prompt - using a default for now since it's not in language files yet
+        # This can be added to language files later if needed
+        try:
+            checkin_text = get_string("checkin_prompt", default="Please tap your card on the scanner at the bottom right corner")
+            self.prompt_checkin.setText(checkin_text)
+        except:
+            # Fallback if get_string fails
+            self.prompt_checkin.setText("Please tap your card on the scanner at the bottom right corner")

@@ -1,38 +1,48 @@
 from PyQt6.QtCore import QThread, pyqtSignal
 import asyncio
 import speech_recognition as sr
+from language_manager import get_language_manager, get_string
+import utilities.constants as constants
+import utilities.string_ids as stringIds
 
 class ListenThread(QThread):
     finished = pyqtSignal(str)
     def __init__(self):
         super().__init__()
 
+    def _get_speech_language_code(self):
+        lang_manager = get_language_manager()
+        current_lang = lang_manager.get_current_language()
+        return constants.SPEECH_RECOGNITION_LANGUAGES.get(current_lang, "vi-VN")
+
     def run(self):
         self.r = sr.Recognizer()
+        speech_lang = self._get_speech_language_code()
+        
         with sr.Microphone() as source:
             print("🎤 Calibrating noise (1.0s)...")
             self.r.adjust_for_ambient_noise(source, duration=0.5)
             print("🎤 Listening...")
             try:
                 self.audio = self.r.listen(source, timeout=6, phrase_time_limit=12)
-                self.query = self.r.recognize_google(self.audio, language="en-US")
+                self.query = self.r.recognize_google(self.audio, language=speech_lang)
                 print("You:", self.query)
                 self.finished.emit(self.query)
                 return
             except sr.UnknownValueError:
-                self.finished.emit("Hmm, I didn't quite catch that. Could you please repeat?")
+                self.finished.emit(get_string(stringIds.ERROR_LISTENING))
                 return
             except sr.RequestError:
-                self.finished.emit("Speech service is unavailable.")
+                self.finished.emit(get_string(stringIds.ERROR_SPEECH_UNAVAILABLE))
                 return
             except sr.WaitTimeoutError:
-                self.finished.emit("Are you still there?")
+                self.finished.emit(get_string(stringIds.ERROR_STILL_THERE))
                 return
             except Exception as e:
                 print("🎤 Error:", e)
-                self.finished.emit("Something went wrong while listening.")
+                self.finished.emit(get_string(stringIds.ERROR_SOMETHING_WRONG))
                 return
-        self.finished.emit("Speech service is unavailable.")
+        self.finished.emit(get_string(stringIds.ERROR_SPEECH_UNAVAILABLE))
         return
 
 # from PyQt6.QtCore import QThread, pyqtSignal
