@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RobotHri.Controls.NavRoomButton">
+
+    <Border x:Name="RoomBorder"
+            BackgroundColor="White"
+            StrokeShape="RoundRectangle 20"
+            Stroke="{StaticResource PrimaryDarkBlue}"
+            StrokeThickness="2"
+            Padding="12,10"
+            MinimumWidthRequest="160"
+            MinimumHeightRequest="65">
+        <Border.Shadow>
+            <Shadow Brush="#20000000"
+                    Offset="0,3"
+                    Radius="6"
+                    Opacity="0.3" />
+        </Border.Shadow>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer x:Name="RoomTap" />
+        </Border.GestureRecognizers>
+
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="4">
+            <Image x:Name="RoomIcon"
+                   HeightRequest="26"
+                   WidthRequest="26"
+                   HorizontalOptions="Center"
+                   IsVisible="False" />
+            <Label x:Name="RoomLabel"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="{StaticResource PrimaryDarkBlue}"
+                   FontFamily="RobotoBold"
+                   FontSize="15" />
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

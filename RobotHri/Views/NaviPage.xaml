@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:RobotHri.Controls.Base"
+    xmlns:c="clr-namespace:RobotHri.Controls"
+    xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    x:Class="RobotHri.Views.NaviPage"
+    x:DataType="vm:NaviViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          BackgroundColor="{StaticResource PageBackground}">
+
+        <!-- Header -->
+        <c:HeaderLayout Grid.Row="0"
+                        x:Name="Header"
+                        Title="{Binding TitleText}"
+                        BackText="{Binding HomeText}"
+                        ShowBackButton="True"
+                        LanguageLabelText="{Binding LanguageLabel}" />
+
+        <!-- Prompt bar -->
+        <c:PromptLabel Grid.Row="1"
+                       Text="{Binding PromptText}"
+                       Margin="24,16,24,0" />
+
+        <!-- Room buttons grid -->
+        <ScrollView Grid.Row="2">
+            <Grid ColumnDefinitions="*,*,*"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="14"
+                  RowSpacing="14"
+                  Padding="24,20">
+
+                <!-- Row 0 -->
+                <c:NavRoomButton Grid.Row="0" Grid.Column="0"
+                                 RoomName="{Binding RoomWaterIntake}"
+                                 RoomKey="btn_room_a"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_a'}"
+                                 RoomSelected="OnRoomSelected" />
+
+                <c:NavRoomButton Grid.Row="0" Grid.Column="1"
+                                 RoomName="{Binding RoomChemistryHall}"
+                                 RoomKey="btn_room_b"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_b'}"
+                                 RoomSelected="OnRoomSelected" />
+
+                <c:NavRoomButton Grid.Row="0" Grid.Column="2"
+                                 RoomName="{Binding RoomRestroom}"
+                                 RoomKey="btn_room_c"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_c'}"
+                                 RoomSelected="OnRoomSelected" />
+
+                <!-- Row 1 -->
+                <c:NavRoomButton Grid.Row="1" Grid.Column="0"
+                                 RoomName="{Binding RoomStairs}"
+                                 RoomKey="btn_room_d"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_d'}"
+                                 RoomSelected="OnRoomSelected" />
+
+                <c:NavRoomButton Grid.Row="1" Grid.Column="1"
+                                 RoomName="{Binding RoomRoboticsLab}"
+                                 RoomKey="btn_room_e"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_e'}"
+                                 RoomSelected="OnRoomSelected" />
+
+                <c:NavRoomButton Grid.Row="1" Grid.Column="2"
+                                 RoomName="{Binding RoomElectricalLab}"
+                                 RoomKey="btn_room_f"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_f'}"
+                                 RoomSelected="OnRoomSelected" />
+            </Grid>
+        </ScrollView>
+    </Grid>
+</controls:BaseContentPage>

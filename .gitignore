@@ -186,23 +186,103 @@ cython_debug/
 # Learn more at https://abstra.io/docs
 .abstra/
 
-# Visual Studio Code
-#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
-#  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
-#  you could uncomment the following to ignore the entire vscode folder
-# .vscode/
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.DotSettings.user
+_ReSharper*/
+*.DotSettings.user
 
-# Ruff stuff:
-.ruff_cache/
+# Build output
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+project.lock.json
+project.assets.json
+artifacts/
+TestResults/
+*.nupkg
+*.nuspec
 
-# PyPI configuration file
-.pypirc
+# NuGet caches/folders
+.nuget/
+packages/
 
-# Marimo
-marimo/_static/
-marimo/_lsp/
-__marimo__/
+# .NET Core / SDK / Publish
+publish/
+publish_profiles/
+PublishProfiles/
+*.dll
+*.exe
+*.app
+*.msi
 
-# Streamlit
-.streamlit/secrets.toml
+# MAUI / Xamarin / mobile artifacts
+*.apk
+*.apks
+*.aab
+*.xap
+*.appx
+*.appxbundle
+**/Platforms/Android/bin/
+**/Platforms/Android/obj/
+**/Platforms/iOS/bin/
+**/Platforms/iOS/obj/
+**/Platforms/Windows/bin/
+**/Platforms/Windows/obj/
+**/bin/
+**/obj/
+
+# Android Studio / Gradle
+.gradle/
+local.properties
+**/build/
+
+# Rider / JetBrains caches
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# User-specific and OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test coverage
+coverage/
+*.coverage
+*.coveragexml
+*.trx
+
+# Secrets / sensitive files
+secrets.json
+appsettings.*.Local.json
+local.settings.json
+*.pfx
+*.key
+*.pem
+
+# Logs
+*.log
+
+# Misc
+Generated/
+.vsconfig
+
+# Ignore project build outputs (project-specific)
+RobotHri/bin/
+RobotHri/obj/
+
+# More specific MAUI/.NET 9 rid outputs (optional, redundant if above present)
+RobotHri/bin/Debug/
+RobotHri/obj/Debug/
+RobotHri/**/net9.0-windows*/
+RobotHri/**/win10-*/

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RobotHri.Controls.RobotButton">
+
+    <Border x:Name="ButtonBorder"
+            BackgroundColor="{StaticResource PrimaryDarkBlue}"
+            StrokeShape="RoundRectangle 30"
+            Stroke="Transparent"
+            Padding="0"
+            MinimumWidthRequest="120"
+            MinimumHeightRequest="50">
+
+        <Border.Shadow>
+            <Shadow Brush="#40000000"
+                    Offset="0,4"
+                    Radius="8"
+                    Opacity="0.4" />
+        </Border.Shadow>
+
+        <Grid>
+            <!-- Icon (optional) -->
+            <Image x:Name="ButtonIcon"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Margin="16,0,0,0"
+                   WidthRequest="28"
+                   HeightRequest="28"
+                   IsVisible="False" />
+
+            <!-- Label -->
+            <Label x:Name="ButtonLabel"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="White"
+                   FontFamily="RobotoBold"
+                   FontSize="16"
+                   HorizontalTextAlignment="Center"
+                   Padding="16,0" />
+        </Grid>
+    </Border>
+</ContentView>

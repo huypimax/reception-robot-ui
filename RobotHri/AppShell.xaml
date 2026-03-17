@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:RobotHri.Views"
+       x:Class="RobotHri.AppShell"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarIsVisible="False">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Shell" ApplyToDerivedTypes="True">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryDarkBlue}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.NavBarHasShadow" Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Title="Main" Route="main">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+
+        <Tab Title="Q&amp;A" Route="qna">
+            <ShellContent ContentTemplate="{DataTemplate views:QnaPage}" />
+        </Tab>
+
+        <Tab Title="Navigation" Route="navi">
+            <ShellContent ContentTemplate="{DataTemplate views:NaviPage}" />
+        </Tab>
+
+        <Tab Title="Lab" Route="lab">
+            <ShellContent ContentTemplate="{DataTemplate views:LabPage}" />
+        </Tab>
+
+        <Tab Title="Delivery" Route="deli">
+            <ShellContent ContentTemplate="{DataTemplate views:DeliPage}" />
+        </Tab>
+
+    </FlyoutItem>
+</Shell>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:RobotHri.Controls.Base"
+    xmlns:c="clr-namespace:RobotHri.Controls"
+    xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    x:Class="RobotHri.Views.LabPage"
+    x:DataType="vm:LabViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*"
+          BackgroundColor="{StaticResource PageBackground}">
+
+        <!-- ── Header ── -->
+        <c:HeaderLayout Grid.Row="0"
+                        x:Name="Header"
+                        Title="{Binding TitleText}"
+                        BackText="{Binding HomeText}"
+                        ShowBackButton="true"
+                        LanguageLabelText="{Binding LanguageLabel}" />
+
+        <!-- ══════════════════════════════════════════════════════
+             DEVICE LIST VIEW (main screen)
+        ════════════════════════════════════════════════════════ -->
+        <ScrollView Grid.Row="1"
+                    IsVisible="{Binding IsDetailVisible, Converter={x:Static vm:InverseBoolConverter.Instance}}">
+            <VerticalStackLayout Spacing="16" Padding="20,16">
+
+                <c:PromptLabel Text="{Binding PromptText}" />
+
+                <!-- IFM Card: image left, text right -->
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectDeviceCommand}" CommandParameter="ifm" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="140,*" HeightRequest="110">
+                        <Image Grid.Column="0"
+                               Source="lab_ifm.png"
+                               Aspect="AspectFill"
+                               Clip="{OnPlatform Default={x:Null}, iOS='RoundRectangleGeometry 20,0,0,20'}" />
+                        <VerticalStackLayout Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Padding="16,12">
+                            <Label Text="{Binding DeviceIfmLabel}"
+                                   Style="{StaticResource TitleLabel}"
+                                   FontSize="16" />
+                            <Label Text="IO-Link · PROFINET · PLC"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   FontSize="12"
+                                   Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- PLC Card -->
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectDeviceCommand}" CommandParameter="plc" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="140,*" HeightRequest="110">
+                        <Image Grid.Column="0"
+                               Source="lab_plc.png"
+                               Aspect="AspectFill" />
+                        <VerticalStackLayout Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Padding="16,12">
+                            <Label Text="{Binding DevicePlcLabel}"
+                                   Style="{StaticResource TitleLabel}"
+                                   FontSize="16" />
+                            <Label Text="Siemens S7 · Automation"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   FontSize="12"
+                                   Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Step Motor Card -->
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectDeviceCommand}" CommandParameter="step" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="140,*" HeightRequest="110">
+                        <Image Grid.Column="0"
+                               Source="lab_step.png"
+                               Aspect="AspectFill" />
+                        <VerticalStackLayout Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Padding="16,12">
+                            <Label Text="{Binding DeviceStepLabel}"
+                                   Style="{StaticResource TitleLabel}"
+                                   FontSize="16" />
+                            <Label Text="TB6600 · Lead Screw · Encoder"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   FontSize="12"
+                                   Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- HMI Card -->
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectDeviceCommand}" CommandParameter="hmi" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="140,*" HeightRequest="110">
+                        <Image Grid.Column="0"
+                               Source="lab_hmi.png"
+                               Aspect="AspectFill" />
+                        <VerticalStackLayout Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Padding="16,12">
+                            <Label Text="{Binding DeviceHmiLabel}"
+                                   Style="{StaticResource TitleLabel}"
+                                   FontSize="16" />
+                            <Label Text="Touchscreen · SCADA · Alarms"
+                                   Style="{StaticResource SubtitleLabel}"
+                                   FontSize="12"
+                                   Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ══════════════════════════════════════════════════════
+             DEVICE DETAIL VIEW  (image LEFT, description RIGHT)
+        ════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="2*,3*"
+              IsVisible="{Binding IsDetailVisible}"
+              Padding="16,12,16,12">
+
+            <!-- ── Left column: device image ── -->
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardBorder}"
+                    Padding="0"
+                    Margin="0,0,8,0">
+                <Image Source="{Binding DeviceImageSource}"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Margin="12" />
+            </Border>
+
+            <!-- ── Right column: title + scrollable description + buttons ── -->
+            <Grid Grid.Column="1"
+                  RowDefinitions="Auto,*,Auto"
+                  Margin="8,0,0,0">
+
+                <!-- Device title -->
+                <Label Grid.Row="0"
+                       Text="{Binding DeviceTitle}"
+                       Style="{StaticResource TitleLabel}"
+                       FontSize="20"
+                       Margin="0,0,0,10" />
+
+                <!-- Scrollable description -->
+                <ScrollView Grid.Row="1">
+                    <Border Style="{StaticResource CardBorder}">
+                        <Label Text="{Binding DeviceDescription}"
+                               Style="{StaticResource BodyLabel}"
+                               FontSize="14"
+                               LineHeight="1.5" />
+                    </Border>
+                </ScrollView>
+
+                <!-- Action buttons -->
+                <Grid Grid.Row="2"
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="12"
+                      Margin="0,12,0,0">
+                    <c:RobotButton Grid.Column="0"
+                                   Text="{Binding ReadAloudText}"
+                                   Command="{Binding ReadAloudCommand}"
+                                   ButtonStyle="Primary"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center"
+                                   HeightRequest="52" />
+                    <c:RobotButton Grid.Column="1"
+                                   Text="{Binding BackText}"
+                                   Command="{Binding BackCommand}"
+                                   ButtonStyle="Secondary"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center"
+                                   HeightRequest="52" />
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</controls:BaseContentPage>

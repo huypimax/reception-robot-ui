@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:RobotHri.Controls.Base"
+    xmlns:c="clr-namespace:RobotHri.Controls"
+    xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    x:Class="RobotHri.Views.DeliPage"
+    x:DataType="vm:DeliViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          BackgroundColor="{StaticResource PageBackground}">
+
+        <!-- Header -->
+        <c:HeaderLayout Grid.Row="0"
+                        x:Name="Header"
+                        Title="{Binding TitleText}"
+                        BackText="{Binding HomeText}"
+                        ShowBackButton="True"
+                        LanguageLabelText="{Binding LanguageLabel}" />
+
+        <!-- Prompt -->
+        <c:PromptLabel Grid.Row="1"
+                       Text="{Binding PromptText}"
+                       Margin="24,16,24,0" />
+
+        <!-- Delivery form -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="24,16" Spacing="0">
+
+                <!-- Card -->
+                <Border Style="{StaticResource CardBorder}"
+                        Margin="0,8,0,16">
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- Form title -->
+                        <Label Text="{Binding FormTitle}"
+                               Style="{StaticResource TitleLabel}"
+                               FontSize="18"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,20" />
+
+                        <!-- Destination picker -->
+                        <Label Text="{Binding DestinationLabel}"
+                               Style="{StaticResource SubtitleLabel}"
+                               Margin="0,0,0,4" />
+                        <Border Style="{StaticResource FormFieldBorder}"
+                                Margin="0,0,0,14"
+                                IsEnabled="{Binding IsFormEnabled}">
+                            <Picker Title="{Binding ChooseDestinationText}"
+                                    ItemsSource="{Binding Destinations}"
+                                    SelectedItem="{Binding SelectedDestinationItem}"
+                                    Style="{StaticResource FormPicker}" />
+                        </Border>
+
+                        <!-- Item -->
+                        <Label Text="{Binding ItemLabel}"
+                               Style="{StaticResource SubtitleLabel}"
+                               Margin="0,0,0,4" />
+                        <Border Style="{StaticResource FormFieldBorder}"
+                                Margin="0,0,0,14"
+                                IsEnabled="{Binding IsFormEnabled}">
+                            <Entry Text="{Binding Item}"
+                                   Style="{StaticResource FormEntry}"
+                                   Placeholder="..." />
+                        </Border>
+
+                        <!-- Sender -->
+                        <Label Text="{Binding SenderLabel}"
+                               Style="{StaticResource SubtitleLabel}"
+                               Margin="0,0,0,4" />
+                        <Border Style="{StaticResource FormFieldBorder}"
+                                Margin="0,0,0,14"
+                                IsEnabled="{Binding IsFormEnabled}">
+                            <Entry Text="{Binding SenderName}"
+                                   Style="{StaticResource FormEntry}"
+                                   Placeholder="..." />
+                        </Border>
+
+                        <!-- Receiver -->
+                        <Label Text="{Binding ReceiverLabel}"
+                               Style="{StaticResource SubtitleLabel}"
+                               Margin="0,0,0,4" />
+                        <Border Style="{StaticResource FormFieldBorder}"
+                                Margin="0,0,0,14"
+                                IsEnabled="{Binding IsFormEnabled}">
+                            <Entry Text="{Binding ReceiverName}"
+                                   Style="{StaticResource FormEntry}"
+                                   Placeholder="..." />
+                        </Border>
+
+                        <!-- Note -->
+                        <Label Text="{Binding NoteLabel}"
+                               Style="{StaticResource SubtitleLabel}"
+                               Margin="0,0,0,4" />
+                        <Border Style="{StaticResource FormFieldBorder}"
+                                Margin="0,0,0,20"
+                                IsEnabled="{Binding IsFormEnabled}">
+                            <Entry Text="{Binding Note}"
+                                   Style="{StaticResource FormEntry}"
+                                   Placeholder="..." />
+                        </Border>
+
+                        <!-- Action buttons -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <!-- Received (only during delivery) -->
+                            <c:RobotButton Grid.Column="0"
+                                           Text="{Binding ReceivedText}"
+                                           Command="{Binding ReceivedCommand}"
+                                           ButtonStyle="Secondary"
+                                           HeightRequest="52"
+                                           IsVisible="{Binding IsDelivering}"
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center">
+                                <c:RobotButton.Triggers>
+                                    <!-- When delivering (other button hidden) span both columns -->
+                                    <DataTrigger TargetType="c:RobotButton"
+                                                 Binding="{Binding IsDelivering}"
+                                                 Value="True">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.ColumnSpan" Value="2" />
+                                    </DataTrigger>
+                                    <!-- When not delivering keep it in first column -->
+                                    <DataTrigger TargetType="c:RobotButton"
+                                                 Binding="{Binding IsDelivering}"
+                                                 Value="False">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.ColumnSpan" Value="1" />
+                                    </DataTrigger>
+                                </c:RobotButton.Triggers>
+                            </c:RobotButton>
+
+                            <!-- Start delivery -->
+                            <c:RobotButton Grid.Column="1"
+                                           Text="{Binding StartDeliveryText}"
+                                           Command="{Binding StartDeliveryCommand}"
+                                           ButtonStyle="Primary"
+                                           HeightRequest="52"
+                                           IsVisible="{Binding IsDelivering, Converter={x:Static vm:InverseBoolConverter.Instance}}"
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center">
+                                <c:RobotButton.Triggers>
+                                    <!-- When not delivering (other button hidden) span both columns -->
+                                    <DataTrigger TargetType="c:RobotButton"
+                                                 Binding="{Binding IsDelivering}"
+                                                 Value="False">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.ColumnSpan" Value="2" />
+                                    </DataTrigger>
+                                    <!-- When delivering keep it in second column -->
+                                    <DataTrigger TargetType="c:RobotButton"
+                                                 Binding="{Binding IsDelivering}"
+                                                 Value="True">
+                                        <Setter Property="Grid.Column" Value="1" />
+                                        <Setter Property="Grid.ColumnSpan" Value="1" />
+                                    </DataTrigger>
+                                </c:RobotButton.Triggers>
+                            </c:RobotButton>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</controls:BaseContentPage>

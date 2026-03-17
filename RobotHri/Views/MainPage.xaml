@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:RobotHri.Controls.Base"
+    xmlns:c="clr-namespace:RobotHri.Controls"
+    xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    x:Class="RobotHri.Views.MainPage"
+    x:DataType="vm:MainViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto"
+          BackgroundColor="{StaticResource PageBackground}">
+
+        <!-- ── Header ── -->
+        <c:HeaderLayout Grid.Row="0"
+                        x:Name="Header"
+                        Title="{Binding TitleText}"
+                        LanguageLabelText="{Binding LanguageLabel}"
+                        ShowBackButton="False" />
+
+        <!-- ── Welcome banner ── -->
+        <Border Grid.Row="1"
+                Style="{StaticResource CardBorder}"
+                Margin="20,14,20,0">
+            <Grid ColumnDefinitions="Auto,*" Padding="4,0">
+                <Label Grid.Column="0"
+                       Text="🤖"
+                       FontSize="48"
+                       VerticalOptions="Center"
+                       Margin="0,0,16,0" />
+                <Label Grid.Column="1"
+                       Text="{Binding WelcomeText}"
+                       Style="{StaticResource SubtitleLabel}"
+                       FontSize="17"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Start" />
+            </Grid>
+        </Border>
+
+        <!-- ── Navigation cards grid ── -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*"
+              RowDefinitions="*,*"
+              ColumnSpacing="14"
+              RowSpacing="14"
+              Padding="20,14,20,0">
+
+            <!-- Q&A -->
+            <Border Grid.Row="0" Grid.Column="0"
+                    Style="{StaticResource CardBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateQnaCommand}" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="10"
+                                     Padding="12">
+                    <Label Text="🎤"
+                           FontSize="44"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding BtnQna}"
+                           Style="{StaticResource TitleLabel}"
+                           FontSize="17"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Navigation -->
+            <Border Grid.Row="0" Grid.Column="1"
+                    Style="{StaticResource CardBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateNaviCommand}" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="10"
+                                     Padding="12">
+                    <Label Text="🗺️"
+                           FontSize="44"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding BtnNavigation}"
+                           Style="{StaticResource TitleLabel}"
+                           FontSize="17"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Lab -->
+            <Border Grid.Row="1" Grid.Column="0"
+                    Style="{StaticResource CardBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateLabCommand}" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="10"
+                                     Padding="12">
+                    <Label Text="🔬"
+                           FontSize="44"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding BtnLab}"
+                           Style="{StaticResource TitleLabel}"
+                           FontSize="17"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Delivery -->
+            <Border Grid.Row="1" Grid.Column="1"
+                    Style="{StaticResource CardBorder}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateDeliCommand}" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="10"
+                                     Padding="12">
+                    <Label Text="📦"
+                           FontSize="44"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding BtnDelivery}"
+                           Style="{StaticResource TitleLabel}"
+                           FontSize="17"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+
+        <!-- ── Check-in + footer ── -->
+        <VerticalStackLayout Grid.Row="3" Padding="20,14,20,16" Spacing="10">
+            <c:RobotButton Text="{Binding BtnCheckin}"
+                           ButtonStyle="Secondary"
+                           Command="{Binding NavigateCheckinCommand}"
+                           HeightRequest="56"
+                           HorizontalOptions="FillAndExpand" />
+            <Label Text="Fablab @ HCMUT  •  AIko v2.0"
+                   Style="{StaticResource SubtitleLabel}"
+                   FontSize="12"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+    </Grid>
+</controls:BaseContentPage>
