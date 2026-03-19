@@ -116,8 +116,9 @@ namespace RobotHri.Services
                 // Wait for completion or cancellation
                 using var reg = _sttCts.Token.Register(() =>
                 {
-                    _speechToText.RecognitionResultCompleted -= (EventHandler<SpeechToTextRecognitionResultCompletedEventArgs>)OnResultCompleted;
-                    _speechToText.RecognitionResultUpdated -= (EventHandler<SpeechToTextRecognitionResultUpdatedEventArgs>)OnResultUpdated;
+                    // remove handlers using the same method groups we attached earlier
+                    _speechToText.RecognitionResultCompleted -= OnResultCompleted;
+                    _speechToText.RecognitionResultUpdated -= OnResultUpdated;
                     tcs.TrySetCanceled();
                 });
 
@@ -145,22 +146,10 @@ namespace RobotHri.Services
                 var fullCode = AppConstants.SpeechLanguages.TryGetValue(languageCode, out var lc)
                     ? lc : "vi-VN";
 
-                var parts = fullCode.Split('-');
-                string lang = parts[0];
-                string country = parts.Length > 1 ? parts[1] : string.Empty;
-
-                // 1. Exact BCP-47 match: language + country (e.g. "vi" + "VN")
                 var exact = locales.FirstOrDefault(l =>
-                    string.Equals(l.Language, lang, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(l.Country, country, StringComparison.OrdinalIgnoreCase));
+                    string.Equals(l.Language, fullCode, StringComparison.OrdinalIgnoreCase));
                 if (exact != null) return exact;
 
-                // 2. Language prefix match (e.g. any "vi-*" locale)
-                var prefix = locales.FirstOrDefault(l =>
-                    string.Equals(l.Language, lang, StringComparison.OrdinalIgnoreCase));
-                if (prefix != null) return prefix;
-
-                // 3. Null → MAUI will use platform default
                 return null;
             }
             catch { return null; }
