@@ -5,28 +5,32 @@
 
     <Border x:Name="RoomBorder"
             BackgroundColor="White"
-            StrokeShape="RoundRectangle 20"
             Stroke="{StaticResource PrimaryDarkBlue}"
-            StrokeThickness="2"
-            Padding="12,10"
-            MinimumWidthRequest="160"
-            MinimumHeightRequest="65">
+            StrokeThickness="{StaticResource NavRoomStrokeThickness}"
+            Padding="{StaticResource NavRoomPadding}"
+            MinimumWidthRequest="{StaticResource NavRoomMinWidth}"
+            MinimumHeightRequest="{StaticResource NavRoomMinHeight}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="{StaticResource CardCornerRadius}" />
+        </Border.StrokeShape>
+
         <Border.Shadow>
-            <Shadow Brush="#20000000"
+            <Shadow Brush="{StaticResource CardShadowBrush}"
                     Offset="0,3"
-                    Radius="6"
-                    Opacity="0.3" />
+                    Radius="{StaticResource NavRoomShadowRadius}"
+                    Opacity="{StaticResource NavRoomShadowOpacity}" />
         </Border.Shadow>
+
         <Border.GestureRecognizers>
             <TapGestureRecognizer x:Name="RoomTap" />
         </Border.GestureRecognizers>
 
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="Center"
-                             Spacing="4">
+                             Spacing="{StaticResource SmallSpacing}">
             <Image x:Name="RoomIcon"
-                   HeightRequest="26"
-                   WidthRequest="26"
+                   HeightRequest="{StaticResource NavRoomImageSize}"
+                   WidthRequest="{StaticResource NavRoomImageSize}"
                    HorizontalOptions="Center"
                    IsVisible="False" />
             <Label x:Name="RoomLabel"
@@ -34,7 +38,7 @@
                    HorizontalTextAlignment="Center"
                    TextColor="{StaticResource PrimaryDarkBlue}"
                    FontFamily="RobotoBold"
-                   FontSize="15" />
+                   FontSize="{StaticResource FontSizeRoomLabel}" />
         </VerticalStackLayout>
     </Border>
 </ContentView>

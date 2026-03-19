@@ -9,12 +9,13 @@ namespace RobotHri.Controls.Base
     /// </summary>
     public abstract class BaseContentPage : ContentPage
     {
-        protected ILocalizationService Localization { get; }
+        protected ILocalizationService? Localization { get; }
 
         protected BaseContentPage()
         {
-            Localization = ServiceHelper.GetService<ILocalizationService>()!;
-            Localization.LanguageChanged += OnLanguageChanged;
+            Localization = ServiceHelper.GetService<ILocalizationService>();
+            if (Localization != null)
+                Localization.LanguageChanged += OnLanguageChanged;
         }
 
         /// <summary>
@@ -33,13 +34,15 @@ namespace RobotHri.Controls.Base
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            Localization.LanguageChanged -= OnLanguageChanged;
+            if (Localization != null)
+                Localization.LanguageChanged -= OnLanguageChanged;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            Localization.LanguageChanged += OnLanguageChanged;
+            if (Localization != null)
+                Localization.LanguageChanged += OnLanguageChanged;
             RefreshLocalizedText();
         }
     }

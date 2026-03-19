@@ -45,10 +45,10 @@
                                             Padding="16,12">
                             <Label Text="{Binding DeviceIfmLabel}"
                                    Style="{StaticResource TitleLabel}"
-                                   FontSize="16" />
+                                   FontSize="{StaticResource FontSizeSubtitle}" />
                             <Label Text="IO-Link · PROFINET · PLC"
                                    Style="{StaticResource SubtitleLabel}"
-                                   FontSize="12"
+                                   FontSize="{StaticResource FontSizeCaption}"
                                    Margin="0,4,0,0" />
                         </VerticalStackLayout>
                     </Grid>
@@ -69,10 +69,10 @@
                                             Padding="16,12">
                             <Label Text="{Binding DevicePlcLabel}"
                                    Style="{StaticResource TitleLabel}"
-                                   FontSize="16" />
+                                   FontSize="{StaticResource FontSizeSubtitle}" />
                             <Label Text="Siemens S7 · Automation"
                                    Style="{StaticResource SubtitleLabel}"
-                                   FontSize="12"
+                                   FontSize="{StaticResource FontSizeCaption}"
                                    Margin="0,4,0,0" />
                         </VerticalStackLayout>
                     </Grid>
@@ -93,10 +93,10 @@
                                             Padding="16,12">
                             <Label Text="{Binding DeviceStepLabel}"
                                    Style="{StaticResource TitleLabel}"
-                                   FontSize="16" />
+                                   FontSize="{StaticResource FontSizeSubtitle}" />
                             <Label Text="TB6600 · Lead Screw · Encoder"
                                    Style="{StaticResource SubtitleLabel}"
-                                   FontSize="12"
+                                   FontSize="{StaticResource FontSizeCaption}"
                                    Margin="0,4,0,0" />
                         </VerticalStackLayout>
                     </Grid>
@@ -117,10 +117,10 @@
                                             Padding="16,12">
                             <Label Text="{Binding DeviceHmiLabel}"
                                    Style="{StaticResource TitleLabel}"
-                                   FontSize="16" />
+                                   FontSize="{StaticResource FontSizeSubtitle}" />
                             <Label Text="Touchscreen · SCADA · Alarms"
                                    Style="{StaticResource SubtitleLabel}"
-                                   FontSize="12"
+                                   FontSize="{StaticResource FontSizeCaption}"
                                    Margin="0,4,0,0" />
                         </VerticalStackLayout>
                     </Grid>
@@ -158,7 +158,7 @@
                 <Label Grid.Row="0"
                        Text="{Binding DeviceTitle}"
                        Style="{StaticResource TitleLabel}"
-                       FontSize="20"
+                       FontSize="{StaticResource FontSizeTitleLarge}"
                        Margin="0,0,0,10" />
 
                 <!-- Scrollable description -->
@@ -166,7 +166,7 @@
                     <Border Style="{StaticResource CardBorder}">
                         <Label Text="{Binding DeviceDescription}"
                                Style="{StaticResource BodyLabel}"
-                               FontSize="14"
+                               FontSize="{StaticResource FontSizeBody}"
                                LineHeight="1.5" />
                     </Border>
                 </ScrollView>
@@ -182,14 +182,14 @@
                                    ButtonStyle="Primary"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="Center"
-                                   HeightRequest="52" />
+                                   HeightRequest="{StaticResource ButtonHeight}" />
                     <c:RobotButton Grid.Column="1"
                                    Text="{Binding BackText}"
                                    Command="{Binding BackCommand}"
                                    ButtonStyle="Secondary"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="Center"
-                                   HeightRequest="52" />
+                                   HeightRequest="{StaticResource ButtonHeight}" />
                 </Grid>
 
             </Grid>

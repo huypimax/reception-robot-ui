@@ -1,18 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+		<!-- Build macCatalyst only on macOS; on Windows build only windows+android -->
+		<TargetFrameworks>net9.0-android;net9.0-windows10.0.19041.0</TargetFrameworks>
+	</PropertyGroup>
 
-		<!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
-		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
-		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+	<!-- Include macCatalyst on non-Windows machines -->
+	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+		<TargetFrameworks>net9.0-android;net9.0-windows10.0.19041.0;net9.0-maccatalyst</TargetFrameworks>
+	</PropertyGroup>
 
+	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>RobotHri</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -67,6 +65,12 @@
 		<PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="4.3.7.1207" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.1.0" />
 		<PackageReference Include="Plugin.Maui.Audio" Version="3.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Dimens.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

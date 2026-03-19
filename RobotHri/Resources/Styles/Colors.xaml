@@ -22,6 +22,12 @@
     <Color x:Key="OverlayLight">#1AFFFFFF</Color>
     <Color x:Key="BorderLight">#40FFFFFF</Color>
 
+    <!-- Brushes for shadows and borders -->
+    <SolidColorBrush x:Key="CardShadowBrush" Color="#20000000" />
+    <SolidColorBrush x:Key="ButtonShadowBrush" Color="#40000000" />
+    <SolidColorBrush x:Key="OverlayLightBrush" Color="{StaticResource OverlayLight}" />
+    <SolidColorBrush x:Key="BorderLightBrush" Color="{StaticResource BorderLight}" />
+
     <!-- Semantic aliases -->
     <Color x:Key="Primary">#00294D</Color>
     <Color x:Key="Secondary">#D8E5FE</Color>

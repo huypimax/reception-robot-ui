@@ -37,7 +37,7 @@
                         <!-- Form title -->
                         <Label Text="{Binding FormTitle}"
                                Style="{StaticResource TitleLabel}"
-                               FontSize="18"
+                               FontSize="{StaticResource FontSizeTitleMedium}"
                                HorizontalOptions="Center"
                                Margin="0,0,0,20" />
 
