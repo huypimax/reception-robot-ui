@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RobotHri.Controls.SettingsModeButton">
+
+    <!--
+        Vertical icon-label button used for delivery-mode selection.
+        When IsSelected=True the icon and label turn PrimaryDarkBlue and an underline appears.
+    -->
+    <VerticalStackLayout Spacing="6"
+                         MinimumWidthRequest="90"
+                         HorizontalOptions="Center">
+        <VerticalStackLayout.GestureRecognizers>
+            <TapGestureRecognizer x:Name="ModeTap" />
+        </VerticalStackLayout.GestureRecognizers>
+
+        <!-- Icon -->
+        <Label x:Name="IconLabel"
+               FontSize="28"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="{StaticResource TextMuted}" />
+
+        <!-- Label -->
+        <Label x:Name="TextLabel"
+               FontFamily="RobotoRegular"
+               FontSize="{StaticResource FontSizeCaption}"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               TextColor="{StaticResource TextMuted}" />
+
+        <!-- Selection underline -->
+        <BoxView x:Name="Underline"
+                 HeightRequest="2"
+                 HorizontalOptions="Fill"
+                 BackgroundColor="{StaticResource PrimaryDarkBlue}"
+                 IsVisible="False" />
+
+    </VerticalStackLayout>
+
+</ContentView>

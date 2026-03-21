@@ -55,4 +55,25 @@
     <!-- Small helper values -->
     <x:Double x:Key="SmallSpacing">4</x:Double>
 
+    <!-- Settings / Setup page -->
+    <x:Double x:Key="SettingsNavItemHeight">44</x:Double>
+    <x:Double x:Key="SetupSidebarWidth">260</x:Double>
+    <Thickness x:Key="SetupSidebarPadding">16,16</Thickness>
+    <Thickness x:Key="SetupContentPadding">28,20</Thickness>
+    <Thickness x:Key="SettingsNavItemInnerPadding">10,0</Thickness>
+    <x:Double x:Key="SettingsNavIconWidth">22</x:Double>
+    <x:Double x:Key="SettingsNavIconSize">16</x:Double>
+    <x:Double x:Key="SettingsNavItemSpacing">10</x:Double>
+    <Thickness x:Key="SettingsInfoRowPadding">0,12</Thickness>
+    <x:Double x:Key="SettingsSliderValueBadgePadding">10</x:Double>
+
+    <!-- NavRail -->
+    <x:Double x:Key="NavRailCollapsedWidth">72</x:Double>
+    <x:Double x:Key="NavRailExpandedWidth">200</x:Double>
+    <x:Double x:Key="NavRailItemHeight">56</x:Double>
+    <x:Double x:Key="NavRailIconSize">20</x:Double>
+    <x:Double x:Key="NavRailIconWidth">28</x:Double>
+    <x:Double x:Key="NavRailItemSpacing">14</x:Double>
+    <Thickness x:Key="NavRailItemPadding">16,0,12,0</Thickness>
+
 </ResourceDictionary>

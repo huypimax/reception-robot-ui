@@ -134,6 +134,115 @@ namespace RobotHri.Languages
         public const string AI_DAYS_SATURDAY = "ai_days_saturday";
         public const string AI_DAYS_SUNDAY = "ai_days_sunday";
 
+        // ==================== Setup / Settings Page ====================
+        public const string SETUP_TITLE                 = "setup_title";
+        public const string SETUP_EXIT                  = "setup_exit";
+        // Sidebar nav items
+        public const string SETUP_NAV_BASIC             = "setup_nav_basic";
+        public const string SETUP_NAV_SOUND             = "setup_nav_sound";
+        public const string SETUP_NAV_VOICE             = "setup_nav_voice";
+        public const string SETUP_NAV_DELIVERY          = "setup_nav_delivery";
+        public const string SETUP_NAV_ROUTE             = "setup_nav_route";
+        public const string SETUP_NAV_TIME              = "setup_nav_time";
+        public const string SETUP_NAV_MAP               = "setup_nav_map";
+        public const string SETUP_NAV_EXPRESSION        = "setup_nav_expression";
+        public const string SETUP_NAV_SYSTEM            = "setup_nav_system";
+        public const string SETUP_NAV_OTHER             = "setup_nav_other";
+        public const string SETUP_NAV_UPGRADE           = "setup_nav_upgrade";
+        public const string SETUP_NAV_DEVELOPER         = "setup_nav_developer";
+        // Route settings panel
+        public const string SETUP_ROUTE_WAIT_TIME       = "setup_route_wait_time";
+        public const string SETUP_ROUTE_WAIT_TIME_DESC  = "setup_route_wait_time_desc";
+        public const string SETUP_ROUTE_SPEED           = "setup_route_speed";
+        public const string SETUP_ROUTE_SPEED_DESC      = "setup_route_speed_desc";
+        public const string SETUP_ROUTE_MORE            = "setup_route_more";
+        // System settings panel
+        public const string SETUP_SYS_NETWORK_INFO      = "setup_sys_network_info";
+        public const string SETUP_SYS_SSID              = "setup_sys_ssid";
+        public const string SETUP_SYS_MAC_HEAD          = "setup_sys_mac_head";
+        public const string SETUP_SYS_IP_HEAD           = "setup_sys_ip_head";
+        public const string SETUP_SYS_MAC_WLAN          = "setup_sys_mac_wlan";
+        public const string SETUP_SYS_IP_WLAN           = "setup_sys_ip_wlan";
+        public const string SETUP_SYS_MAC_CHASSIS       = "setup_sys_mac_chassis";
+        public const string SETUP_SYS_IMEI              = "setup_sys_imei";
+        public const string SETUP_SYS_FACTORY_RESET     = "setup_sys_factory_reset";
+        public const string SETUP_SYS_FACTORY_RESET_DESC = "setup_sys_factory_reset_desc";
+        public const string SETUP_SYS_FACTORY_RESET_BTN = "setup_sys_factory_reset_btn";
+        // Placeholder
+        public const string SETUP_COMING_SOON           = "setup_coming_soon";
+        // Sound settings
+        public const string SETUP_SOUND_TOGGLE         = "setup_sound_toggle";
+        public const string SETUP_SOUND_ON             = "setup_sound_on";
+        public const string SETUP_SOUND_OFF            = "setup_sound_off";
+        public const string SETUP_SOUND_VOLUME         = "setup_sound_volume";
+        public const string SETUP_SOUND_MUSIC          = "setup_sound_music";
+        public const string SETUP_SOUND_SPEECH         = "setup_sound_speech";
+        public const string SETUP_SOUND_OBSTACLE       = "setup_sound_obstacle";
+        public const string SETUP_SOUND_CHOOSE_MUSIC   = "setup_sound_choose_music";
+        // Basic settings
+        public const string SETUP_BASIC_TITLE              = "setup_basic_title";
+        public const string SETUP_BASIC_MODE_FAST          = "setup_basic_mode_fast";
+        public const string SETUP_BASIC_MODE_MULTI         = "setup_basic_mode_multi";
+        public const string SETUP_BASIC_MODE_DIRECT        = "setup_basic_mode_direct";
+        public const string SETUP_BASIC_MODE_ROUTE         = "setup_basic_mode_route";
+        public const string SETUP_BASIC_MODE_CUSTOM        = "setup_basic_mode_custom";
+        public const string SETUP_BASIC_DELIVERY_MODE      = "setup_basic_delivery_mode";
+        public const string SETUP_BASIC_DELIVERY_MODE_DESC = "setup_basic_delivery_mode_desc";
+        public const string SETUP_BASIC_OBSTACLE_MODE      = "setup_basic_obstacle_mode";
+        public const string SETUP_BASIC_OBSTACLE_MODE_DESC = "setup_basic_obstacle_mode_desc";
+        public const string SETUP_BASIC_AUTO_RETURN        = "setup_basic_auto_return";
+        public const string SETUP_BASIC_HOME_POINT         = "setup_basic_home_point";
+        public const string SETUP_BASIC_HOME_POINT_DESC    = "setup_basic_home_point_desc";
+        public const string SETUP_BASIC_CHARGE_POINT       = "setup_basic_charge_point";
+        public const string SETUP_BASIC_CHARGE_POINT_DESC  = "setup_basic_charge_point_desc";
+        // Time settings
+        public const string SETUP_TIME_TITLE           = "setup_time_title";
+        public const string SETUP_TIME_TAB_CHARGING    = "setup_time_tab_charging";
+        public const string SETUP_TIME_TAB_WAITING     = "setup_time_tab_waiting";
+        public const string SETUP_TIME_TAB_CUSTOM      = "setup_time_tab_custom";
+        public const string SETUP_TIME_COL_TIME        = "setup_time_col_time";
+        public const string SETUP_TIME_COL_NAME        = "setup_time_col_name";
+        public const string SETUP_TIME_COL_TYPE        = "setup_time_col_type";
+        public const string SETUP_TIME_COL_NUMBER      = "setup_time_col_number";
+        public const string SETUP_TIME_COL_ROUTE       = "setup_time_col_route";
+        public const string SETUP_TIME_COL_REPEAT      = "setup_time_col_repeat";
+        public const string SETUP_TIME_COL_STATUS      = "setup_time_col_status";
+        public const string SETUP_TIME_COL_ACTION      = "setup_time_col_action";
+        public const string SETUP_TIME_EDIT            = "setup_time_edit";
+        public const string SETUP_TIME_DELETE          = "setup_time_delete";
+        public const string SETUP_TIME_VIEW            = "setup_time_view";
+        // Delivery settings
+        public const string SETUP_DELIVERY_WAIT_TIME           = "setup_delivery_wait_time";
+        public const string SETUP_DELIVERY_WAIT_TIME_DESC      = "setup_delivery_wait_time_desc";
+        public const string SETUP_DELIVERY_SPEED               = "setup_delivery_speed";
+        public const string SETUP_DELIVERY_SPEED_DESC          = "setup_delivery_speed_desc";
+        public const string SETUP_DELIVERY_COLLISION_DECEL     = "setup_delivery_collision_decel";
+        public const string SETUP_DELIVERY_COLLISION_DECEL_DESC= "setup_delivery_collision_decel_desc";
+        public const string SETUP_DELIVERY_ROTATION_SPEED      = "setup_delivery_rotation_speed";
+        public const string SETUP_DELIVERY_ROTATION_SPEED_DESC = "setup_delivery_rotation_speed_desc";
+        public const string SETUP_DELIVERY_WEIGHT_LIMIT        = "setup_delivery_weight_limit";
+        public const string SETUP_DELIVERY_REVERSE             = "setup_delivery_reverse";
+        public const string SETUP_DELIVERY_REVERSE_DESC        = "setup_delivery_reverse_desc";
+        public const string SETUP_DELIVERY_VOICE_COUNTDOWN     = "setup_delivery_voice_countdown";
+        public const string SETUP_DELIVERY_VOICE_COUNTDOWN_DESC= "setup_delivery_voice_countdown_desc";
+        // Map settings
+        public const string SETUP_MAP_TITLE = "setup_map_title";
+        public const string SETUP_MAP_BTN   = "setup_map_btn";
+        // System settings – extended
+        public const string SETUP_SYS_PASSWORD          = "setup_sys_password";
+        public const string SETUP_SYS_CHANGE_PASSWORD   = "setup_sys_change_password";
+        public const string SETUP_SYS_POSITIONING       = "setup_sys_positioning";
+        public const string SETUP_SYS_POSITIONING_DESC  = "setup_sys_positioning_desc";
+        public const string SETUP_SYS_START_POSITIONING = "setup_sys_start_positioning";
+        public const string SETUP_SYS_INFO_TITLE        = "setup_sys_info_title";
+        public const string SETUP_SYS_SERIAL_LBL        = "setup_sys_serial_lbl";
+        public const string SETUP_SYS_VERSION_LBL       = "setup_sys_version_lbl";
+        public const string SETUP_SYS_CHECK_UPDATE      = "setup_sys_check_update";
+        public const string SETUP_SYS_CHASSIS_VER_LBL   = "setup_sys_chassis_ver_lbl";
+        public const string SETUP_SYS_SDK_VER_LBL       = "setup_sys_sdk_ver_lbl";
+        public const string SETUP_SYS_FIRST_ACT_LBL     = "setup_sys_first_act_lbl";
+        public const string SETUP_SYS_NO_DATA           = "setup_sys_no_data";
+
         // ==================== AI Months ====================
         public const string AI_MONTHS_JANUARY = "ai_months_january";
         public const string AI_MONTHS_FEBRUARY = "ai_months_february";

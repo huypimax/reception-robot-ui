@@ -38,5 +38,9 @@
             <ShellContent ContentTemplate="{DataTemplate views:DeliPage}" />
         </Tab>
 
+        <Tab Title="Setup" Route="setup">
+            <ShellContent ContentTemplate="{DataTemplate views:SetupPage}" />
+        </Tab>
+
     </FlyoutItem>
 </Shell>

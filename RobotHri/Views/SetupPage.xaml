@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:RobotHri.Controls.Base"
+    xmlns:c="clr-namespace:RobotHri.Controls"
+    xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    xmlns:models="clr-namespace:RobotHri.Models"
+    x:Class="RobotHri.Views.SetupPage"
+    x:DataType="vm:SetupViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{StaticResource White}">
+
+    <!--
+        Layout: [Sidebar (fixed 260 px) | Divider | Content (fills rest)]
+        The sidebar contains the settings nav items and the exit button.
+        The content area switches between Route, System, and placeholder panels.
+    -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{StaticResource SetupSidebarWidth}" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ════════════════════════════════════════════════
+             LEFT SIDEBAR
+        ════════════════════════════════════════════════ -->
+        <Grid Grid.Column="0"
+              RowDefinitions="Auto,*,Auto"
+              BackgroundColor="{StaticResource White}">
+
+            <!-- Page title -->
+            <Label Grid.Row="0"
+                   Text="{Binding TitleText}"
+                   FontFamily="RobotoBold"
+                   FontSize="{StaticResource FontSizeTitle}"
+                   TextColor="{StaticResource PrimaryDarkBlue}"
+                   Padding="{StaticResource SetupSidebarPadding}"
+                   Margin="0,0,0,4" />
+
+            <!-- Scrollable nav items -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="0">
+
+                    <c:SettingsNavItem IconText="⊞"
+                                       LabelText="{Binding NavBasicText}"
+                                       IsSelected="{Binding IsBasicSelected}"
+                                       Command="{Binding SelectBasicCommand}" />
+
+                    <c:SettingsNavItem IconText="🔊"
+                                       LabelText="{Binding NavSoundText}"
+                                       IsSelected="{Binding IsSoundSelected}"
+                                       Command="{Binding SelectSoundCommand}" />
+
+                    <c:SettingsNavItem IconText="🎙️"
+                                       LabelText="{Binding NavVoiceText}"
+                                       IsSelected="{Binding IsVoiceSelected}"
+                                       Command="{Binding SelectVoiceCommand}" />
+
+                    <c:SettingsNavItem IconText="📋"
+                                       LabelText="{Binding NavDeliveryText}"
+                                       IsSelected="{Binding IsDeliverySelected}"
+                                       Command="{Binding SelectDeliveryCommand}" />
+
+                    <c:SettingsNavItem IconText="🧭"
+                                       LabelText="{Binding NavRouteText}"
+                                       IsSelected="{Binding IsRouteSelected}"
+                                       Command="{Binding SelectRouteCommand}" />
+
+                    <c:SettingsNavItem IconText="🕐"
+                                       LabelText="{Binding NavTimeText}"
+                                       IsSelected="{Binding IsTimeSelected}"
+                                       Command="{Binding SelectTimeCommand}" />
+
+                    <c:SettingsNavItem IconText="🗺️"
+                                       LabelText="{Binding NavMapText}"
+                                       IsSelected="{Binding IsMapSelected}"
+                                       Command="{Binding SelectMapCommand}" />
+
+                    <c:SettingsNavItem IconText="✨"
+                                       LabelText="{Binding NavExpressionText}"
+                                       IsSelected="{Binding IsExpressionSelected}"
+                                       Command="{Binding SelectExpressionCommand}" />
+
+                    <c:SettingsNavItem IconText="ℹ️"
+                                       LabelText="{Binding NavSystemText}"
+                                       IsSelected="{Binding IsSystemSelected}"
+                                       Command="{Binding SelectSystemCommand}" />
+
+                    <c:SettingsNavItem IconText="☰"
+                                       LabelText="{Binding NavOtherText}"
+                                       IsSelected="{Binding IsOtherSelected}"
+                                       Command="{Binding SelectOtherCommand}" />
+
+                    <c:SettingsNavItem IconText="⬆"
+                                       LabelText="{Binding NavUpgradeText}"
+                                       IsSelected="{Binding IsUpgradeSelected}"
+                                       Command="{Binding SelectUpgradeCommand}" />
+
+                    <c:SettingsNavItem IconText="👤"
+                                       LabelText="{Binding NavDeveloperText}"
+                                       IsSelected="{Binding IsDeveloperSelected}"
+                                       Command="{Binding SelectDeveloperCommand}" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Exit button -->
+            <c:RobotButton Grid.Row="2"
+                           Text="{Binding ExitText}"
+                           ButtonStyle="Primary"
+                           Command="{Binding ExitCommand}"
+                           HeightRequest="{StaticResource ButtonHeight}"
+                           Margin="{StaticResource SetupSidebarPadding}" />
+
+        </Grid>
+
+        <!-- ════ Vertical divider ════ -->
+        <BoxView Grid.Column="1"
+                 BackgroundColor="{StaticResource LightBlue}"
+                 VerticalOptions="Fill" />
+
+        <!-- ════════════════════════════════════════════════
+             RIGHT CONTENT AREA
+        ════════════════════════════════════════════════ -->
+        <ScrollView Grid.Column="2"
+                    BackgroundColor="{StaticResource PageBackground}">
+            <VerticalStackLayout Padding="{StaticResource SetupContentPadding}"
+                                 Spacing="0">
+
+                <!-- ══════════════════════════════════════════════
+                     BASIC SETTINGS PANEL  (Cài đặt cơ bản)
+                ══════════════════════════════════════════════ -->
+                <VerticalStackLayout IsVisible="{Binding IsBasicSelected}"
+                                     Spacing="20">
+
+                    <!-- Section title -->
+                    <Label Text="{Binding BasicTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,4" />
+
+                    <!-- Delivery-mode icon buttons -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="20"
+                                           Margin="0,0,0,8">
+                        <c:SettingsModeButton IconText="⚡"
+                                              LabelText="{Binding BasicModeFast}"
+                                              IsSelected="{Binding IsFastModeSelected}"
+                                              Command="{Binding SelectFastModeCommand}" />
+                        <c:SettingsModeButton IconText="⊞"
+                                              LabelText="{Binding BasicModeMulti}"
+                                              IsSelected="{Binding IsMultiModeSelected}"
+                                              Command="{Binding SelectMultiModeCommand}" />
+                        <c:SettingsModeButton IconText="📍"
+                                              LabelText="{Binding BasicModeDirect}"
+                                              IsSelected="{Binding IsDirectModeSelected}"
+                                              Command="{Binding SelectDirectModeCommand}" />
+                        <c:SettingsModeButton IconText="🗺️"
+                                              LabelText="{Binding BasicModeRoute}"
+                                              IsSelected="{Binding IsRouteModeSelected}"
+                                              Command="{Binding SelectRouteModeCommand}" />
+                        <c:SettingsModeButton IconText="⚙️"
+                                              LabelText="{Binding BasicModeCustom}"
+                                              IsSelected="{Binding IsCustomModeSelected}"
+                                              Command="{Binding SelectCustomModeCommand}" />
+                    </HorizontalStackLayout>
+
+                    <!-- Dropdown settings rows -->
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding BasicDeliveryModeLbl}"
+                                DescriptionText="{Binding BasicDeliveryModeDesc}"
+                                SelectedValue="{Binding SelectedDeliveryModeText}" />
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding BasicObstacleModeLbl}"
+                                DescriptionText="{Binding BasicObstacleModeDesc}"
+                                SelectedValue="{Binding SelectedObstacleModeText}" />
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding BasicAutoReturnLbl}"
+                                SelectedValue="{Binding SelectedAutoReturnText}" />
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding BasicHomePointLbl}"
+                                DescriptionText="{Binding BasicHomePointDesc}"
+                                SelectedValue="{Binding SelectedHomePointText}" />
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding BasicChargePointLbl}"
+                                DescriptionText="{Binding BasicChargePointDesc}"
+                                SelectedValue="{Binding SelectedChargePointText}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ══════════════════════════════════════════════
+                     SOUND SETTINGS PANEL  (Cài đặt âm thanh)
+                ══════════════════════════════════════════════ -->
+                <VerticalStackLayout IsVisible="{Binding IsSoundSelected}"
+                                     Spacing="0">
+
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+
+                            <c:SettingsToggleRow
+                                LabelText="{Binding SoundToggleLbl}"
+                                IsOn="{Binding IsSoundEnabled, Mode=TwoWay}"
+                                OnText="{Binding SoundOnText}"
+                                OffText="{Binding SoundOffText}" />
+
+                            <c:SettingsStepperRow
+                                LabelText="{Binding SoundVolumeLbl}"
+                                Value="{Binding SoundVolume, Mode=TwoWay}"
+                                MinValue="0" MaxValue="100" Unit="%" />
+
+                            <c:SettingsStepperRow
+                                LabelText="{Binding SoundMusicLbl}"
+                                Value="{Binding MusicVolume, Mode=TwoWay}"
+                                MinValue="0" MaxValue="100" Unit="%" />
+
+                            <c:SettingsStepperRow
+                                LabelText="{Binding SoundSpeechLbl}"
+                                Value="{Binding SpeechVolume, Mode=TwoWay}"
+                                MinValue="0" MaxValue="100" Unit="%" />
+
+                            <c:SettingsStepperRow
+                                LabelText="{Binding SoundObstacleLbl}"
+                                Value="{Binding ObstacleVolume, Mode=TwoWay}"
+                                MinValue="0" MaxValue="100" Unit="%" />
+
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding SoundChooseMusicLbl}"
+                                SelectedValue="{Binding SelectedMusic}" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ══════════════════════════════════════════════
+                     TIME SETTINGS PANEL  (Cài đặt thời gian)
+                ══════════════════════════════════════════════ -->
+                <VerticalStackLayout IsVisible="{Binding IsTimeSelected}"
+                                     Spacing="16">
+
+                    <!-- Section title -->
+                    <Label Text="{Binding TimeSectionTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}"
+                           HorizontalOptions="Center" />
+
+                    <!-- Category tabs -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="12">
+
+                        <Border BackgroundColor="{StaticResource PrimaryDarkBlue}"
+                                StrokeShape="RoundRectangle 20"
+                                Stroke="Transparent"
+                                Padding="20,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectChargingTabCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding TimeTabCharging}"
+                                   TextColor="{StaticResource TextOnPrimary}"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeBody}" />
+                        </Border>
+
+                        <Border BackgroundColor="{StaticResource TimeTabWaitingColor}"
+                                StrokeShape="RoundRectangle 20"
+                                Stroke="Transparent"
+                                Padding="20,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectWaitingTabCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding TimeTabWaiting}"
+                                   TextColor="{StaticResource TextOnPrimary}"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeBody}" />
+                        </Border>
+
+                        <Border BackgroundColor="{StaticResource TimeTabCustomColor}"
+                                StrokeShape="RoundRectangle 20"
+                                Stroke="Transparent"
+                                Padding="20,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCustomTabCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding TimeTabCustom}"
+                                   TextColor="{StaticResource TextOnPrimary}"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeBody}" />
+                        </Border>
+
+                    </HorizontalStackLayout>
+
+                    <!-- Task table -->
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="0">
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- Table header -->
+                            <Grid ColumnDefinitions="30,65,*,*,30,*,*,52,110"
+                                  BackgroundColor="{StaticResource HoverBg}"
+                                  Padding="10,8">
+                                <Label Grid.Column="0" Text="#"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="1" Text="{Binding TimeColTime}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="2" Text="{Binding TimeColName}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="3" Text="{Binding TimeColType}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="4" Text="{Binding TimeColNumber}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="5" Text="{Binding TimeColRoute}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="6" Text="{Binding TimeColRepeat}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="7" Text="{Binding TimeColStatus}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                                <Label Grid.Column="8" Text="{Binding TimeColAction}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                            </Grid>
+
+                            <!-- Header / rows divider -->
+                            <BoxView HeightRequest="1"
+                                     Color="{StaticResource LightBlue}" />
+
+                            <!-- Data rows via BindableLayout -->
+                            <VerticalStackLayout Spacing="0"
+                                                 BindableLayout.ItemsSource="{Binding TimeTasks}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="models:TimeTask">
+                                        <VerticalStackLayout Spacing="0">
+                                            <Grid ColumnDefinitions="30,65,*,*,30,*,*,52,110"
+                                                  Padding="10,10">
+
+                                                <Label Grid.Column="0"
+                                                       Text="{Binding Index}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Time}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="2"
+                                                       Text="{Binding TaskName}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       LineBreakMode="TailTruncation"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="3"
+                                                       Text="{Binding TaskType}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       LineBreakMode="TailTruncation"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="4"
+                                                       Text="{Binding Number}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="5"
+                                                       Text="{Binding Route}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       LineBreakMode="TailTruncation"
+                                                       VerticalOptions="Center" />
+                                                <Label Grid.Column="6"
+                                                       Text="{Binding Repeat}"
+                                                       Style="{StaticResource BodyLabel}"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       LineBreakMode="TailTruncation"
+                                                       VerticalOptions="Center" />
+
+                                                <!-- Status "Xem" link -->
+                                                <Label Grid.Column="7"
+                                                       Text="Xem"
+                                                       TextColor="{StaticResource SuccessGreen}"
+                                                       FontFamily="RobotoRegular"
+                                                       FontSize="{StaticResource FontSizeCaption}"
+                                                       VerticalOptions="Center" />
+
+                                                <!-- Edit + Delete action buttons -->
+                                                <VerticalStackLayout Grid.Column="8"
+                                                                     Spacing="4"
+                                                                     VerticalOptions="Center">
+                                                    <Border BackgroundColor="{StaticResource PrimaryDarkBlue}"
+                                                            StrokeShape="RoundRectangle 4"
+                                                            Stroke="Transparent"
+                                                            Padding="8,3">
+                                                        <Label Text="Chỉnh sửa"
+                                                               TextColor="{StaticResource TextOnPrimary}"
+                                                               FontSize="11"
+                                                               HorizontalTextAlignment="Center" />
+                                                    </Border>
+                                                    <Border BackgroundColor="{StaticResource DangerRed}"
+                                                            StrokeShape="RoundRectangle 4"
+                                                            Stroke="Transparent"
+                                                            Padding="8,3">
+                                                        <Label Text="Xóa"
+                                                               TextColor="{StaticResource TextOnPrimary}"
+                                                               FontSize="11"
+                                                               HorizontalTextAlignment="Center" />
+                                                    </Border>
+                                                </VerticalStackLayout>
+
+                                            </Grid>
+                                            <BoxView HeightRequest="1"
+                                                     Color="{StaticResource LightBlue}" />
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ══════════════════════════════════════════════
+                     DELIVERY SETTINGS PANEL  (Cài đặt giao hàng)
+                ══════════════════════════════════════════════ -->
+                <VerticalStackLayout IsVisible="{Binding IsDeliverySelected}"
+                                     Spacing="0">
+
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- Wait time slider -->
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding DeliveryWaitTimeLbl}"
+                                DescriptionText="{Binding DeliveryWaitTimeDesc}"
+                                Value="{Binding DeliveryWaitTime, Mode=TwoWay}"
+                                MinValue="5" MaxValue="300" Unit="s"
+                                MinLabel="5s" MaxLabel="300s" />
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+
+                            <!-- Speed slider -->
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding DeliverySpeedLbl}"
+                                DescriptionText="{Binding DeliverySpeedDesc}"
+                                Value="{Binding DeliverySpeed, Mode=TwoWay}"
+                                MinValue="10" MaxValue="120" Unit="cm/s"
+                                MinLabel="10cm/s" MaxLabel="120cm/s" />
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+
+                            <!-- Collision deceleration: slider with enable toggle (no card) -->
+                            <VerticalStackLayout Spacing="8"
+                                                 Margin="0,14,0,14">
+                                <Grid ColumnDefinitions="*,Auto"
+                                      RowDefinitions="Auto,Auto">
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding DeliveryCollisionDecelLbl}"
+                                           FontFamily="RobotoBold"
+                                           FontSize="{StaticResource FontSizeTitleMedium}"
+                                           TextColor="{StaticResource TextDark}" />
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="{Binding DeliveryCollisionDecelDesc}"
+                                           Style="{StaticResource SubtitleLabel}"
+                                           FontSize="{StaticResource FontSizeBody}" />
+                                    <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                                            IsToggled="{Binding IsCollisionDecelEnabled, Mode=TwoWay}"
+                                            OnColor="{StaticResource PrimaryDarkBlue}"
+                                            VerticalOptions="Center" />
+                                </Grid>
+                                <Slider Value="{Binding CollisionDecelFactor, Mode=TwoWay}"
+                                        Minimum="0" Maximum="1"
+                                        ThumbColor="{StaticResource PrimaryDarkBlue}"
+                                        MinimumTrackColor="{StaticResource PrimaryDarkBlue}"
+                                        MaximumTrackColor="{StaticResource LightBlue}"
+                                        Margin="0,2,0,0" />
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0" Text="0"
+                                           Style="{StaticResource SubtitleLabel}"
+                                           FontSize="{StaticResource FontSizeCaption}" />
+                                    <Label Grid.Column="1" Text="1.0"
+                                           Style="{StaticResource SubtitleLabel}"
+                                           FontSize="{StaticResource FontSizeCaption}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+
+                            <!-- Rotation speed slider (0–1.2, 1 decimal place) -->
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding DeliveryRotationSpeedLbl}"
+                                DescriptionText="{Binding DeliveryRotationSpeedDesc}"
+                                Value="{Binding RotationSpeed, Mode=TwoWay}"
+                                MinValue="0" MaxValue="1.2"
+                                DecimalPlaces="1"
+                                MinLabel="0" MaxLabel="1.2" />
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+
+                            <!-- Weight-based speed limit toggle (built-in divider) -->
+                            <c:SettingsToggleRow
+                                LabelText="{Binding DeliveryWeightLimitLbl}"
+                                IsOn="{Binding IsWeightLimitEnabled, Mode=TwoWay}"
+                                OnText="{Binding SoundOnText}"
+                                OffText="{Binding SoundOffText}" />
+
+                            <!-- Reverse strategy dropdown (built-in divider) -->
+                            <c:SettingsDropdownRow
+                                LabelText="{Binding DeliveryReverseLbl}"
+                                DescriptionText="{Binding DeliveryReverseDesc}"
+                                SelectedValue="{Binding SelectedReverseMode}" />
+
+                            <!-- Voice countdown toggle (built-in divider) -->
+                            <c:SettingsToggleRow
+                                LabelText="{Binding DeliveryVoiceCountdownLbl}"
+                                DescriptionText="{Binding DeliveryVoiceCountdownDesc}"
+                                IsOn="{Binding IsVoiceCountdownEnabled, Mode=TwoWay}"
+                                OnText="{Binding SoundOnText}"
+                                OffText="{Binding SoundOffText}" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ══════════════════════════════════════════════
+                     MAP SETTINGS PANEL  (Lập bản đồ)
+                ══════════════════════════════════════════════ -->
+                <VerticalStackLayout IsVisible="{Binding IsMapSelected}"
+                                     Spacing="0">
+
+                    <Border Style="{StaticResource CardBorder}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0"
+                                   Text="{Binding MapTitle}"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeTitleMedium}"
+                                   TextColor="{StaticResource TextDark}"
+                                   VerticalOptions="Center" />
+                            <c:RobotButton Grid.Column="1"
+                                           Text="{Binding MapBtnText}"
+                                           ButtonStyle="Primary"
+                                           Command="{Binding MapActionCommand}"
+                                           HeightRequest="{StaticResource ButtonMinHeight}" />
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ── Route Settings panel ── -->
+                <VerticalStackLayout IsVisible="{Binding IsRouteSelected}"
+                                     Spacing="0">
+
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding RouteWaitLbl}"
+                                DescriptionText="{Binding RouteWaitDesc}"
+                                Value="{Binding WaitTimeSeconds, Mode=TwoWay}"
+                                MinValue="0" MaxValue="300" Unit="s"
+                                MinLabel="0s" MaxLabel="300s" />
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding RouteSpeedLbl}"
+                                DescriptionText="{Binding RouteSpeedDesc}"
+                                Value="{Binding SpeedCmS, Mode=TwoWay}"
+                                MinValue="10" MaxValue="120" Unit="cm/s"
+                                MinLabel="10cm/s" MaxLabel="120cm/s" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ── System Settings panel ── -->
+                <VerticalStackLayout IsVisible="{Binding IsSystemSelected}"
+                                     Spacing="16">
+
+                    <!-- Password row -->
+                    <Border Style="{StaticResource CardBorder}">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <Label Grid.Column="0"
+                                   Text="{Binding SysPasswordLbl}"
+                                   Style="{StaticResource BodyLabel}"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeTitleMedium}"
+                                   VerticalOptions="Center" />
+                            <Switch Grid.Column="1"
+                                    IsToggled="{Binding IsPasswordEnabled, Mode=TwoWay}"
+                                    OnColor="{StaticResource PrimaryDarkBlue}"
+                                    VerticalOptions="Center"
+                                    Margin="0,0,8,0" />
+                            <c:RobotButton Grid.Column="2"
+                                           Text="{Binding SysChangePasswordBtn}"
+                                           ButtonStyle="Primary"
+                                           HeightRequest="{StaticResource ButtonMinHeight}" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Positioning row -->
+                    <Border Style="{StaticResource CardBorder}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{Binding SysPositioningLbl}"
+                                       FontFamily="RobotoBold"
+                                       FontSize="{StaticResource FontSizeTitleMedium}"
+                                       TextColor="{StaticResource TextDark}" />
+                                <Label Text="{Binding SysPositioningDesc}"
+                                       Style="{StaticResource SubtitleLabel}"
+                                       FontSize="{StaticResource FontSizeCaption}" />
+                            </VerticalStackLayout>
+                            <c:RobotButton Grid.Column="1"
+                                           Text="{Binding SysStartPositioningBtn}"
+                                           ButtonStyle="Primary"
+                                           HeightRequest="{StaticResource ButtonMinHeight}" />
+                        </Grid>
+                    </Border>
+
+                    <!-- System information section -->
+                    <Label Text="{Binding SysInfoTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}" />
+
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+                            <c:SettingsInfoRow LabelText="{Binding SysSerialLbl}"
+                                               Value="{Binding RobotSerial}" />
+                            <!-- Robot version row: value + update button -->
+                            <Grid ColumnDefinitions="*,Auto,Auto"
+                                  Padding="{StaticResource SettingsInfoRowPadding}">
+                                <Label Grid.Column="0"
+                                       Text="{Binding SysVersionLbl}"
+                                       Style="{StaticResource BodyLabel}"
+                                       TextColor="{StaticResource TextMuted}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding RobotVersion}"
+                                       Style="{StaticResource BodyLabel}"
+                                       TextColor="{StaticResource TextDark}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,8,0" />
+                                <c:RobotButton Grid.Column="2"
+                                               Text="{Binding SysCheckUpdateBtn}"
+                                               ButtonStyle="Primary"
+                                               HeightRequest="{StaticResource ButtonMinHeight}" />
+                            </Grid>
+                            <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysChassisVersionLbl}"
+                                               Value="{Binding ChassisVersion}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysSdkVersionLbl}"
+                                               Value="{Binding SdkVersion}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysFirstActivationLbl}"
+                                               Value="{Binding SysNoDataText}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Network Information section -->
+                    <Label Text="{Binding SysNetworkTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}" />
+
+                    <Border Style="{StaticResource CardBorder}"
+                            Padding="16,0">
+                        <VerticalStackLayout Spacing="0">
+                            <c:SettingsInfoRow LabelText="{Binding SysSsidLbl}"       Value="{Binding NetworkSsid}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysMacHeadLbl}"    Value="{Binding MacHead}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysIpHeadLbl}"     Value="{Binding IpHead}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysMacWlanLbl}"    Value="{Binding MacWlan}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysIpWlanLbl}"     Value="{Binding IpWlan}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysMacChassisLbl}" Value="{Binding MacChassis}" />
+                            <c:SettingsInfoRow LabelText="{Binding SysImeiLbl}"       Value="{Binding Imei}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Factory Reset section -->
+                    <Label Text="{Binding SysFactoryTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}"
+                           Margin="0,4,0,0" />
+
+                    <Border Style="{StaticResource CardBorder}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0"
+                                   Text="{Binding SysFactoryDesc}"
+                                   Style="{StaticResource BodyLabel}"
+                                   FontSize="{StaticResource FontSizeBody}"
+                                   VerticalOptions="Center" />
+                            <c:RobotButton Grid.Column="1"
+                                           Text="{Binding SysFactoryBtn}"
+                                           ButtonStyle="Danger"
+                                           Command="{Binding FactoryResetCommand}"
+                                           HeightRequest="{StaticResource ButtonMinHeight}"
+                                           HorizontalOptions="End" />
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ── Placeholder panel (all other sections) ── -->
+                <VerticalStackLayout IsVisible="{Binding IsPlaceholderSelected}"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="12"
+                                     Margin="0,60,0,0">
+                    <Label Text="🚧"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding ComingSoonText}"
+                           Style="{StaticResource SubtitleLabel}"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</controls:BaseContentPage>

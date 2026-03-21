@@ -41,6 +41,7 @@ namespace RobotHri
             builder.Services.AddTransient<NaviViewModel>();
             builder.Services.AddTransient<LabViewModel>();
             builder.Services.AddTransient<DeliViewModel>();
+            builder.Services.AddTransient<SetupViewModel>();
 
             // ── Views / Pages ─────────────────────────────────────
             builder.Services.AddTransient<MainPage>();
@@ -48,6 +49,7 @@ namespace RobotHri
             builder.Services.AddTransient<NaviPage>();
             builder.Services.AddTransient<LabPage>();
             builder.Services.AddTransient<DeliPage>();
+            builder.Services.AddTransient<SetupPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

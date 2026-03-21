@@ -28,6 +28,10 @@
     <SolidColorBrush x:Key="OverlayLightBrush" Color="{StaticResource OverlayLight}" />
     <SolidColorBrush x:Key="BorderLightBrush" Color="{StaticResource BorderLight}" />
 
+    <!-- Time-settings tab accent colors -->
+    <Color x:Key="TimeTabWaitingColor">#F0A800</Color>
+    <Color x:Key="TimeTabCustomColor">#00A896</Color>
+
     <!-- Semantic aliases -->
     <Color x:Key="Primary">#00294D</Color>
     <Color x:Key="Secondary">#D8E5FE</Color>

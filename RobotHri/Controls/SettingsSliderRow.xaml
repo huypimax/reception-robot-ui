@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RobotHri.Controls.SettingsSliderRow">
+
+    <!--
+        Slider settings row used in the Route Settings panel.
+        Header row  : title (left) + description + value badge (right).
+        Slider row  : PrimaryDarkBlue filled track with a colored thumb.
+        Footer row  : min label (left) | max label (right).
+    -->
+    <VerticalStackLayout Spacing="8">
+
+        <!-- ── Header: title + description | value badge ── -->
+        <Grid ColumnDefinitions="*,Auto"
+              RowDefinitions="Auto,Auto">
+
+            <Label Grid.Row="0" Grid.Column="0"
+                   x:Name="TitleLabel"
+                   Style="{StaticResource TitleLabel}"
+                   FontSize="{StaticResource FontSizeTitleMedium}" />
+
+            <Label Grid.Row="1" Grid.Column="0"
+                   x:Name="DescLabel"
+                   Style="{StaticResource SubtitleLabel}"
+                   FontSize="{StaticResource FontSizeBody}" />
+
+            <!-- Current value badge (blue pill) -->
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                    BackgroundColor="{StaticResource PrimaryDarkBlue}"
+                    StrokeShape="RoundRectangle 12"
+                    Stroke="Transparent"
+                    Padding="12,4"
+                    VerticalOptions="Center">
+                <Label x:Name="ValueLabel"
+                       TextColor="{StaticResource TextOnPrimary}"
+                       FontFamily="RobotoBold"
+                       FontSize="{StaticResource FontSizeBody}"
+                       HorizontalOptions="Center" />
+            </Border>
+        </Grid>
+
+        <!-- ── Slider ── -->
+        <Slider x:Name="SliderControl"
+                ThumbColor="{StaticResource PrimaryDarkBlue}"
+                MinimumTrackColor="{StaticResource PrimaryDarkBlue}"
+                MaximumTrackColor="{StaticResource LightBlue}"
+                Margin="0,2,0,0" />
+
+        <!-- ── Min / Max labels ── -->
+        <Grid ColumnDefinitions="*,Auto">
+            <Label x:Name="MinLabelView"
+                   Grid.Column="0"
+                   Style="{StaticResource SubtitleLabel}"
+                   FontSize="{StaticResource FontSizeCaption}" />
+            <Label x:Name="MaxLabelView"
+                   Grid.Column="1"
+                   Style="{StaticResource SubtitleLabel}"
+                   FontSize="{StaticResource FontSizeCaption}" />
+        </Grid>
+
+    </VerticalStackLayout>
+
+</ContentView>
