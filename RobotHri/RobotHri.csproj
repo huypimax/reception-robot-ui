@@ -73,4 +73,9 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<!-- Linker preservation rules for Release builds -->
+	<ItemGroup>
+	  <TrimmerRootDescriptor Include="Linker.xml" />
+	</ItemGroup>
+
 </Project>

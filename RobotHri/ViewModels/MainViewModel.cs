@@ -65,10 +65,10 @@ namespace RobotHri.ViewModels
         public MainViewModel(ILocalizationService localization) : base(localization)
         {
             ToggleLanguageCommand = new Command(OnToggleLanguage);
-            NavigateQnaCommand = new Command(async () => await Shell.Current.GoToAsync("//qna"));
-            NavigateNaviCommand = new Command(async () => await Shell.Current.GoToAsync("//navi"));
-            NavigateLabCommand = new Command(async () => await Shell.Current.GoToAsync("//lab"));
-            NavigateDeliCommand = new Command(async () => await Shell.Current.GoToAsync("//deli"));
+            NavigateQnaCommand    = new Command(async () => await NavigateSafeAsync("//qna"));
+            NavigateNaviCommand   = new Command(async () => await NavigateSafeAsync("//navi"));
+            NavigateLabCommand    = new Command(async () => await NavigateSafeAsync("//lab"));
+            NavigateDeliCommand   = new Command(async () => await NavigateSafeAsync("//deli"));
             NavigateCheckinCommand = new Command(async () =>
                 await Shell.Current.DisplayAlert("Check-in", "Coming soon", "OK"));
 
@@ -98,6 +98,22 @@ namespace RobotHri.ViewModels
             };
             var greeting = StringIds.WELCOME_GREETING.GetString();
             return $"{timeGreeting}! {greeting}";
+        }
+
+        private async Task NavigateSafeAsync(string route)
+        {
+            try
+            {
+                await Shell.Current.GoToAsync(route);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Navigation] Failed to navigate to {route}: {ex}");
+                await Shell.Current.DisplayAlert(
+                    "Navigation Error",
+                    $"Could not open page '{route}'.\n\n{ex.GetType().Name}: {ex.Message}",
+                    "OK");
+            }
         }
 
         private void OnToggleLanguage()

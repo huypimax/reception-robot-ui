@@ -42,15 +42,15 @@
     <x:Double x:Key="NavRoomImageSize">26</x:Double>
     <x:Double x:Key="NavRoomStrokeThickness">2</x:Double>
 
-    <!-- Shadow parameters -->
-    <x:Double x:Key="CardShadowRadius">10</x:Double>
-    <x:Double x:Key="CardShadowOpacity">0.3</x:Double>
-    <x:Double x:Key="PromptShadowRadius">6</x:Double>
-    <x:Double x:Key="PromptShadowOpacity">0.3</x:Double>
-    <x:Double x:Key="ButtonShadowRadius">8</x:Double>
-    <x:Double x:Key="ButtonShadowOpacity">0.4</x:Double>
-    <x:Double x:Key="NavRoomShadowRadius">6</x:Double>
-    <x:Double x:Key="NavRoomShadowOpacity">0.3</x:Double>
+    <!-- Shadow parameters (must be x:Single — Shadow.Radius and Shadow.Opacity are float) -->
+    <x:Single x:Key="CardShadowRadius">10</x:Single>
+    <x:Single x:Key="CardShadowOpacity">0.3</x:Single>
+    <x:Single x:Key="PromptShadowRadius">6</x:Single>
+    <x:Single x:Key="PromptShadowOpacity">0.3</x:Single>
+    <x:Single x:Key="ButtonShadowRadius">8</x:Single>
+    <x:Single x:Key="ButtonShadowOpacity">0.4</x:Single>
+    <x:Single x:Key="NavRoomShadowRadius">6</x:Single>
+    <x:Single x:Key="NavRoomShadowOpacity">0.3</x:Single>
 
     <!-- Small helper values -->
     <x:Double x:Key="SmallSpacing">4</x:Double>

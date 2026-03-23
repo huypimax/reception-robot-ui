@@ -269,6 +269,8 @@ local.settings.json
 *.pfx
 *.key
 *.pem
+*.keystore
+*.jks
 
 # Logs
 *.log

@@ -1,0 +1,35 @@
+<!--
+  Linker preservation rules for Release builds.
+
+  The .NET ILLink linker runs in Release and strips assemblies/types that
+  appear unused. Pages and services used only via DI interfaces, XAML
+  DataTemplates, or reflection can be incorrectly removed.
+
+  References:
+    https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
+    https://github.com/dotnet/maui/wiki/Linker
+-->
+<linker>
+
+  <!-- ── CommunityToolkit.Maui (SpeechToText, MediaElement) ── -->
+  <assembly fullname="CommunityToolkit.Maui" preserve="all" />
+  <assembly fullname="CommunityToolkit.Maui.Core" preserve="all" />
+
+  <!-- ── Plugin.Maui.Audio ── -->
+  <assembly fullname="Plugin.Maui.Audio" preserve="all" />
+
+  <!-- ── MQTTnet (JSON deserialization / reflection) ── -->
+  <assembly fullname="MQTTnet" preserve="all" />
+
+  <!-- ── App assemblies: preserve all ViewModels, Views, Services ── -->
+  <assembly fullname="RobotHri">
+    <namespace fullname="RobotHri.ViewModels"  preserve="all" />
+    <namespace fullname="RobotHri.Views"       preserve="all" />
+    <namespace fullname="RobotHri.Services"    preserve="all" />
+    <namespace fullname="RobotHri.Controls"    preserve="all" />
+    <namespace fullname="RobotHri.Languages"   preserve="all" />
+    <namespace fullname="RobotHri.Models"      preserve="all" />
+    <namespace fullname="RobotHri.Constants"   preserve="all" />
+  </assembly>
+
+</linker>
