@@ -35,7 +35,10 @@
   "nav_room_stairs": "Cầu thang",
   "nav_room_robotics_lab": "Phòng Lab Robotics",
   "nav_room_electrical_lab": "Phòng Lab Điện",
-  
+  "nav_arrival_title": "Thông báo đến nơi",
+  "nav_mqtt_connect_failed_title": "Lỗi kết nối",
+  "nav_mqtt_connect_failed_message": "Không kết nối được với robot. Vui lòng kiểm tra mạng và thử lại.",
+
   "lab_title": "Phòng Lab",
   "lab_home": "Trang chủ",
   "lab_back": "Quay lại",
@@ -72,7 +75,8 @@
   "common_loading": "Đang tải...",
   "common_language": "Ngôn ngữ",
   "common_switch_language": "Chuyển ngôn ngữ",
-  
+  "ok": "Đồng ý",
+
   "error_listening": "Hmm, tôi không nghe rõ. Bạn có thể lặp lại không?",
   "error_speech_unavailable": "Dịch vụ nhận diện giọng nói không khả dụng.",
   "error_still_there": "Bạn vẫn ở đó chứ?",

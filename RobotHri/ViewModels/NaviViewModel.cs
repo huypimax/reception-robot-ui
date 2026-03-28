@@ -1,5 +1,7 @@
 using RobotHri.Languages;
 using RobotHri.Services;
+using System.Threading;
+using System.Windows.Input;
 
 namespace RobotHri.ViewModels
 {
@@ -13,6 +15,15 @@ namespace RobotHri.ViewModels
         private string _homeText = string.Empty;
         private string _languageLabel = "VI";
         private string? _activeRoomKey;
+        private bool _isBusy;
+        private string _loadingMessage = string.Empty;
+
+//#if DEBUG
+//        // Set to false to rely only on real MQTT robot/arrival messages.
+//        private const bool SimulateRobotArrivalAfterPublish = true;
+//        private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(1);
+//        private CancellationTokenSource? _simulatedArrivalCts;
+//#endif
 
         public string PromptText
         {
@@ -40,6 +51,18 @@ namespace RobotHri.ViewModels
             set => SetProperty(ref _activeRoomKey, value);
         }
 
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+
+        public string LoadingMessage
+        {
+            get => _loadingMessage;
+            set => SetProperty(ref _loadingMessage, value);
+        }
+
         // Localized room names (updated on language change)
         public string RoomWaterIntake => StringIds.NAV_ROOM_WATER_INTAKE.GetString();
         public string RoomChemistryHall => StringIds.NAV_ROOM_CHEMISTRY_HALL.GetString();
@@ -48,9 +71,10 @@ namespace RobotHri.ViewModels
         public string RoomRoboticsLab => StringIds.NAV_ROOM_ROBOTICS_LAB.GetString();
         public string RoomElectricalLab => StringIds.NAV_ROOM_ELECTRICAL_LAB.GetString();
 
-        public Command<string> SelectRoomCommand { get; }
-        public Command GoHomeCommand { get; }
-        public Command ToggleLanguageCommand { get; }
+        public ICommand SelectRoomCommand { get; }
+        public ICommand GoHomeCommand { get; }
+        public ICommand ToggleLanguageCommand { get; }
+        public ICommand CancelNavigationCommand { get; }
 
         public NaviViewModel(ILocalizationService localization, IMqttService mqtt, ISpeechService speech)
             : base(localization)
@@ -66,8 +90,35 @@ namespace RobotHri.ViewModels
             });
             ToggleLanguageCommand = new Command(() => Localization.ToggleLanguage());
 
+            CancelNavigationCommand = new Command(OnCancelNavigation);
+
             _mqtt.ArrivalReceived += OnArrivalReceived;
             RefreshLocalizedProperties();
+
+            Task.Run(async () =>
+            {
+                if (!_mqtt.IsConnected)
+                {
+                    var connected = await _mqtt.ConnectAsync();
+                    if (!connected)
+                    {
+                        IsBusy = false;
+                        ActiveRoomKey = null;
+                        LoadingMessage = string.Empty;
+                        PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
+
+                        if (Application.Current?.MainPage != null)
+                        {
+                            await Application.Current.MainPage.DisplayAlert(
+                                StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
+                                StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
+                                StringIds.OK.GetString());
+                        }
+
+                        return;
+                    }
+                }
+            });
         }
 
         protected override void RefreshLocalizedProperties()
@@ -87,6 +138,8 @@ namespace RobotHri.ViewModels
 
         private async void OnRoomSelected(string roomKey)
         {
+            if (IsBusy) return;
+
             if (ActiveRoomKey == roomKey)
             {
                 PromptText = StringIds.NAV_ALREADY_HERE.GetString();
@@ -94,42 +147,189 @@ namespace RobotHri.ViewModels
                 return;
             }
 
+            IsBusy = true;
             ActiveRoomKey = roomKey;
-            var roomName = GetRoomDisplayName(roomKey);
 
+            var localizedPlace = GetLocalizedRoomName(roomKey);
             var headingMsg = StringIds.NAV_HEADING_TO.GetString()
-                .Format(("place", roomName));
+                .Format(("place", localizedPlace));
+
             PromptText = headingMsg;
+            LoadingMessage = headingMsg;
 
             await _speech.SpeakAsync(headingMsg, Localization.CurrentLanguageCode);
 
             if (!_mqtt.IsConnected)
-                await _mqtt.ConnectAsync();
+            {
+                var connected = await _mqtt.ConnectAsync();
+                if (!connected)
+                {
+                    IsBusy = false;
+                    ActiveRoomKey = null;
+                    LoadingMessage = string.Empty;
+                    PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
-            await _mqtt.PublishGoalAsync(roomKey);
+                    if (Application.Current?.MainPage != null)
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                            StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
+                            StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
+                            StringIds.OK.GetString());
+                    }
+
+                    return;
+                }
+            }
+
+            await _mqtt.PublishGoalAsync(GetRobotGoalPlace(roomKey));
+
+//#if DEBUG
+//            if (SimulateRobotArrivalAfterPublish)
+//                StartSimulatedArrivalForTesting(roomKey);
+//#endif
+        }
+
+//#if DEBUG
+//        private void CancelSimulatedArrival()
+//        {
+//            try
+//            {
+//                _simulatedArrivalCts?.Cancel();
+//            }
+//            catch (ObjectDisposedException) { /* ignore */ }
+
+//            _simulatedArrivalCts?.Dispose();
+//            _simulatedArrivalCts = null;
+//        }
+
+//        private void StartSimulatedArrivalForTesting(string roomKeySnapshot)
+//        {
+//            CancelSimulatedArrival();
+//            _simulatedArrivalCts = new CancellationTokenSource();
+//            var ct = _simulatedArrivalCts.Token;
+//            _ = RunSimulatedArrivalAsync(roomKeySnapshot, ct);
+//        }
+
+//        private async Task RunSimulatedArrivalAsync(string roomKeySnapshot, CancellationToken ct)
+//        {
+//            try
+//            {
+//                await Task.Delay(SimulatedArrivalDelay, ct).ConfigureAwait(false);
+//            }
+//            catch (OperationCanceledException)
+//            {
+//                return;
+//            }
+
+//            await MainThread.InvokeOnMainThreadAsync(() =>
+//            {
+//                if (!IsBusy || ActiveRoomKey != roomKeySnapshot)
+//                    return Task.CompletedTask;
+//                _ = HandleArrivalAsync();
+//                return Task.CompletedTask;
+//            });
+//        }
+//#endif
+
+        private async void ConnectMQTT()
+        {
+            if (!_mqtt.IsConnected)
+            {
+                var connected = await _mqtt.ConnectAsync();
+                if (!connected)
+                {
+                    IsBusy = false;
+                    ActiveRoomKey = null;
+                    LoadingMessage = string.Empty;
+                    PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
+
+                    if (Application.Current?.MainPage != null)
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                            StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
+                            StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
+                            StringIds.OK.GetString());
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        private async void OnCancelNavigation()
+        {
+            if (!IsBusy) return;
+
+//#if DEBUG
+//            CancelSimulatedArrival();
+//#endif
+            IsBusy = false;
+            ActiveRoomKey = null;
+            LoadingMessage = string.Empty;
+            PromptText = StringIds.NAV_WHERE_TO_GO.GetString(); // Reset prompt
+
+            await _speech.StopSpeakingAsync();
+
+            // Optional: Publish a "cancel" or "stop" message to MQTT if your robot supports it.
+            // Example: await _mqtt.PublishGoalAsync("stop");
         }
 
         private void OnArrivalReceived(object? sender, bool arrived)
         {
-            if (!arrived) return;
-            var roomName = GetRoomDisplayName(ActiveRoomKey ?? "");
+//            if (!arrived) return;
+//#if DEBUG
+//            CancelSimulatedArrival();
+//#endif
+            _ = HandleArrivalAsync();
+        }
+
+        private async Task HandleArrivalAsync()
+        {
+            IsBusy = false;
+            var roomName = GetLocalizedRoomName(ActiveRoomKey ?? string.Empty);
             var arrivedMsg = StringIds.NAV_ARRIVED_READY.GetString()
                 .Format(("place", roomName));
+
             PromptText = arrivedMsg;
-            _ = _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
+            LoadingMessage = string.Empty;
+
+            await _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
+
+            if (Application.Current?.MainPage != null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    StringIds.NAV_ARRIVAL_TITLE.GetString(),
+                    arrivedMsg,
+                    StringIds.OK.GetString()
+                );
+            }
+
             ActiveRoomKey = null;
         }
 
         public async Task StopSpeechAsync() => await _speech.StopSpeakingAsync();
 
-        private string GetRoomDisplayName(string roomKey) => roomKey switch
+        // Localized label for prompts, loading overlay, and TTS.
+        private static string GetLocalizedRoomName(string roomKey) => roomKey switch
         {
-            "btn_room_a" => RoomWaterIntake,
-            "btn_room_b" => RoomChemistryHall,
-            "btn_room_c" => RoomRestroom,
-            "btn_room_d" => RoomStairs,
-            "btn_room_e" => RoomRoboticsLab,
-            "btn_room_f" => RoomElectricalLab,
+            "RoomWaterIntake" => StringIds.NAV_ROOM_WATER_INTAKE.GetString(),
+            "RoomChemistryHall" => StringIds.NAV_ROOM_CHEMISTRY_HALL.GetString(),
+            "RoomRestroom" => StringIds.NAV_ROOM_RESTROOM.GetString(),
+            "RoomStairs" => StringIds.NAV_ROOM_STAIRS.GetString(),
+            "RoomRoboticsLab" => StringIds.NAV_ROOM_ROBOTICS_LAB.GetString(),
+            "RoomElectricalLab" => StringIds.NAV_ROOM_ELECTRICAL_LAB.GetString(),
+            _ => roomKey
+        };
+
+        // English place names for MQTT (matches Python PLACE_BUTTON_PAIRS).
+        private static string GetRobotGoalPlace(string roomKey) => roomKey switch
+        {
+            "RoomWaterIntake" => "Water Intake",
+            "RoomChemistryHall" => "Chemistry Hall",
+            "RoomRestroom" => "Restroom",
+            "RoomStairs" => "Stairs",
+            "RoomRoboticsLab" => "Robotics Lab",
+            "RoomElectricalLab" => "Electrical Lab",
             _ => roomKey
         };
     }

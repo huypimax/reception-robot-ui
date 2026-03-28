@@ -45,6 +45,9 @@ namespace RobotHri.Languages
         public const string NAV_ROOM_STAIRS = "nav_room_stairs";
         public const string NAV_ROOM_ROBOTICS_LAB = "nav_room_robotics_lab";
         public const string NAV_ROOM_ELECTRICAL_LAB = "nav_room_electrical_lab";
+        public const string NAV_ARRIVAL_TITLE = "nav_arrival_title"; // New
+        public const string NAV_MQTT_CONNECT_FAILED_TITLE = "nav_mqtt_connect_failed_title";
+        public const string NAV_MQTT_CONNECT_FAILED_MESSAGE = "nav_mqtt_connect_failed_message";
 
         // ==================== Lab Page ====================
         public const string LAB_TITLE = "lab_title";
@@ -85,6 +88,7 @@ namespace RobotHri.Languages
         public const string COMMON_LOADING = "common_loading";
         public const string COMMON_LANGUAGE = "common_language";
         public const string COMMON_SWITCH_LANGUAGE = "common_switch_language";
+        public const string OK = "ok"; // New
 
         // ==================== Error Messages ====================
         public const string ERROR_LISTENING = "error_listening";

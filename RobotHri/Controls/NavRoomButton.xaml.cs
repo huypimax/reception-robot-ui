@@ -2,7 +2,7 @@ namespace RobotHri.Controls
 {
     /// <summary>
     /// Room navigation button with press animation.
-    /// Mirrors btn_room_a..f in the original Qt UI.
+    /// Mirrors RoomWaterIntake..f in the original Qt UI.
     /// </summary>
     public partial class NavRoomButton : ContentView
     {

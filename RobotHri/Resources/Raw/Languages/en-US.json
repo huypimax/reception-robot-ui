@@ -35,7 +35,10 @@
   "nav_room_stairs": "Stairs",
   "nav_room_robotics_lab": "Robotics Lab",
   "nav_room_electrical_lab": "Electrical Lab",
-  
+  "nav_arrival_title": "Arrival Notification",
+  "nav_mqtt_connect_failed_title": "Connection error",
+  "nav_mqtt_connect_failed_message": "Could not connect to the robot. Check the network and try again.",
+
   "lab_title": "Lab",
   "lab_home": "Home",
   "lab_back": "Back",
@@ -72,7 +75,8 @@
   "common_loading": "Loading...",
   "common_language": "Language",
   "common_switch_language": "Switch Language",
-  
+  "ok": "OK",
+
   "error_listening": "Hmm, I didn't quite catch that. Could you please repeat?",
   "error_speech_unavailable": "Speech service is unavailable.",
   "error_still_there": "Are you still there?",

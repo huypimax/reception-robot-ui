@@ -16,6 +16,7 @@
     <Color x:Key="TextDark">#00294D</Color>
     <Color x:Key="TextMuted">#6B7A8D</Color>
     <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="TextColor">#00294D</Color>
 
     <!-- ======== Shadow / Overlay ======== -->
     <Color x:Key="ShadowColor">#40000000</Color>

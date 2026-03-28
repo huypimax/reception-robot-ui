@@ -9,6 +9,10 @@
     x:DataType="vm:NaviViewModel"
     Shell.NavBarIsVisible="False">
 
+    <ContentPage.Resources>
+        <vm:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto,Auto,*"
           BackgroundColor="{StaticResource PageBackground}">
 
@@ -18,7 +22,8 @@
                         Title="{Binding TitleText}"
                         BackText="{Binding HomeText}"
                         ShowBackButton="True"
-                        LanguageLabelText="{Binding LanguageLabel}" />
+                        LanguageLabelText="{Binding LanguageLabel}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
         <!-- Prompt bar -->
         <c:PromptLabel Grid.Row="1"
@@ -36,41 +41,55 @@
                 <!-- Row 0 -->
                 <c:NavRoomButton Grid.Row="0" Grid.Column="0"
                                  RoomName="{Binding RoomWaterIntake}"
-                                 RoomKey="btn_room_a"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_a'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomWaterIntake"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomWaterIntake'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
                 <c:NavRoomButton Grid.Row="0" Grid.Column="1"
                                  RoomName="{Binding RoomChemistryHall}"
-                                 RoomKey="btn_room_b"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_b'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomChemistryHall"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomChemistryHall'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
                 <c:NavRoomButton Grid.Row="0" Grid.Column="2"
                                  RoomName="{Binding RoomRestroom}"
-                                 RoomKey="btn_room_c"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_c'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomRestroom"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomRestroom'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
                 <!-- Row 1 -->
                 <c:NavRoomButton Grid.Row="1" Grid.Column="0"
                                  RoomName="{Binding RoomStairs}"
-                                 RoomKey="btn_room_d"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_d'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomStairs"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomStairs'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
                 <c:NavRoomButton Grid.Row="1" Grid.Column="1"
                                  RoomName="{Binding RoomRoboticsLab}"
-                                 RoomKey="btn_room_e"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_e'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomRoboticsLab"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomRoboticsLab'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
 
                 <c:NavRoomButton Grid.Row="1" Grid.Column="2"
                                  RoomName="{Binding RoomElectricalLab}"
-                                 RoomKey="btn_room_f"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='btn_room_f'}"
-                                 RoomSelected="OnRoomSelected" />
+                                 RoomKey="RoomElectricalLab"
+                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomElectricalLab'}"
+                                 RoomSelected="OnRoomSelected"
+                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
             </Grid>
         </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid Grid.RowSpan="3"
+              IsVisible="{Binding IsBusy}"
+              BackgroundColor="#80000000"
+              ZIndex="100">
+            <c:LoadingPopupView BindingContext="{Binding .}" />
+        </Grid>
     </Grid>
 </controls:BaseContentPage>
