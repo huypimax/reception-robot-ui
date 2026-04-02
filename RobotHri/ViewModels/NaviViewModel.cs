@@ -24,6 +24,10 @@ namespace RobotHri.ViewModels
         private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.2);
         private CancellationTokenSource? _simulatedArrivalCts;
 #endif
+        private bool _isArrivalPopupVisible;
+        private string _arrivalMessage = string.Empty;
+        private string _arrivalTitle = string.Empty;
+        private string _okButtonText = string.Empty;
 
         public string PromptText
         {
@@ -63,6 +67,30 @@ namespace RobotHri.ViewModels
             set => SetProperty(ref _loadingMessage, value);
         }
 
+        public bool IsArrivalPopupVisible
+        {
+            get => _isArrivalPopupVisible;
+            set => SetProperty(ref _isArrivalPopupVisible, value);
+        }
+
+        public string ArrivalMessage
+        {
+            get => _arrivalMessage;
+            set => SetProperty(ref _arrivalMessage, value);
+        }
+
+        public string ArrivalTitle
+        {
+            get => _arrivalTitle;
+            set => SetProperty(ref _arrivalTitle, value);
+        }
+
+        public string OkButtonText
+        {
+            get => _okButtonText;
+            set => SetProperty(ref _okButtonText, value);
+        }
+
         // Localized room names (updated on language change)
         public string RoomWaterIntake => StringIds.NAV_ROOM_WATER_INTAKE.GetString();
         public string RoomChemistryHall => StringIds.NAV_ROOM_CHEMISTRY_HALL.GetString();
@@ -75,6 +103,7 @@ namespace RobotHri.ViewModels
         public ICommand GoHomeCommand { get; }
         public ICommand ToggleLanguageCommand { get; }
         public ICommand CancelNavigationCommand { get; }
+        public ICommand DismissArrivalPopupCommand { get; }
 
         public NaviViewModel(ILocalizationService localization, IMqttService mqtt, ISpeechService speech)
             : base(localization)
@@ -91,6 +120,7 @@ namespace RobotHri.ViewModels
             ToggleLanguageCommand = new Command(() => Localization.ToggleLanguage());
 
             CancelNavigationCommand = new Command(OnCancelNavigation);
+            DismissArrivalPopupCommand = new Command(() => IsArrivalPopupVisible = false);
 
             _mqtt.ArrivalReceived += OnArrivalReceived;
             RefreshLocalizedProperties();
@@ -127,6 +157,7 @@ namespace RobotHri.ViewModels
             PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
             HomeText = StringIds.NAV_HOME.GetString();
             LanguageLabel = Localization.GetCurrentLanguageName();
+            OkButtonText = StringIds.OK.GetString();
 
             OnPropertyChanged(nameof(RoomWaterIntake));
             OnPropertyChanged(nameof(RoomChemistryHall));
@@ -266,12 +297,9 @@ namespace RobotHri.ViewModels
             IsBusy = false;
             ActiveRoomKey = null;
             LoadingMessage = string.Empty;
-            PromptText = StringIds.NAV_WHERE_TO_GO.GetString(); // Reset prompt
+            PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
             await _speech.StopSpeakingAsync();
-
-            // Optional: Publish a "cancel" or "stop" message to MQTT if your robot supports it.
-            // Example: await _mqtt.PublishGoalAsync("stop");
         }
 
         private void OnArrivalReceived(object? sender, bool arrived)
@@ -285,31 +313,28 @@ namespace RobotHri.ViewModels
 
         private async Task HandleArrivalAsync()
         {
-            IsBusy = false;
-            var roomName = GetLocalizedRoomName(ActiveRoomKey ?? string.Empty);
-            var arrivedMsg = StringIds.NAV_ARRIVED_READY.GetString()
-                .Format(("place", roomName));
-
-            PromptText = arrivedMsg;
-            LoadingMessage = string.Empty;
-
-            await _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
-
-            if (Application.Current?.MainPage != null)
+            // Must update UI on the main thread
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    StringIds.NAV_ARRIVAL_TITLE.GetString(),
-                    arrivedMsg,
-                    StringIds.OK.GetString()
-                );
-            }
+                IsBusy = false;
+                var roomName = GetLocalizedRoomName(ActiveRoomKey ?? string.Empty);
+                var arrivedMsg = StringIds.NAV_ARRIVED_READY.GetString()
+                    .Format(("place", roomName));
 
-            ActiveRoomKey = null;
+                PromptText = arrivedMsg;
+                LoadingMessage = string.Empty;
+
+                ArrivalTitle = StringIds.NAV_ARRIVAL_TITLE.GetString();
+                ArrivalMessage = arrivedMsg;
+                IsArrivalPopupVisible = true;
+
+                await _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
+                ActiveRoomKey = null;
+            });
         }
 
         public async Task StopSpeechAsync() => await _speech.StopSpeakingAsync();
 
-        // Localized label for prompts, loading overlay, and TTS.
         private static string GetLocalizedRoomName(string roomKey) => roomKey switch
         {
             "RoomWaterIntake" => StringIds.NAV_ROOM_WATER_INTAKE.GetString(),
@@ -321,7 +346,6 @@ namespace RobotHri.ViewModels
             _ => roomKey
         };
 
-        // English place names for MQTT (matches Python PLACE_BUTTON_PAIRS).
         private static string GetRobotGoalPlace(string roomKey) => roomKey switch
         {
             "RoomWaterIntake" => "Water Intake",

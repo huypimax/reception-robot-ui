@@ -91,5 +91,13 @@
               ZIndex="100">
             <c:LoadingPopupView BindingContext="{Binding .}" />
         </Grid>
+
+        <!-- Arrival Overlay -->
+        <Grid Grid.RowSpan="3"
+              IsVisible="{Binding IsArrivalPopupVisible}"
+              BackgroundColor="#80000000"
+              ZIndex="101">
+            <c:ArrivalPopupView BindingContext="{Binding .}" />
+        </Grid>
     </Grid>
 </controls:BaseContentPage>
