@@ -18,12 +18,12 @@ namespace RobotHri.ViewModels
         private bool _isBusy;
         private string _loadingMessage = string.Empty;
 
-//#if DEBUG
-//        // Set to false to rely only on real MQTT robot/arrival messages.
-//        private const bool SimulateRobotArrivalAfterPublish = true;
-//        private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(1);
-//        private CancellationTokenSource? _simulatedArrivalCts;
-//#endif
+#if DEBUG
+        // Set to false to rely only on real MQTT robot/arrival messages.
+        private const bool SimulateRobotArrivalAfterPublish = true;
+        private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.2);
+        private CancellationTokenSource? _simulatedArrivalCts;
+#endif
 
         public string PromptText
         {
@@ -183,53 +183,53 @@ namespace RobotHri.ViewModels
 
             await _mqtt.PublishGoalAsync(GetRobotGoalPlace(roomKey));
 
-//#if DEBUG
-//            if (SimulateRobotArrivalAfterPublish)
-//                StartSimulatedArrivalForTesting(roomKey);
-//#endif
+#if DEBUG
+            if (SimulateRobotArrivalAfterPublish)
+                StartSimulatedArrivalForTesting(roomKey);
+#endif
         }
 
-//#if DEBUG
-//        private void CancelSimulatedArrival()
-//        {
-//            try
-//            {
-//                _simulatedArrivalCts?.Cancel();
-//            }
-//            catch (ObjectDisposedException) { /* ignore */ }
+#if DEBUG
+        private void CancelSimulatedArrival()
+        {
+            try
+            {
+                _simulatedArrivalCts?.Cancel();
+            }
+            catch (ObjectDisposedException) { /* ignore */ }
 
-//            _simulatedArrivalCts?.Dispose();
-//            _simulatedArrivalCts = null;
-//        }
+            _simulatedArrivalCts?.Dispose();
+            _simulatedArrivalCts = null;
+        }
 
-//        private void StartSimulatedArrivalForTesting(string roomKeySnapshot)
-//        {
-//            CancelSimulatedArrival();
-//            _simulatedArrivalCts = new CancellationTokenSource();
-//            var ct = _simulatedArrivalCts.Token;
-//            _ = RunSimulatedArrivalAsync(roomKeySnapshot, ct);
-//        }
+        private void StartSimulatedArrivalForTesting(string roomKeySnapshot)
+        {
+            CancelSimulatedArrival();
+            _simulatedArrivalCts = new CancellationTokenSource();
+            var ct = _simulatedArrivalCts.Token;
+            _ = RunSimulatedArrivalAsync(roomKeySnapshot, ct);
+        }
 
-//        private async Task RunSimulatedArrivalAsync(string roomKeySnapshot, CancellationToken ct)
-//        {
-//            try
-//            {
-//                await Task.Delay(SimulatedArrivalDelay, ct).ConfigureAwait(false);
-//            }
-//            catch (OperationCanceledException)
-//            {
-//                return;
-//            }
+        private async Task RunSimulatedArrivalAsync(string roomKeySnapshot, CancellationToken ct)
+        {
+            try
+            {
+                await Task.Delay(SimulatedArrivalDelay, ct).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
 
-//            await MainThread.InvokeOnMainThreadAsync(() =>
-//            {
-//                if (!IsBusy || ActiveRoomKey != roomKeySnapshot)
-//                    return Task.CompletedTask;
-//                _ = HandleArrivalAsync();
-//                return Task.CompletedTask;
-//            });
-//        }
-//#endif
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                if (!IsBusy || ActiveRoomKey != roomKeySnapshot)
+                    return Task.CompletedTask;
+                _ = HandleArrivalAsync();
+                return Task.CompletedTask;
+            });
+        }
+#endif
 
         private async void ConnectMQTT()
         {
@@ -260,9 +260,9 @@ namespace RobotHri.ViewModels
         {
             if (!IsBusy) return;
 
-//#if DEBUG
-//            CancelSimulatedArrival();
-//#endif
+#if DEBUG
+            CancelSimulatedArrival();
+#endif
             IsBusy = false;
             ActiveRoomKey = null;
             LoadingMessage = string.Empty;
@@ -276,10 +276,10 @@ namespace RobotHri.ViewModels
 
         private void OnArrivalReceived(object? sender, bool arrived)
         {
-//            if (!arrived) return;
-//#if DEBUG
-//            CancelSimulatedArrival();
-//#endif
+            if (!arrived) return;
+#if DEBUG
+            CancelSimulatedArrival();
+#endif
             _ = HandleArrivalAsync();
         }
 
