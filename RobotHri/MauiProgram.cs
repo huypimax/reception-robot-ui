@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using RobotHri.Services;
 using RobotHri.ViewModels;
 using RobotHri.Views;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace RobotHri
 {
@@ -15,6 +16,7 @@ namespace RobotHri
 
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {

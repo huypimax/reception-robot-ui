@@ -540,27 +540,38 @@
                 </VerticalStackLayout>
 
                 <!-- ══════════════════════════════════════════════
-                     MAP SETTINGS PANEL  (Lập bản đồ)
+                     MAP SETTINGS PANEL — live occupancy grid + robot pose (MQTT)
                 ══════════════════════════════════════════════ -->
                 <VerticalStackLayout IsVisible="{Binding IsMapSelected}"
-                                     Spacing="0">
+                                     Spacing="14"
+                                     Padding="0,0,0,24">
 
-                    <Border Style="{StaticResource CardBorder}">
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Label Grid.Column="0"
-                                   Text="{Binding MapTitle}"
-                                   FontFamily="RobotoBold"
-                                   FontSize="{StaticResource FontSizeTitleMedium}"
-                                   TextColor="{StaticResource TextDark}"
-                                   VerticalOptions="Center" />
-                            <c:RobotButton Grid.Column="1"
-                                           Text="{Binding MapBtnText}"
-                                           ButtonStyle="Primary"
-                                           Command="{Binding MapActionCommand}"
-                                           HeightRequest="{StaticResource ButtonMinHeight}" />
-                        </Grid>
+                    <Label Text="{Binding MapTitle}"
+                           FontFamily="RobotoBold"
+                           FontSize="{StaticResource FontSizeTitleMedium}"
+                           TextColor="{StaticResource PrimaryDarkBlue}" />
+
+                    <Label Text="{Binding MapPoseSummary}"
+                           FontSize="{StaticResource FontSizeBody}"
+                           TextColor="{StaticResource TextColor}"
+                           HorizontalTextAlignment="Center" />
+
+                    <Border x:Name="RobotMapHost"
+                            Style="{StaticResource CardBorder}"
+                            Padding="0"
+                            StrokeShape="RoundRectangle 8">
+                        <c:RobotMapCanvasView RobotX="{Binding RobotMapX}"
+                                              RobotY="{Binding RobotMapY}"
+                                              RobotThetaDegrees="{Binding RobotMapThetaDegrees}"
+                                              HorizontalOptions="Fill"
+                                              VerticalOptions="Fill" />
                     </Border>
 
+                    <Label Text="{Binding MapPanHint}"
+                           FontSize="12"
+                           TextColor="{StaticResource TextColor}"
+                           Opacity="0.75"
+                           HorizontalTextAlignment="Center" />
                 </VerticalStackLayout>
 
                 <!-- ── Route Settings panel ── -->

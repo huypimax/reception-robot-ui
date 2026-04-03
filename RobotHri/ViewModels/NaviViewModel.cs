@@ -19,17 +19,14 @@ namespace RobotHri.ViewModels
         private string _loadingMessage = string.Empty;
 
 #if DEBUG
-        // Set to false to rely only on real MQTT robot/arrival messages.
         private const bool SimulateRobotArrivalAfterPublish = true;
         private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.1);
         private CancellationTokenSource? _simulatedArrivalCts;
 #endif
 
-        // Auto-dismiss cancellation tokens
         private CancellationTokenSource? _autoDismissCts;
         private CancellationTokenSource? _locationInfoDismissCts;
 
-        // Generic Notification Popup State
         private bool _isNotificationPopupVisible;
         private string _notificationMessage = string.Empty;
         private string _notificationTitle = string.Empty;
@@ -37,7 +34,6 @@ namespace RobotHri.ViewModels
         private bool _isShowingLocationInfo;
         private string? _lastArrivedRoomKey;
 
-        // Error Popup State
         private bool _isErrorPopupVisible;
         private string _errorMessage = string.Empty;
         private string _errorTitle = string.Empty;
@@ -157,7 +153,6 @@ namespace RobotHri.ViewModels
             {
                 if (!_isShowingLocationInfo)
                 {
-                    // If we were showing the arrival popup, cancel the 10s timer and show the location info
                     CancelAutoDismiss();
                     ShowLocationInfoPopup();
                 }
@@ -372,17 +367,15 @@ namespace RobotHri.ViewModels
 #if DEBUG
             CancelSimulatedArrival();
 #endif
-            // Event handlers MUST await HandleArrivalAsync to execute correctly
             await HandleArrivalAsync();
         }
 
         private async Task HandleArrivalAsync()
         {
-            // Must update UI on the main thread
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 IsBusy = false;
-                _lastArrivedRoomKey = ActiveRoomKey; // Save the room key for the location info popup
+                _lastArrivedRoomKey = ActiveRoomKey; 
 
                 var roomName = GetLocalizedRoomName(_lastArrivedRoomKey ?? string.Empty);
                 var arrivedMsg = StringIds.NAV_ARRIVED_READY.GetString()
@@ -413,11 +406,9 @@ namespace RobotHri.ViewModels
 
             _isShowingLocationInfo = true;
 
-            // Set title to room name and message to room description
             NotificationTitle = GetLocalizedRoomName(_lastArrivedRoomKey);
             NotificationMessage = GetRoomDescription(_lastArrivedRoomKey);
 
-            // Keep it visible (it just updates the text seamlessly)
             IsNotificationPopupVisible = true;
 
             StartLocationInfoAutoDismissTimer();
@@ -451,14 +442,12 @@ namespace RobotHri.ViewModels
                     {
                         await MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            // If 10 seconds pass, transition to Location Info automatically
                             ShowLocationInfoPopup();
                         });
                     }
                 }
                 catch (OperationCanceledException)
                 {
-                    // Timer was cancelled because user clicked OK
                 }
             }, ct);
         }
@@ -491,7 +480,6 @@ namespace RobotHri.ViewModels
                     {
                         await MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            // Auto dismiss the location info after 2 minutes
                             IsNotificationPopupVisible = false;
                             _isShowingLocationInfo = false;
                             _lastArrivedRoomKey = null;
@@ -500,7 +488,6 @@ namespace RobotHri.ViewModels
                 }
                 catch (OperationCanceledException)
                 {
-                    // Cancelled manually by user
                 }
             }, ct);
         }

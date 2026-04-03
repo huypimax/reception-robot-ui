@@ -11,6 +11,47 @@ namespace RobotHri.ViewModels
 
     public class SetupViewModel : BaseViewModel
     {
+        private readonly IMqttService _mqtt;
+
+        // ─── Live robot map (admin: Setup → Map, inline panel) ─────────────────────
+
+        private string _mapPoseSummary = string.Empty;
+        private string _mapPanHint = string.Empty;
+        private double _robotMapX;
+        private double _robotMapY;
+        private double _robotMapThetaDegrees;
+        private bool _hasMapPose;
+
+        public string MapPoseSummary
+        {
+            get => _mapPoseSummary;
+            set => SetProperty(ref _mapPoseSummary, value);
+        }
+
+        public string MapPanHint
+        {
+            get => _mapPanHint;
+            set => SetProperty(ref _mapPanHint, value);
+        }
+
+        public double RobotMapX
+        {
+            get => _robotMapX;
+            set => SetProperty(ref _robotMapX, value);
+        }
+
+        public double RobotMapY
+        {
+            get => _robotMapY;
+            set => SetProperty(ref _robotMapY, value);
+        }
+
+        public double RobotMapThetaDegrees
+        {
+            get => _robotMapThetaDegrees;
+            set => SetProperty(ref _robotMapThetaDegrees, value);
+        }
+
         // ─── Section selection ────────────────────────────────────────────────────
 
         private SetupSection _selectedSection = SetupSection.Route;
@@ -19,8 +60,11 @@ namespace RobotHri.ViewModels
             get => _selectedSection;
             set
             {
-                if (SetProperty(ref _selectedSection, value))
-                    NotifySelectionBools();
+                if (!SetProperty(ref _selectedSection, value))
+                    return;
+                NotifySelectionBools();
+                if (value == SetupSection.Map)
+                    _ = TryConnectMqttForMapAsync();
             }
         }
 
@@ -260,8 +304,7 @@ namespace RobotHri.ViewModels
         private string _deliveryVoiceCountdownLbl     = string.Empty;
         private string _deliveryVoiceCountdownDesc    = string.Empty;
         // Map localized
-        private string _mapTitle  = string.Empty;
-        private string _mapBtnText = string.Empty;
+        private string _mapTitle = string.Empty;
         // System extended localized
         private string _sysPasswordLbl         = string.Empty;
         private string _sysChangePasswordBtn   = string.Empty;
@@ -364,8 +407,7 @@ namespace RobotHri.ViewModels
         public string DeliveryVoiceCountdownLbl  { get => _deliveryVoiceCountdownLbl;  set => SetProperty(ref _deliveryVoiceCountdownLbl, value); }
         public string DeliveryVoiceCountdownDesc { get => _deliveryVoiceCountdownDesc; set => SetProperty(ref _deliveryVoiceCountdownDesc, value); }
         // Map
-        public string MapTitle   { get => _mapTitle;   set => SetProperty(ref _mapTitle, value); }
-        public string MapBtnText { get => _mapBtnText; set => SetProperty(ref _mapBtnText, value); }
+        public string MapTitle { get => _mapTitle; set => SetProperty(ref _mapTitle, value); }
         // System extended
         public string SysPasswordLbl        { get => _sysPasswordLbl;        set => SetProperty(ref _sysPasswordLbl, value); }
         public string SysChangePasswordBtn  { get => _sysChangePasswordBtn;  set => SetProperty(ref _sysChangePasswordBtn, value); }
@@ -410,13 +452,12 @@ namespace RobotHri.ViewModels
         public Command SelectChargingTabCommand { get; }
         public Command SelectWaitingTabCommand  { get; }
         public Command SelectCustomTabCommand   { get; }
-        // Map
-        public Command MapActionCommand { get; }
 
         // ─── Constructor ──────────────────────────────────────────────────────────
 
-        public SetupViewModel(ILocalizationService localization) : base(localization)
+        public SetupViewModel(ILocalizationService localization, IMqttService mqtt) : base(localization)
         {
+            _mqtt = mqtt;
             SelectBasicCommand      = new Command(() => SelectedSection = SetupSection.Basic);
             SelectSoundCommand      = new Command(() => SelectedSection = SetupSection.Sound);
             SelectVoiceCommand      = new Command(() => SelectedSection = SetupSection.Voice);
@@ -449,9 +490,52 @@ namespace RobotHri.ViewModels
             SelectChargingTabCommand = new Command(() => SelectedTimeTabIndex = 0);
             SelectWaitingTabCommand  = new Command(() => SelectedTimeTabIndex = 1);
             SelectCustomTabCommand   = new Command(() => SelectedTimeTabIndex = 2);
-            MapActionCommand         = new Command(() => { /* TODO: open map management */ });
 
             RefreshLocalizedProperties();
+        }
+
+        private async Task TryConnectMqttForMapAsync()
+        {
+            try
+            {
+                if (!_mqtt.IsConnected)
+                    await _mqtt.ConnectAsync();
+            }
+            catch
+            {
+                // Map still renders; pose line shows waiting until broker connects.
+            }
+        }
+
+        /// <summary>Subscribe to robot pose while Setup is visible.</summary>
+        public void AttachMqttHandlers()
+        {
+            _mqtt.LocationUpdated += OnLocationUpdated;
+        }
+
+        public void DetachMqttHandlers()
+        {
+            _mqtt.LocationUpdated -= OnLocationUpdated;
+        }
+
+        private void OnLocationUpdated(object? sender, LocationModel location)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                RobotMapX = location.X;
+                RobotMapY = location.Y;
+                RobotMapThetaDegrees = location.Theta;
+                _hasMapPose = true;
+                RefreshMapPoseSummary();
+            });
+        }
+
+        private void RefreshMapPoseSummary()
+        {
+            if (!_hasMapPose)
+                MapPoseSummary = StringIds.NAV_MAP_WAITING_POSE.GetString();
+            else
+                MapPoseSummary = $"X: {RobotMapX:F2}, Y: {RobotMapY:F2}, θ: {RobotMapThetaDegrees:F1}°";
         }
 
         // ─── Localization ─────────────────────────────────────────────────────────
@@ -546,8 +630,9 @@ namespace RobotHri.ViewModels
             DeliveryVoiceCountdownLbl  = StringIds.SETUP_DELIVERY_VOICE_COUNTDOWN.GetString();
             DeliveryVoiceCountdownDesc = StringIds.SETUP_DELIVERY_VOICE_COUNTDOWN_DESC.GetString();
             // Map
-            MapTitle   = StringIds.SETUP_MAP_TITLE.GetString();
-            MapBtnText = StringIds.SETUP_MAP_BTN.GetString();
+            MapTitle = StringIds.SETUP_MAP_TITLE.GetString();
+            MapPanHint = StringIds.NAV_MAP_PAN_HINT.GetString();
+            RefreshMapPoseSummary();
             // System extended
             SysPasswordLbl         = StringIds.SETUP_SYS_PASSWORD.GetString();
             SysChangePasswordBtn   = StringIds.SETUP_SYS_CHANGE_PASSWORD.GetString();

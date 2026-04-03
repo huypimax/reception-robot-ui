@@ -38,6 +38,11 @@
   "nav_arrival_title": "Arrival Notification",
   "nav_mqtt_connect_failed_title": "Connection error",
   "nav_mqtt_connect_failed_message": "Could not connect to the robot. Check the network and try again.",
+  "nav_map_button": "Map",
+  "nav_map_title": "Robot position",
+  "nav_map_close": "Close",
+  "nav_map_pan_hint": "Drag to pan. Pinch or mouse wheel to zoom. Pose updates from MQTT.",
+  "nav_map_waiting_pose": "Waiting for position from robot (MQTT)…",
 
   "lab_title": "Lab",
   "lab_home": "Home",
@@ -213,7 +218,6 @@
   "setup_delivery_voice_countdown_desc": "10s countdown notification",
 
   "setup_map_title": "Map Management",
-  "setup_map_btn": "setting.bjdt",
 
   "setup_sys_password": "Password",
   "setup_sys_change_password": "Change Password",

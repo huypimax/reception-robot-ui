@@ -38,6 +38,11 @@
   "nav_arrival_title": "Thông báo đến nơi",
   "nav_mqtt_connect_failed_title": "Lỗi kết nối",
   "nav_mqtt_connect_failed_message": "Không kết nối được với robot. Vui lòng kiểm tra mạng và thử lại.",
+  "nav_map_button": "Bản đồ",
+  "nav_map_title": "Vị trí robot",
+  "nav_map_close": "Đóng",
+  "nav_map_pan_hint": "Kéo để di chuyển. Chụm hai ngón hoặc lăn chuột để phóng to/thu nhỏ. Tọa độ cập nhật qua MQTT.",
+  "nav_map_waiting_pose": "Đang chờ vị trí từ robot (MQTT)…",
 
   "lab_title": "Phòng Lab",
   "lab_home": "Trang chủ",
@@ -213,7 +218,6 @@
   "setup_delivery_voice_countdown_desc": "Thông báo đếm ngược 10s",
 
   "setup_map_title": "Quản lý bản đồ",
-  "setup_map_btn": "setting.bjdt",
 
   "setup_sys_password": "Mật khẩu",
   "setup_sys_change_password": "Thay đổi mật khẩu",

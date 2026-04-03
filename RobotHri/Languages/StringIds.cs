@@ -48,6 +48,11 @@ namespace RobotHri.Languages
         public const string NAV_ARRIVAL_TITLE = "nav_arrival_title";
         public const string NAV_MQTT_CONNECT_FAILED_TITLE = "nav_mqtt_connect_failed_title";
         public const string NAV_MQTT_CONNECT_FAILED_MESSAGE = "nav_mqtt_connect_failed_message";
+        public const string NAV_MAP_BUTTON = "nav_map_button";
+        public const string NAV_MAP_TITLE = "nav_map_title";
+        public const string NAV_MAP_CLOSE = "nav_map_close";
+        public const string NAV_MAP_PAN_HINT = "nav_map_pan_hint";
+        public const string NAV_MAP_WAITING_POSE = "nav_map_waiting_pose";
 
         // ==================== Lab Page ====================
         public const string LAB_TITLE = "lab_title";
@@ -231,7 +236,6 @@ namespace RobotHri.Languages
         public const string SETUP_DELIVERY_VOICE_COUNTDOWN_DESC= "setup_delivery_voice_countdown_desc";
         // Map settings
         public const string SETUP_MAP_TITLE = "setup_map_title";
-        public const string SETUP_MAP_BTN   = "setup_map_btn";
         // System settings – extended
         public const string SETUP_SYS_PASSWORD          = "setup_sys_password";
         public const string SETUP_SYS_CHANGE_PASSWORD   = "setup_sys_change_password";
