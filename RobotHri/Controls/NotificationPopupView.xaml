@@ -8,7 +8,8 @@
             BackgroundColor="{StaticResource PageBackground}"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            WidthRequest="320"
+            MinimumWidthRequest="320"
+            MaximumWidthRequest="600"
             Padding="25">
         <VerticalStackLayout Spacing="20">
             <Label Text="{Binding NotificationTitle}"
@@ -16,12 +17,14 @@
                    FontSize="22"
                    FontAttributes="Bold"
                    TextColor="{StaticResource TextColor}" />
-            <Label Text="{Binding NotificationMessage}"
-                   HorizontalOptions="Center"
-                   HorizontalTextAlignment="Center"
-                   FontSize="16"
-                   TextColor="{StaticResource TextColor}"
-                   LineHeight="1.2"/>
+            <ScrollView MaximumHeightRequest="400">
+                <Label Text="{Binding NotificationMessage}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="16"
+                       TextColor="{StaticResource TextColor}"
+                       LineHeight="1.2" />
+            </ScrollView>
             <Button Text="{Binding OkButtonText}"
                     Command="{Binding DismissNotificationCommand}"
                     HorizontalOptions="Center"

@@ -21,10 +21,12 @@
             <Button Text="Cancel"
                     Command="{Binding CancelNavigationCommand}"
                     HorizontalOptions="Center"
-                    WidthRequest="120"
+                    WidthRequest="150"
                     HeightRequest="40"
                     BackgroundColor="{StaticResource Primary}"
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource White}"
+                    FontSize="16"
+                    FontAttributes="Bold" />
         </VerticalStackLayout>
     </Border>
 </ContentView>

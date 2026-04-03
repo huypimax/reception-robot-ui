@@ -21,15 +21,21 @@ namespace RobotHri.ViewModels
 #if DEBUG
         // Set to false to rely only on real MQTT robot/arrival messages.
         private const bool SimulateRobotArrivalAfterPublish = true;
-        private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.2);
+        private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.1);
         private CancellationTokenSource? _simulatedArrivalCts;
 #endif
 
-        // Generic Notification Popup State (formerly ArrivalPopup)
+        // Auto-dismiss cancellation tokens
+        private CancellationTokenSource? _autoDismissCts;
+        private CancellationTokenSource? _locationInfoDismissCts;
+
+        // Generic Notification Popup State
         private bool _isNotificationPopupVisible;
         private string _notificationMessage = string.Empty;
         private string _notificationTitle = string.Empty;
         private string _okButtonText = string.Empty;
+        private bool _isShowingLocationInfo;
+        private string? _lastArrivedRoomKey;
 
         // Error Popup State
         private bool _isErrorPopupVisible;
@@ -146,10 +152,26 @@ namespace RobotHri.ViewModels
             ToggleLanguageCommand = new Command(() => Localization.ToggleLanguage());
 
             CancelNavigationCommand = new Command(OnCancelNavigation);
-            DismissNotificationCommand = new Command(() => IsNotificationPopupVisible = false);
-            DismissErrorPopupCommand = new Command(() => IsErrorPopupVisible = false);
 
-            _mqtt.ArrivalReceived += OnArrivalReceived;
+            DismissNotificationCommand = new Command(() =>
+            {
+                if (!_isShowingLocationInfo)
+                {
+                    // If we were showing the arrival popup, cancel the 10s timer and show the location info
+                    CancelAutoDismiss();
+                    ShowLocationInfoPopup();
+                }
+                else
+                {
+                    // If we were showing the location info, just dismiss it and cancel its 2m timer
+                    CancelLocationInfoAutoDismiss();
+                    IsNotificationPopupVisible = false;
+                    _isShowingLocationInfo = false;
+                    _lastArrivedRoomKey = null;
+                }
+            });
+
+            DismissErrorPopupCommand = new Command(() => IsErrorPopupVisible = false);
 
             RefreshLocalizedProperties();
 
@@ -214,6 +236,13 @@ namespace RobotHri.ViewModels
                 await _speech.SpeakAsync(PromptText, Localization.CurrentLanguageCode);
                 return;
             }
+
+            // Clear any active popups or timers when starting a new navigation
+            IsNotificationPopupVisible = false;
+            CancelAutoDismiss();
+            CancelLocationInfoAutoDismiss();
+            _isShowingLocationInfo = false;
+            _lastArrivedRoomKey = null;
 
             IsBusy = true;
             ActiveRoomKey = roomKey;
@@ -324,6 +353,13 @@ namespace RobotHri.ViewModels
 #endif
             IsBusy = false;
             ActiveRoomKey = null;
+            _lastArrivedRoomKey = null;
+            _isShowingLocationInfo = false;
+            IsNotificationPopupVisible = false;
+
+            CancelAutoDismiss();
+            CancelLocationInfoAutoDismiss();
+
             LoadingMessage = string.Empty;
             PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
@@ -346,20 +382,127 @@ namespace RobotHri.ViewModels
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 IsBusy = false;
-                var roomName = GetLocalizedRoomName(ActiveRoomKey ?? string.Empty);
+                _lastArrivedRoomKey = ActiveRoomKey; // Save the room key for the location info popup
+
+                var roomName = GetLocalizedRoomName(_lastArrivedRoomKey ?? string.Empty);
                 var arrivedMsg = StringIds.NAV_ARRIVED_READY.GetString()
                     .Format(("place", roomName));
 
                 PromptText = arrivedMsg;
                 LoadingMessage = string.Empty;
 
+                _isShowingLocationInfo = false;
                 NotificationTitle = StringIds.NAV_ARRIVAL_TITLE.GetString();
                 NotificationMessage = arrivedMsg;
                 IsNotificationPopupVisible = true;
 
                 await _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
                 ActiveRoomKey = null;
+
+                StartAutoDismissTimer();
             });
+        }
+
+        private void ShowLocationInfoPopup()
+        {
+            if (string.IsNullOrEmpty(_lastArrivedRoomKey))
+            {
+                IsNotificationPopupVisible = false;
+                return;
+            }
+
+            _isShowingLocationInfo = true;
+
+            // Set title to room name and message to room description
+            NotificationTitle = GetLocalizedRoomName(_lastArrivedRoomKey);
+            NotificationMessage = GetRoomDescription(_lastArrivedRoomKey);
+
+            // Keep it visible (it just updates the text seamlessly)
+            IsNotificationPopupVisible = true;
+
+            StartLocationInfoAutoDismissTimer();
+        }
+
+        private void CancelAutoDismiss()
+        {
+            try
+            {
+                _autoDismissCts?.Cancel();
+            }
+            catch (ObjectDisposedException) { /* ignore */ }
+
+            _autoDismissCts?.Dispose();
+            _autoDismissCts = null;
+        }
+
+        private void StartAutoDismissTimer()
+        {
+            CancelAutoDismiss();
+            _autoDismissCts = new CancellationTokenSource();
+            var ct = _autoDismissCts.Token;
+
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(10), ct);
+
+                    if (!ct.IsCancellationRequested)
+                    {
+                        await MainThread.InvokeOnMainThreadAsync(() =>
+                        {
+                            // If 10 seconds pass, transition to Location Info automatically
+                            ShowLocationInfoPopup();
+                        });
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // Timer was cancelled because user clicked OK
+                }
+            }, ct);
+        }
+
+        private void CancelLocationInfoAutoDismiss()
+        {
+            try
+            {
+                _locationInfoDismissCts?.Cancel();
+            }
+            catch (ObjectDisposedException) { /* ignore */ }
+
+            _locationInfoDismissCts?.Dispose();
+            _locationInfoDismissCts = null;
+        }
+
+        private void StartLocationInfoAutoDismissTimer()
+        {
+            CancelLocationInfoAutoDismiss();
+            _locationInfoDismissCts = new CancellationTokenSource();
+            var ct = _locationInfoDismissCts.Token;
+
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(TimeSpan.FromMinutes(2), ct);
+
+                    if (!ct.IsCancellationRequested)
+                    {
+                        await MainThread.InvokeOnMainThreadAsync(() =>
+                        {
+                            // Auto dismiss the location info after 2 minutes
+                            IsNotificationPopupVisible = false;
+                            _isShowingLocationInfo = false;
+                            _lastArrivedRoomKey = null;
+                        });
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // Cancelled manually by user
+                }
+            }, ct);
         }
 
         public async Task StopSpeechAsync() => await _speech.StopSpeakingAsync();
@@ -384,6 +527,15 @@ namespace RobotHri.ViewModels
             "RoomRoboticsLab" => "Robotics Lab",
             "RoomElectricalLab" => "Electrical Lab",
             _ => roomKey
+        };
+
+        private static string GetRoomDescription(string roomKey) => roomKey switch
+        {
+            "RoomRoboticsLab" => StringIds.LAB_DEVICE_PLC.GetString(),
+            "RoomElectricalLab" => StringIds.LAB_DEVICE_IFM.GetString(),
+            "RoomChemistryHall" => StringIds.LAB_DEVICE_STEP.GetString(),
+            "RoomWaterIntake" => StringIds.LAB_DEVICE_HMI.GetString(),
+            _ => StringIds.LAB_PROMPT.GetString()
         };
     }
 }
