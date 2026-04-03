@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RobotHri.Controls.NotificationPopupView">
+    <Border x:Name="PopupBorder"
+            StrokeShape="RoundRectangle 15"
+            Stroke="Transparent"
+            BackgroundColor="{StaticResource PageBackground}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="320"
+            Padding="25">
+        <VerticalStackLayout Spacing="20">
+            <Label Text="{Binding NotificationTitle}"
+                   HorizontalOptions="Center"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextColor}" />
+            <Label Text="{Binding NotificationMessage}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="16"
+                   TextColor="{StaticResource TextColor}"
+                   LineHeight="1.2"/>
+            <Button Text="{Binding OkButtonText}"
+                    Command="{Binding DismissNotificationCommand}"
+                    HorizontalOptions="Center"
+                    WidthRequest="150"
+                    HeightRequest="40"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource White}"
+                    FontSize="16"
+                    FontAttributes="Bold"/>
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

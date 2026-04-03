@@ -22,6 +22,7 @@
                     Command="{Binding CancelNavigationCommand}"
                     HorizontalOptions="Center"
                     WidthRequest="120"
+                    HeightRequest="40"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="{StaticResource White}" />
         </VerticalStackLayout>

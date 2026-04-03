@@ -24,10 +24,17 @@ namespace RobotHri.ViewModels
         private static readonly TimeSpan SimulatedArrivalDelay = TimeSpan.FromMinutes(0.2);
         private CancellationTokenSource? _simulatedArrivalCts;
 #endif
-        private bool _isArrivalPopupVisible;
-        private string _arrivalMessage = string.Empty;
-        private string _arrivalTitle = string.Empty;
+
+        // Generic Notification Popup State (formerly ArrivalPopup)
+        private bool _isNotificationPopupVisible;
+        private string _notificationMessage = string.Empty;
+        private string _notificationTitle = string.Empty;
         private string _okButtonText = string.Empty;
+
+        // Error Popup State
+        private bool _isErrorPopupVisible;
+        private string _errorMessage = string.Empty;
+        private string _errorTitle = string.Empty;
 
         public string PromptText
         {
@@ -67,28 +74,46 @@ namespace RobotHri.ViewModels
             set => SetProperty(ref _loadingMessage, value);
         }
 
-        public bool IsArrivalPopupVisible
+        public bool IsNotificationPopupVisible
         {
-            get => _isArrivalPopupVisible;
-            set => SetProperty(ref _isArrivalPopupVisible, value);
+            get => _isNotificationPopupVisible;
+            set => SetProperty(ref _isNotificationPopupVisible, value);
         }
 
-        public string ArrivalMessage
+        public string NotificationMessage
         {
-            get => _arrivalMessage;
-            set => SetProperty(ref _arrivalMessage, value);
+            get => _notificationMessage;
+            set => SetProperty(ref _notificationMessage, value);
         }
 
-        public string ArrivalTitle
+        public string NotificationTitle
         {
-            get => _arrivalTitle;
-            set => SetProperty(ref _arrivalTitle, value);
+            get => _notificationTitle;
+            set => SetProperty(ref _notificationTitle, value);
         }
 
         public string OkButtonText
         {
             get => _okButtonText;
             set => SetProperty(ref _okButtonText, value);
+        }
+
+        public bool IsErrorPopupVisible
+        {
+            get => _isErrorPopupVisible;
+            set => SetProperty(ref _isErrorPopupVisible, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetProperty(ref _errorMessage, value);
+        }
+
+        public string ErrorTitle
+        {
+            get => _errorTitle;
+            set => SetProperty(ref _errorTitle, value);
         }
 
         // Localized room names (updated on language change)
@@ -103,7 +128,8 @@ namespace RobotHri.ViewModels
         public ICommand GoHomeCommand { get; }
         public ICommand ToggleLanguageCommand { get; }
         public ICommand CancelNavigationCommand { get; }
-        public ICommand DismissArrivalPopupCommand { get; }
+        public ICommand DismissNotificationCommand { get; }
+        public ICommand DismissErrorPopupCommand { get; }
 
         public NaviViewModel(ILocalizationService localization, IMqttService mqtt, ISpeechService speech)
             : base(localization)
@@ -120,9 +146,11 @@ namespace RobotHri.ViewModels
             ToggleLanguageCommand = new Command(() => Localization.ToggleLanguage());
 
             CancelNavigationCommand = new Command(OnCancelNavigation);
-            DismissArrivalPopupCommand = new Command(() => IsArrivalPopupVisible = false);
+            DismissNotificationCommand = new Command(() => IsNotificationPopupVisible = false);
+            DismissErrorPopupCommand = new Command(() => IsErrorPopupVisible = false);
 
             _mqtt.ArrivalReceived += OnArrivalReceived;
+
             RefreshLocalizedProperties();
 
             Task.Run(async () =>
@@ -132,23 +160,32 @@ namespace RobotHri.ViewModels
                     var connected = await _mqtt.ConnectAsync();
                     if (!connected)
                     {
-                        IsBusy = false;
-                        ActiveRoomKey = null;
-                        LoadingMessage = string.Empty;
-                        PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
-
-                        if (Application.Current?.MainPage != null)
+                        // Ensure UI updates happen on main thread
+                        await MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            await Application.Current.MainPage.DisplayAlert(
-                                StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
-                                StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
-                                StringIds.OK.GetString());
-                        }
+                            IsBusy = false;
+                            ActiveRoomKey = null;
+                            LoadingMessage = string.Empty;
+                            PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
-                        return;
+                            ErrorTitle = StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString();
+                            ErrorMessage = StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString();
+                            IsErrorPopupVisible = true;
+                        });
                     }
                 }
             });
+        }
+
+        public void AttachMqttHandlers()
+        {
+            _mqtt.ArrivalReceived -= OnArrivalReceived; // Ensure no duplicates
+            _mqtt.ArrivalReceived += OnArrivalReceived;
+        }
+
+        public void DetachMqttHandlers()
+        {
+            _mqtt.ArrivalReceived -= OnArrivalReceived;
         }
 
         protected override void RefreshLocalizedProperties()
@@ -200,13 +237,9 @@ namespace RobotHri.ViewModels
                     LoadingMessage = string.Empty;
                     PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
-                    if (Application.Current?.MainPage != null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert(
-                            StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
-                            StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
-                            StringIds.OK.GetString());
-                    }
+                    ErrorTitle = StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString();
+                    ErrorMessage = StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString();
+                    IsErrorPopupVisible = true;
 
                     return;
                 }
@@ -252,12 +285,13 @@ namespace RobotHri.ViewModels
                 return;
             }
 
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            // Must jump to main thread
+            _ = MainThread.InvokeOnMainThreadAsync(() =>
             {
                 if (!IsBusy || ActiveRoomKey != roomKeySnapshot)
                     return Task.CompletedTask;
-                _ = HandleArrivalAsync();
-                return Task.CompletedTask;
+
+                return HandleArrivalAsync();
             });
         }
 #endif
@@ -274,15 +308,9 @@ namespace RobotHri.ViewModels
                     LoadingMessage = string.Empty;
                     PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
-                    if (Application.Current?.MainPage != null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert(
-                            StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString(),
-                            StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString(),
-                            StringIds.OK.GetString());
-                    }
-
-                    return;
+                    ErrorTitle = StringIds.NAV_MQTT_CONNECT_FAILED_TITLE.GetString();
+                    ErrorMessage = StringIds.NAV_MQTT_CONNECT_FAILED_MESSAGE.GetString();
+                    IsErrorPopupVisible = true;
                 }
             }
         }
@@ -302,13 +330,14 @@ namespace RobotHri.ViewModels
             await _speech.StopSpeakingAsync();
         }
 
-        private void OnArrivalReceived(object? sender, bool arrived)
+        private async void OnArrivalReceived(object? sender, bool arrived)
         {
             if (!arrived) return;
 #if DEBUG
             CancelSimulatedArrival();
 #endif
-            _ = HandleArrivalAsync();
+            // Event handlers MUST await HandleArrivalAsync to execute correctly
+            await HandleArrivalAsync();
         }
 
         private async Task HandleArrivalAsync()
@@ -324,9 +353,9 @@ namespace RobotHri.ViewModels
                 PromptText = arrivedMsg;
                 LoadingMessage = string.Empty;
 
-                ArrivalTitle = StringIds.NAV_ARRIVAL_TITLE.GetString();
-                ArrivalMessage = arrivedMsg;
-                IsArrivalPopupVisible = true;
+                NotificationTitle = StringIds.NAV_ARRIVAL_TITLE.GetString();
+                NotificationMessage = arrivedMsg;
+                IsNotificationPopupVisible = true;
 
                 await _speech.SpeakAsync(arrivedMsg, Localization.CurrentLanguageCode);
                 ActiveRoomKey = null;

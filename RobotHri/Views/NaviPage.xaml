@@ -92,12 +92,20 @@
             <c:LoadingPopupView BindingContext="{Binding .}" />
         </Grid>
 
-        <!-- Arrival Overlay -->
+        <!-- Notification Overlay -->
         <Grid Grid.RowSpan="3"
-              IsVisible="{Binding IsArrivalPopupVisible}"
+              IsVisible="{Binding IsNotificationPopupVisible}"
               BackgroundColor="#80000000"
               ZIndex="101">
-            <c:ArrivalPopupView BindingContext="{Binding .}" />
+            <c:NotificationPopupView BindingContext="{Binding .}" />
+        </Grid>
+
+        <!-- Error Overlay -->
+        <Grid Grid.RowSpan="3"
+              IsVisible="{Binding IsErrorPopupVisible}"
+              BackgroundColor="#80000000"
+              ZIndex="102">
+            <c:ErrorPopupView BindingContext="{Binding .}" />
         </Grid>
     </Grid>
 </controls:BaseContentPage>
