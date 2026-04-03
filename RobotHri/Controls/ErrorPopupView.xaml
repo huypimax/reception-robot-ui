@@ -26,7 +26,7 @@
                     Command="{Binding DismissErrorPopupCommand}"
                     HorizontalOptions="Center"
                     WidthRequest="150"
-                    HeightRequest="55"
+                    HeightRequest="40"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="{StaticResource White}"
                     FontSize="16"
