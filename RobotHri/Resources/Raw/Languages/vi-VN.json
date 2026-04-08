@@ -34,7 +34,15 @@
   "nav_room_restroom": "Nhà vệ sinh",
   "nav_room_stairs": "Cầu thang",
   "nav_room_robotics_lab": "Phòng Lab Robotics",
+  "nav_room_home": "Điểm xuất phát",
   "nav_room_electrical_lab": "Phòng Lab Điện",
+
+  "nav_room_home_2": "Home 2",
+  "nav_room_lib": "Thư viện",
+  "nav_room_vpdoan": "Văn phòng Đoàn",
+  "nav_room_bio_lab": "PTN vi sinh",
+  "nav_room_lab_cepp": "PTN CEPP",
+
   "nav_arrival_title": "Thông báo đến nơi",
   "nav_mqtt_connect_failed_title": "Lỗi kết nối",
   "nav_mqtt_connect_failed_message": "Không kết nối được với robot. Vui lòng kiểm tra mạng và thử lại.",

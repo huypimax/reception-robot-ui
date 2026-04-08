@@ -39,12 +39,22 @@ namespace RobotHri.Languages
         public const string NAV_ARRIVED_AT = "nav_arrived_at";
         public const string NAV_ARRIVED_READY = "nav_arrived_ready";
         public const string NAV_HOME = "nav_home";
+        // B1 Rooms
         public const string NAV_ROOM_WATER_INTAKE = "nav_room_water_intake";
         public const string NAV_ROOM_CHEMISTRY_HALL = "nav_room_chemistry_hall";
         public const string NAV_ROOM_RESTROOM = "nav_room_restroom";
         public const string NAV_ROOM_STAIRS = "nav_room_stairs";
         public const string NAV_ROOM_ROBOTICS_LAB = "nav_room_robotics_lab";
         public const string NAV_ROOM_ELECTRICAL_LAB = "nav_room_electrical_lab";
+        public const string NAV_ROOM_HOME = "nav_room_home";
+
+        // B2 Rooms (Add these to JSON files later if needed, returning defaults for now)
+        public const string NAV_ROOM_HOME_2 = "nav_room_home_2";
+        public const string NAV_ROOM_LIB = "nav_room_lib";
+        public const string NAV_ROOM_VPDOAN = "nav_room_vpdoan";
+        public const string NAV_ROOM_BIO_LAB = "nav_room_geo_lab";
+        public const string NAV_ROOM_LAB_CEPP = "nav_room_lab_cepp";
+
         public const string NAV_ARRIVAL_TITLE = "nav_arrival_title";
         public const string NAV_MQTT_CONNECT_FAILED_TITLE = "nav_mqtt_connect_failed_title";
         public const string NAV_MQTT_CONNECT_FAILED_MESSAGE = "nav_mqtt_connect_failed_message";

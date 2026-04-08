@@ -44,6 +44,7 @@ namespace RobotHri.ViewModels
             ("Stairs",          StringIds.NAV_ROOM_STAIRS),
             ("Robotics Lab",    StringIds.NAV_ROOM_ROBOTICS_LAB),
             ("Electrical Lab",  StringIds.NAV_ROOM_ELECTRICAL_LAB),
+            ("Home",  StringIds.NAV_ROOM_HOME),
         };
 
         private List<DestinationItem> _destinations = new();

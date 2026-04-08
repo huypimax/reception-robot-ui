@@ -1,3 +1,4 @@
+using RobotHri.Constants;
 using RobotHri.Languages;
 using RobotHri.Models;
 using RobotHri.Services;
@@ -51,6 +52,41 @@ namespace RobotHri.ViewModels
             get => _robotMapThetaDegrees;
             set => SetProperty(ref _robotMapThetaDegrees, value);
         }
+
+        public bool IsMapB1Selected
+        {
+            get => RobotMapAssets.CurrentMapName == "B1";
+            set
+            {
+                if (value)
+                {
+                    RobotMapAssets.CurrentMapName = "B1";
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsMapB2Selected));
+                    // Force the map to reload
+                    OnPropertyChanged(nameof(MapTriggerReload));
+                }
+            }
+        }
+
+        public bool IsMapB2Selected
+        {
+            get => RobotMapAssets.CurrentMapName == "B2";
+            set
+            {
+                if (value)
+                {
+                    RobotMapAssets.CurrentMapName = "B2";
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsMapB1Selected));
+                    // Force the map to reload
+                    OnPropertyChanged(nameof(MapTriggerReload));
+                }
+            }
+        }
+
+        // Just a dummy property we can bind to force the view to update
+        public string MapTriggerReload => RobotMapAssets.CurrentMapName;
 
         // ─── Section selection ────────────────────────────────────────────────────
 

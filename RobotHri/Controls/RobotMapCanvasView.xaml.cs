@@ -8,6 +8,13 @@ namespace RobotHri.Controls
 {
     public partial class RobotMapCanvasView : ContentView
     {
+        public static readonly BindableProperty TriggerReloadProperty = BindableProperty.Create(
+            nameof(TriggerReload),
+            typeof(string),
+            typeof(RobotMapCanvasView),
+            string.Empty,
+            propertyChanged: (b, _, __) => ((RobotMapCanvasView)b).ReloadMap());
+
         public static readonly BindableProperty RobotXProperty = BindableProperty.Create(
             nameof(RobotX),
             typeof(double),
@@ -49,6 +56,12 @@ namespace RobotHri.Controls
         private readonly Dictionary<long, SKPoint> _touchLocations = new();
         private float _lastPinchDistance;
         private SKPoint _singleFingerLast;
+
+        public string TriggerReload
+        {
+            get => (string)GetValue(TriggerReloadProperty);
+            set => SetValue(TriggerReloadProperty, value);
+        }
 
         public double RobotX
         {
@@ -116,6 +129,12 @@ namespace RobotHri.Controls
             await LoadMapAsync();
         }
 
+        private async void ReloadMap()
+        {
+            if (!_loadStarted) return;
+            await LoadMapAsync();
+        }
+
         private static async Task<Stream> OpenMapAssetAsync(string logicalName)
         {
             try
@@ -139,17 +158,22 @@ namespace RobotHri.Controls
                     var yamlText = await reader.ReadToEndAsync();
                     if (!OccGridMapLoader.TryParseOccupancyYaml(yamlText, out _resolution, out _originX, out _originY))
                         _loadError = "Invalid map YAML (resolution/origin).";
+                    else
+                        _loadError = null; // Clear error on success
                 }
 
                 using (var pgmStream = await OpenMapAssetAsync(RobotMapAssets.Pgm))
                     _mapBitmap = OccGridMapLoader.LoadPgmP5(pgmStream);
+
                 _mapWidth = _mapBitmap.Width;
                 _mapHeight = _mapBitmap.Height;
                 _pendingFit = true;
+                _userAdjustedView = false; // reset view so we fit to the new map
             }
             catch (Exception ex)
             {
                 _loadError = ex.Message;
+                _mapBitmap = null;
             }
 
             InvalidateMap();

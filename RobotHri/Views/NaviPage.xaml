@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:RobotHri.Controls.Base"
     xmlns:c="clr-namespace:RobotHri.Controls"
     xmlns:vm="clr-namespace:RobotHri.ViewModels"
+    xmlns:models="clr-namespace:RobotHri.Models"
     x:Class="RobotHri.Views.NaviPage"
     x:DataType="vm:NaviViewModel"
     Shell.NavBarIsVisible="False">
@@ -32,56 +33,25 @@
 
         <!-- Room buttons grid -->
         <ScrollView Grid.Row="2">
-            <Grid ColumnDefinitions="*,*,*"
-                  RowDefinitions="Auto,Auto"
-                  ColumnSpacing="14"
-                  RowSpacing="14"
-                  Padding="24,20">
-
-                <!-- Row 0 -->
-                <c:NavRoomButton Grid.Row="0" Grid.Column="0"
-                                 RoomName="{Binding RoomWaterIntake}"
-                                 RoomKey="RoomWaterIntake"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomWaterIntake'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-                <c:NavRoomButton Grid.Row="0" Grid.Column="1"
-                                 RoomName="{Binding RoomChemistryHall}"
-                                 RoomKey="RoomChemistryHall"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomChemistryHall'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-                <c:NavRoomButton Grid.Row="0" Grid.Column="2"
-                                 RoomName="{Binding RoomRestroom}"
-                                 RoomKey="RoomRestroom"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomRestroom'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-                <!-- Row 1 -->
-                <c:NavRoomButton Grid.Row="1" Grid.Column="0"
-                                 RoomName="{Binding RoomStairs}"
-                                 RoomKey="RoomStairs"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomStairs'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-                <c:NavRoomButton Grid.Row="1" Grid.Column="1"
-                                 RoomName="{Binding RoomRoboticsLab}"
-                                 RoomKey="RoomRoboticsLab"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomRoboticsLab'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-                <c:NavRoomButton Grid.Row="1" Grid.Column="2"
-                                 RoomName="{Binding RoomElectricalLab}"
-                                 RoomKey="RoomElectricalLab"
-                                 IsActive="{Binding ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter='RoomElectricalLab'}"
-                                 RoomSelected="OnRoomSelected"
-                                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-            </Grid>
+            <FlexLayout BindableLayout.ItemsSource="{Binding AvailableRooms}"
+                        Wrap="Wrap"
+                        Direction="Row"
+                        JustifyContent="SpaceBetween"
+                        AlignItems="Start"
+                        AlignContent="Start"
+                        Padding="24,20">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:RoomButtonData">
+                        <c:NavRoomButton RoomName="{Binding RoomName}"
+                                         RoomKey="{Binding RoomKey}"
+                                         IsActive="{Binding Source={RelativeSource AncestorType={x:Type vm:NaviViewModel}}, Path=ActiveRoomKey, Converter={x:Static vm:EqualityConverter.Instance}, ConverterParameter={Binding RoomKey}}"
+                                         RoomSelected="OnRoomSelected"
+                                         IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:NaviViewModel}}, Path=IsBusy, Converter={StaticResource InverseBooleanConverter}}"
+                                         Margin="0,0,0,5"
+                                         FlexLayout.Basis="32.5%" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
         </ScrollView>
 
         <!-- Loading Overlay -->

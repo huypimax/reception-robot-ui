@@ -551,6 +551,32 @@
                            FontSize="{StaticResource FontSizeTitleMedium}"
                            TextColor="{StaticResource PrimaryDarkBlue}" />
 
+                    <!-- Map Selection -->
+                    <Border Style="{StaticResource CardBorder}" Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Select Active Map:"
+                                   FontFamily="RobotoBold"
+                                   FontSize="{StaticResource FontSizeBody}"
+                                   TextColor="{StaticResource TextDark}" />
+
+                            <HorizontalStackLayout Spacing="24">
+                                <HorizontalStackLayout Spacing="4" VerticalOptions="Center">
+                                    <RadioButton Value="B1"
+                                                 IsChecked="{Binding IsMapB1Selected, Mode=TwoWay}"
+                                                 GroupName="MapSelection" />
+                                    <Label Text="Map B1" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Spacing="4" VerticalOptions="Center">
+                                    <RadioButton Value="B2"
+                                                 IsChecked="{Binding IsMapB2Selected, Mode=TwoWay}"
+                                                 GroupName="MapSelection" />
+                                    <Label Text="Map B2" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
                     <Label Text="{Binding MapPoseSummary}"
                            FontSize="{StaticResource FontSizeBody}"
                            TextColor="{StaticResource TextColor}"
@@ -563,6 +589,7 @@
                         <c:RobotMapCanvasView RobotX="{Binding RobotMapX}"
                                               RobotY="{Binding RobotMapY}"
                                               RobotThetaDegrees="{Binding RobotMapThetaDegrees}"
+                                              TriggerReload="{Binding MapTriggerReload}"
                                               HorizontalOptions="Fill"
                                               VerticalOptions="Fill" />
                     </Border>

@@ -1,6 +1,8 @@
+using RobotHri.Constants;
 using RobotHri.Languages;
+using RobotHri.Models;
 using RobotHri.Services;
-using System.Threading;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace RobotHri.ViewModels
@@ -14,6 +16,7 @@ namespace RobotHri.ViewModels
         private string _titleText = string.Empty;
         private string _homeText = string.Empty;
         private string _languageLabel = "VI";
+        private string _currentMap = "B1";
         private string? _activeRoomKey;
         private bool _isBusy;
         private string _loadingMessage = string.Empty;
@@ -57,6 +60,11 @@ namespace RobotHri.ViewModels
         {
             get => _languageLabel;
             set => SetProperty(ref _languageLabel, value);
+        }
+        public string CurrentMap
+        {
+            get => _currentMap;
+            set => SetProperty(ref _currentMap, value);
         }
         public string? ActiveRoomKey
         {
@@ -118,13 +126,7 @@ namespace RobotHri.ViewModels
             set => SetProperty(ref _errorTitle, value);
         }
 
-        // Localized room names (updated on language change)
-        public string RoomWaterIntake => StringIds.NAV_ROOM_WATER_INTAKE.GetString();
-        public string RoomChemistryHall => StringIds.NAV_ROOM_CHEMISTRY_HALL.GetString();
-        public string RoomRestroom => StringIds.NAV_ROOM_RESTROOM.GetString();
-        public string RoomStairs => StringIds.NAV_ROOM_STAIRS.GetString();
-        public string RoomRoboticsLab => StringIds.NAV_ROOM_ROBOTICS_LAB.GetString();
-        public string RoomElectricalLab => StringIds.NAV_ROOM_ELECTRICAL_LAB.GetString();
+        public ObservableCollection<RoomButtonData> AvailableRooms { get; } = new();
 
         public ICommand SelectRoomCommand { get; }
         public ICommand GoHomeCommand { get; }
@@ -169,6 +171,7 @@ namespace RobotHri.ViewModels
             DismissErrorPopupCommand = new Command(() => IsErrorPopupVisible = false);
 
             RefreshLocalizedProperties();
+            UpdateAvailableRooms();
 
             Task.Run(async () =>
             {
@@ -198,6 +201,7 @@ namespace RobotHri.ViewModels
         {
             _mqtt.ArrivalReceived -= OnArrivalReceived; // Ensure no duplicates
             _mqtt.ArrivalReceived += OnArrivalReceived;
+            UpdateAvailableRooms(); // Refresh rooms in case map changed in Setup
         }
 
         public void DetachMqttHandlers()
@@ -213,12 +217,33 @@ namespace RobotHri.ViewModels
             LanguageLabel = Localization.GetCurrentLanguageName();
             OkButtonText = StringIds.OK.GetString();
 
-            OnPropertyChanged(nameof(RoomWaterIntake));
-            OnPropertyChanged(nameof(RoomChemistryHall));
-            OnPropertyChanged(nameof(RoomRestroom));
-            OnPropertyChanged(nameof(RoomStairs));
-            OnPropertyChanged(nameof(RoomRoboticsLab));
-            OnPropertyChanged(nameof(RoomElectricalLab));
+            UpdateAvailableRooms();
+        }
+
+        private void UpdateAvailableRooms()
+        {
+            AvailableRooms.Clear();
+
+            if (RobotMapAssets.CurrentMapName == "B2")
+            {
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomHome2", RoomName = GetLocalizedRoomName("RoomHome2") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomLib", RoomName = GetLocalizedRoomName("RoomLib") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomYouthUnionOffice", RoomName = GetLocalizedRoomName("RoomYouthUnionOffice") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomBioLab", RoomName = GetLocalizedRoomName("RoomBioLab") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomCEPPLab", RoomName = GetLocalizedRoomName("RoomCEPPLab") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomChemistryHall", RoomName = GetLocalizedRoomName("RoomChemistryHall") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomHome", RoomName = GetLocalizedRoomName("RoomHome") });
+            }
+            else
+            {
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomWaterIntake", RoomName = GetLocalizedRoomName("RoomWaterIntake") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomChemistryHall", RoomName = GetLocalizedRoomName("RoomChemistryHall") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomRestroom", RoomName = GetLocalizedRoomName("RoomRestroom") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomStairs", RoomName = GetLocalizedRoomName("RoomStairs") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomRoboticsLab", RoomName = GetLocalizedRoomName("RoomRoboticsLab") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomElectricalLab", RoomName = GetLocalizedRoomName("RoomElectricalLab") });
+                AvailableRooms.Add(new RoomButtonData { RoomKey = "RoomHome", RoomName = GetLocalizedRoomName("RoomHome") });
+            }
         }
 
         private async void OnRoomSelected(string roomKey)
@@ -502,6 +527,12 @@ namespace RobotHri.ViewModels
             "RoomStairs" => StringIds.NAV_ROOM_STAIRS.GetString(),
             "RoomRoboticsLab" => StringIds.NAV_ROOM_ROBOTICS_LAB.GetString(),
             "RoomElectricalLab" => StringIds.NAV_ROOM_ELECTRICAL_LAB.GetString(),
+            "RoomHome" => StringIds.NAV_ROOM_HOME.GetString(),
+            "RoomHome2" => StringIds.NAV_ROOM_HOME_2.GetString(),
+            "RoomLib" => StringIds.NAV_ROOM_LIB.GetString(),
+            "RoomYouthUnionOffice" => StringIds.NAV_ROOM_VPDOAN.GetString(),
+            "RoomBioLab" => StringIds.NAV_ROOM_BIO_LAB.GetString(),
+            "RoomCEPPLab" => StringIds.NAV_ROOM_LAB_CEPP.GetString(),
             _ => roomKey
         };
 
@@ -513,6 +544,12 @@ namespace RobotHri.ViewModels
             "RoomStairs" => "Stairs",
             "RoomRoboticsLab" => "Robotics Lab",
             "RoomElectricalLab" => "Electrical Lab",
+            "RoomHome" => "Home",
+            "RoomHome2" => "Home 2",
+            "RoomLib" => "RoomLib",
+            "RoomYouthUnionOffice" => "RoomYouthUnionOffice",
+            "RoomBioLab" => "RoomBioLab",
+            "RoomCEPPLab" => "RoomCEPPLab",
             _ => roomKey
         };
 

@@ -35,6 +35,7 @@
   "nav_room_stairs": "Stairs",
   "nav_room_robotics_lab": "Robotics Lab",
   "nav_room_electrical_lab": "Electrical Lab",
+  "nav_room_home": "Home",
   "nav_arrival_title": "Arrival Notification",
   "nav_mqtt_connect_failed_title": "Connection error",
   "nav_mqtt_connect_failed_message": "Could not connect to the robot. Check the network and try again.",
@@ -43,6 +44,12 @@
   "nav_map_close": "Close",
   "nav_map_pan_hint": "Drag to pan. Pinch or mouse wheel to zoom. Pose updates from MQTT.",
   "nav_map_waiting_pose": "Waiting for position from robot (MQTT)…",
+
+  "nav_room_home_2": "Home 2",
+  "nav_room_lib": "Library",
+  "nav_room_vpdoan": "Youth Union Office",
+  "nav_room_geo_lab": "Microbiology Lab",
+  "nav_room_lab_cepp": "CEPP Lab",
 
   "lab_title": "Lab",
   "lab_home": "Home",
