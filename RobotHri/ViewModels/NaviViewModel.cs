@@ -559,22 +559,7 @@ namespace RobotHri.ViewModels
             _ => roomKey
         };
 
-        private static string GetRobotGoalPlace(string roomKey) => roomKey switch
-        {
-            "RoomWaterIntake" => "Water Intake",
-            "RoomChemistryHall" => "Chemistry Hall",
-            "RoomRestroom" => "Restroom",
-            "RoomStairs" => "Stairs",
-            "RoomRoboticsLab" => "Robotics Lab",
-            "RoomElectricalLab" => "Electrical Lab",
-            "RoomHome" => "Home",
-            "RoomHome2" => "Home 2",
-            "RoomLib" => "RoomLib",
-            "RoomYouthUnionOffice" => "RoomYouthUnionOffice",
-            "RoomBioLab" => "RoomBioLab",
-            "RoomCEPPLab" => "RoomCEPPLab",
-            _ => roomKey
-        };
+        private static string GetRobotGoalPlace(string roomKey) => roomKey;
 
         private static string GetRoomDescription(string roomKey) => roomKey switch
         {
