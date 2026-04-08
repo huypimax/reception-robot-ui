@@ -4,6 +4,7 @@ LangGraph workflow cho Q&A system - All-in-one file
 import os
 import json
 import datetime
+import re
 from typing import Literal, TypedDict, List, Optional
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage, BaseMessage
@@ -164,6 +165,7 @@ class ResponseGraph:
         self.last_reply = ""
         self._conversation_messages = []
         self.lang_manager = get_language_manager()
+        self._rag_corpus = self._load_rag_corpus()
         
         # Khởi tạo LLM
         self.llm = ChatGoogleGenerativeAI(
@@ -176,6 +178,63 @@ class ResponseGraph:
         # Tạo graph
         self.graph = self._create_graph()
         self.app = self.graph.compile()
+
+    def _load_rag_corpus(self) -> List[dict]:
+        """Load local RAG corpus JSON from common project locations."""
+        base_src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../src
+        workspace_dir = os.path.dirname(base_src_dir)  # .../Robot_hri
+        parent_workspace = os.path.dirname(workspace_dir)  # .../Workspace
+
+        candidate_paths = [
+            os.path.join(parent_workspace, "webscraping", "langgraph_rag_corpus.json"),
+            os.path.join(workspace_dir, "langgraph_rag_corpus.json"),
+            os.path.join(base_src_dir, "langgraph_rag_corpus.json"),
+            os.path.join(workspace_dir, "RobotHri", "Resources", "Raw", "Rag", "hcmut_seed.json"),
+        ]
+
+        for p in candidate_paths:
+            if not os.path.exists(p):
+                continue
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, list):
+                    print(f"[RAG] Loaded {len(data)} chunks from {p}")
+                    return data
+                print(f"[RAG] Ignored non-list corpus at: {p}")
+            except Exception as ex:
+                print(f"[RAG] Failed loading {p}: {ex}")
+        print("[RAG] No corpus file found; continue without RAG context.")
+        return []
+
+    def _tokenize(self, text: str) -> set[str]:
+        return {
+            t for t in re.findall(r"[0-9A-Za-zÀ-ỹ_]+", (text or "").lower())
+            if len(t) > 1
+        }
+
+    def _retrieve_context(self, query: str, top_k: int = 4) -> List[dict]:
+        if not self._rag_corpus:
+            return []
+        q_tokens = self._tokenize(query)
+        if not q_tokens:
+            return []
+
+        scored = []
+        for item in self._rag_corpus:
+            if not isinstance(item, dict):
+                continue
+            content = str(item.get("content", "") or "")
+            if not content.strip():
+                continue
+            d_tokens = self._tokenize(content)
+            overlap = len(q_tokens.intersection(d_tokens))
+            if overlap <= 0:
+                continue
+            scored.append((overlap, len(content), item))
+
+        scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        return [item for _, _, item in scored[:top_k]]
     
     def reset_conversation(self):
         """Reset conversation để sử dụng ngôn ngữ mới"""
@@ -249,6 +308,28 @@ class ResponseGraph:
         has_system_prompt = any(isinstance(msg, SystemMessage) for msg in messages)
         if not has_system_prompt:
             messages.insert(0, SystemMessage(content=self._get_system_prompt()))
+
+        # Remove older transient RAG context prompts to avoid message bloat across turns.
+        messages = [
+            m for m in messages
+            if not (isinstance(m, SystemMessage) and isinstance(m.content, str)
+                    and m.content.startswith("Retrieved RAG context"))
+        ]
+
+        # Add retrieval context from local corpus so model can ground on crawled data.
+        rag_contexts = self._retrieve_context(query, top_k=4)
+        if rag_contexts:
+            rag_lines = []
+            for idx, c in enumerate(rag_contexts, 1):
+                src = c.get("sourceUrl", "unknown")
+                title = c.get("title", "untitled")
+                content = str(c.get("content", "")).strip()
+                rag_lines.append(f"[{idx}] {title}\nURL: {src}\n{content}")
+            rag_prompt = (
+                "Retrieved RAG context (use for factual grounding, cite source URLs when relevant):\n\n"
+                + "\n\n".join(rag_lines)
+            )
+            messages.insert(1, SystemMessage(content=rag_prompt))
         
         # Thêm tool results nếu có
         tool_results = state.get("tool_results")

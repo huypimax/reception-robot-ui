@@ -106,6 +106,30 @@ namespace RobotHri.Services
             await _client!.PublishAsync(message);
         }
 
+        public async Task PublishSpeedSettingsAsync(double normalSpeed, double rotationSpeed, double roughTerrainSpeed)
+        {
+            if (!IsConnected)
+            {
+                Debug.WriteLine("[MQTT] Cannot publish speed settings, not connected.");
+                return;
+            }
+
+            var payloadObj = new
+            {
+                normal_speed = normalSpeed,
+                rotation_speed = rotationSpeed,
+                rough_terrain_speed = roughTerrainSpeed
+            };
+            var payload = JsonSerializer.Serialize(payloadObj);
+            var message = new MqttApplicationMessageBuilder()
+                .WithTopic(MqttConstants.TopicSpeedConfig)
+                .WithPayload(Encoding.UTF8.GetBytes(payload))
+                .Build();
+
+            Debug.WriteLine($"[MQTT] Publishing to '{MqttConstants.TopicSpeedConfig}': {payload}");
+            await _client!.PublishAsync(message);
+        }
+
         private Task OnMessageReceived(MqttApplicationMessageReceivedEventArgs e)
         {
             var topic = e.ApplicationMessage.Topic;

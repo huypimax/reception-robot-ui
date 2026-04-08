@@ -36,6 +36,9 @@ namespace RobotHri
                 CommunityToolkit.Maui.Media.SpeechToText.Default);
             builder.Services.AddSingleton<IAudioManager>(AudioManager.Current);
             builder.Services.AddSingleton<ISpeechService, SpeechService>();
+            builder.Services.AddSingleton<ISetupSettingsStore, SetupSettingsStore>();
+            builder.Services.AddSingleton<IQnaResponseService>(sp =>
+                new GeminiRagQnaService(new HttpClient()));
 
             // ── ViewModels ────────────────────────────────────────
             builder.Services.AddTransient<MainViewModel>();

@@ -21,10 +21,17 @@ namespace RobotHri.Views
             _viewModel.SelectRoomCommand.Execute(roomKey);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.AttachMqttHandlers();
+        }
+
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
+            _viewModel.DetachMqttHandlers();
             _ = _viewModel.StopSpeechAsync();
+            base.OnDisappearing();
         }
     }
 }

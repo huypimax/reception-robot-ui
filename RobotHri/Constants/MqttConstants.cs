@@ -14,5 +14,6 @@ namespace RobotHri.Constants
         public const string TopicLocation = "robot/location";
         public const string TopicAttendance = "robot/attendance";
         public const string TopicStatus = "robot/status";
+        public const string TopicSpeedConfig = "robot/config/speed";
     }
 }

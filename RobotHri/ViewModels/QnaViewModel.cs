@@ -6,6 +6,7 @@ namespace RobotHri.ViewModels
     public class QnaViewModel : BaseViewModel
     {
         private readonly ISpeechService _speech;
+        private readonly IQnaResponseService _qnaResponseService;
 
         private string _promptText = string.Empty;
         private string _titleText = string.Empty;
@@ -51,9 +52,13 @@ namespace RobotHri.ViewModels
 
         private CancellationTokenSource? _listenCts;
 
-        public QnaViewModel(ILocalizationService localization, ISpeechService speech) : base(localization)
+        public QnaViewModel(
+            ILocalizationService localization,
+            ISpeechService speech,
+            IQnaResponseService qnaResponseService) : base(localization)
         {
             _speech = speech;
+            _qnaResponseService = qnaResponseService;
             ToggleMicCommand = new Command(OnToggleMic);
             GoHomeCommand = new Command(async () =>
             {
@@ -94,6 +99,18 @@ namespace RobotHri.ViewModels
                 var transcript = await _speech.ListenAsync(
                     Localization.CurrentLanguageCode, _listenCts.Token);
 
+                if (transcript == SpeechService.ListenErrorPermissionDenied)
+                {
+                    PromptText = StringIds.ERROR_SPEECH_UNAVAILABLE.GetString();
+                    return;
+                }
+
+                if (transcript == SpeechService.ListenErrorServiceUnavailable)
+                {
+                    PromptText = StringIds.ERROR_SPEECH_UNAVAILABLE.GetString();
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(transcript))
                 {
                     PromptText = StringIds.ERROR_LISTENING.GetString();
@@ -102,9 +119,19 @@ namespace RobotHri.ViewModels
 
                 PromptText = StringIds.QNA_FINDING_ANSWER.GetString();
 
-                // Speak back a placeholder response (real AI handled via IResponseService)
-                await _speech.SpeakAsync(transcript, Localization.CurrentLanguageCode);
-                PromptText = transcript;
+                var answer = await _qnaResponseService.GetAnswerAsync(
+                    transcript,
+                    Localization.CurrentLanguageCode,
+                    _listenCts.Token);
+
+                if (string.IsNullOrWhiteSpace(answer))
+                {
+                    PromptText = StringIds.ERROR_SOMETHING_WRONG.GetString();
+                    return;
+                }
+
+                PromptText = answer;
+                await _speech.SpeakAsync(answer, Localization.CurrentLanguageCode);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

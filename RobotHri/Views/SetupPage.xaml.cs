@@ -49,6 +49,7 @@ namespace RobotHri.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _ = _viewModel.ReloadFromStoreAsync();
             _viewModel.AttachMqttHandlers();
             Dispatcher.Dispatch(UpdateRobotMapHostHeight);
         }

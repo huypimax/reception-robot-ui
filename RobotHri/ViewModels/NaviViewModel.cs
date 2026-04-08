@@ -1,5 +1,4 @@
-using RobotHri.Constants;
-using RobotHri.Languages;
+using RobotHri.Constants;using RobotHri.Languages;
 using RobotHri.Models;
 using RobotHri.Services;
 using System.Collections.ObjectModel;
@@ -40,6 +39,7 @@ namespace RobotHri.ViewModels
         private bool _isErrorPopupVisible;
         private string _errorMessage = string.Empty;
         private string _errorTitle = string.Empty;
+        private string _lastLoadedMap = RobotMapAssets.CurrentMapName;
 
         public string PromptText
         {
@@ -201,6 +201,12 @@ namespace RobotHri.ViewModels
         {
             _mqtt.ArrivalReceived -= OnArrivalReceived; // Ensure no duplicates
             _mqtt.ArrivalReceived += OnArrivalReceived;
+            var currentMap = RobotMapAssets.CurrentMapName;
+            if (_lastLoadedMap != currentMap)
+            {
+                ResetStateForMapChange();
+                _lastLoadedMap = currentMap;
+            }
             UpdateAvailableRooms(); // Refresh rooms in case map changed in Setup
         }
 
@@ -384,6 +390,23 @@ namespace RobotHri.ViewModels
             PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
 
             await _speech.StopSpeakingAsync();
+        }
+
+        private void ResetStateForMapChange()
+        {
+#if DEBUG
+            CancelSimulatedArrival();
+#endif
+            IsBusy = false;
+            ActiveRoomKey = null;
+            LoadingMessage = string.Empty;
+            PromptText = StringIds.NAV_WHERE_TO_GO.GetString();
+            IsNotificationPopupVisible = false;
+            IsErrorPopupVisible = false;
+            _isShowingLocationInfo = false;
+            _lastArrivedRoomKey = null;
+            CancelAutoDismiss();
+            CancelLocationInfoAutoDismiss();
         }
 
         private async void OnArrivalReceived(object? sender, bool arrived)

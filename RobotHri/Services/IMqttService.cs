@@ -10,6 +10,7 @@ namespace RobotHri.Services
         Task DisconnectAsync();
         Task PublishGoalAsync(string destination);
         Task PublishWaypointsAsync(IEnumerable<LocationModel> waypoints);
+        Task PublishSpeedSettingsAsync(double normalSpeed, double rotationSpeed, double roughTerrainSpeed);
 
         event EventHandler<bool> ArrivalReceived;
         event EventHandler<LocationModel> LocationUpdated;

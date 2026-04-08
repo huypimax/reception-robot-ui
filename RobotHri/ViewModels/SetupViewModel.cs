@@ -2,6 +2,7 @@ using RobotHri.Constants;
 using RobotHri.Languages;
 using RobotHri.Models;
 using RobotHri.Services;
+using System.ComponentModel;
 
 namespace RobotHri.ViewModels
 {
@@ -13,6 +14,7 @@ namespace RobotHri.ViewModels
     public class SetupViewModel : BaseViewModel
     {
         private readonly IMqttService _mqtt;
+        private readonly ISetupSettingsStore _settingsStore;
 
         // ─── Live robot map (admin: Setup → Map, inline panel) ─────────────────────
 
@@ -22,6 +24,10 @@ namespace RobotHri.ViewModels
         private double _robotMapY;
         private double _robotMapThetaDegrees;
         private bool _hasMapPose;
+        private string _draftMapName = "B1";
+        private bool _hasPendingChanges;
+        private bool _isHydratingSettings;
+        private SetupSettingsEntity _savedSettings = new();
 
         public string MapPoseSummary
         {
@@ -55,38 +61,43 @@ namespace RobotHri.ViewModels
 
         public bool IsMapB1Selected
         {
-            get => RobotMapAssets.CurrentMapName == "B1";
+            get => _draftMapName == "B1";
             set
             {
-                if (value)
+                if (value && _draftMapName != "B1")
                 {
-                    RobotMapAssets.CurrentMapName = "B1";
+                    _draftMapName = "B1";
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(IsMapB2Selected));
-                    // Force the map to reload
                     OnPropertyChanged(nameof(MapTriggerReload));
+                    UpdatePendingChangesState();
                 }
             }
         }
 
         public bool IsMapB2Selected
         {
-            get => RobotMapAssets.CurrentMapName == "B2";
+            get => _draftMapName == "B2";
             set
             {
-                if (value)
+                if (value && _draftMapName != "B2")
                 {
-                    RobotMapAssets.CurrentMapName = "B2";
+                    _draftMapName = "B2";
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(IsMapB1Selected));
-                    // Force the map to reload
                     OnPropertyChanged(nameof(MapTriggerReload));
+                    UpdatePendingChangesState();
                 }
             }
         }
 
         // Just a dummy property we can bind to force the view to update
-        public string MapTriggerReload => RobotMapAssets.CurrentMapName;
+        public string MapTriggerReload => _draftMapName;
+        public bool HasPendingChanges
+        {
+            get => _hasPendingChanges;
+            set => SetProperty(ref _hasPendingChanges, value);
+        }
 
         // ─── Section selection ────────────────────────────────────────────────────
 
@@ -355,6 +366,7 @@ namespace RobotHri.ViewModels
         private string _sysSdkVersionLbl       = string.Empty;
         private string _sysFirstActivationLbl  = string.Empty;
         private string _sysNoDataText          = string.Empty;
+        private string _saveButtonText         = "Save";
 
         public string TitleText          { get => _titleText;          set => SetProperty(ref _titleText, value); }
         public string ExitText           { get => _exitText;           set => SetProperty(ref _exitText, value); }
@@ -458,6 +470,7 @@ namespace RobotHri.ViewModels
         public string SysSdkVersionLbl      { get => _sysSdkVersionLbl;      set => SetProperty(ref _sysSdkVersionLbl, value); }
         public string SysFirstActivationLbl { get => _sysFirstActivationLbl; set => SetProperty(ref _sysFirstActivationLbl, value); }
         public string SysNoDataText         { get => _sysNoDataText;         set => SetProperty(ref _sysNoDataText, value); }
+        public string SaveButtonText        { get => _saveButtonText;        set => SetProperty(ref _saveButtonText, value); }
 
 #endregion Language
 
@@ -478,6 +491,7 @@ namespace RobotHri.ViewModels
         public Command ToggleLanguageCommand    { get; }
         public Command FactoryResetCommand      { get; }
         public Command ExitCommand              { get; }
+        public Command SaveSettingsCommand      { get; }
         // Basic delivery-mode selection
         public Command SelectFastModeCommand    { get; }
         public Command SelectMultiModeCommand   { get; }
@@ -491,9 +505,11 @@ namespace RobotHri.ViewModels
 
         // ─── Constructor ──────────────────────────────────────────────────────────
 
-        public SetupViewModel(ILocalizationService localization, IMqttService mqtt) : base(localization)
+        public SetupViewModel(ILocalizationService localization, IMqttService mqtt, ISetupSettingsStore settingsStore) : base(localization)
         {
             _mqtt = mqtt;
+            _settingsStore = settingsStore;
+
             SelectBasicCommand      = new Command(() => SelectedSection = SetupSection.Basic);
             SelectSoundCommand      = new Command(() => SelectedSection = SetupSection.Sound);
             SelectVoiceCommand      = new Command(() => SelectedSection = SetupSection.Voice);
@@ -508,6 +524,7 @@ namespace RobotHri.ViewModels
             SelectDeveloperCommand  = new Command(() => SelectedSection = SetupSection.Developer);
             ToggleLanguageCommand   = new Command(Localization.ToggleLanguage);
             ExitCommand             = new Command(async () => await Shell.Current.GoToAsync("//main"));
+            SaveSettingsCommand     = new Command(async () => await SaveSettingsAsync());
 
             FactoryResetCommand = new Command(async () =>
             {
@@ -527,7 +544,9 @@ namespace RobotHri.ViewModels
             SelectWaitingTabCommand  = new Command(() => SelectedTimeTabIndex = 1);
             SelectCustomTabCommand   = new Command(() => SelectedTimeTabIndex = 2);
 
+            PropertyChanged += OnAnyPropertyChanged;
             RefreshLocalizedProperties();
+            _ = LoadSettingsAsync();
         }
 
         private async Task TryConnectMqttForMapAsync()
@@ -552,6 +571,11 @@ namespace RobotHri.ViewModels
         public void DetachMqttHandlers()
         {
             _mqtt.LocationUpdated -= OnLocationUpdated;
+        }
+
+        public async Task ReloadFromStoreAsync()
+        {
+            await LoadSettingsAsync();
         }
 
         private void OnLocationUpdated(object? sender, LocationModel location)
@@ -683,6 +707,7 @@ namespace RobotHri.ViewModels
             SysSdkVersionLbl       = StringIds.SETUP_SYS_SDK_VER_LBL.GetString();
             SysFirstActivationLbl  = StringIds.SETUP_SYS_FIRST_ACT_LBL.GetString();
             SysNoDataText          = StringIds.SETUP_SYS_NO_DATA.GetString();
+            SaveButtonText         = StringIds.SETUP_SAVE.GetString();
         }
 
         // ─── Helpers ──────────────────────────────────────────────────────────────
@@ -731,6 +756,174 @@ namespace RobotHri.ViewModels
                 4 => BasicModeCustom,
                 _ => string.Empty,
             };
+        }
+
+        private async Task LoadSettingsAsync()
+        {
+            try
+            {
+                var settings = await _settingsStore.GetAsync();
+                _savedSettings = CloneSettings(settings);
+
+                _isHydratingSettings = true;
+                ApplySettings(settings);
+                _isHydratingSettings = false;
+
+                UpdatePendingChangesState();
+            }
+            catch
+            {
+                _isHydratingSettings = false;
+                _savedSettings = CaptureCurrentSettingsSnapshot();
+                UpdatePendingChangesState();
+            }
+        }
+
+        private async Task SaveSettingsAsync()
+        {
+            var snapshot = CaptureCurrentSettingsSnapshot();
+            var hasDataChanges = HasPendingChanges;
+            if (hasDataChanges)
+            {
+                RobotMapAssets.CurrentMapName = snapshot.ActiveMapName;
+                await _settingsStore.SaveAsync(snapshot);
+                _savedSettings = CloneSettings(snapshot);
+                UpdatePendingChangesState();
+            }
+            try
+            {
+                if (!_mqtt.IsConnected)
+                    await _mqtt.ConnectAsync();
+
+                if (_mqtt.IsConnected)
+                {
+                    await _mqtt.PublishSpeedSettingsAsync(
+                        normalSpeed: snapshot.SpeedCmS,
+                        rotationSpeed: snapshot.RotationSpeed,
+                        roughTerrainSpeed: snapshot.DeliverySpeed);
+                }
+            }
+            catch
+            {
+                // Saving to local DB should still succeed even if MQTT publish fails.
+            }
+        }
+
+        private void ApplySettings(SetupSettingsEntity settings)
+        {
+            var mapName = settings.ActiveMapName == "B2" ? "B2" : "B1";
+            _draftMapName = mapName;
+            RobotMapAssets.CurrentMapName = mapName;
+            OnPropertyChanged(nameof(IsMapB1Selected));
+            OnPropertyChanged(nameof(IsMapB2Selected));
+            OnPropertyChanged(nameof(MapTriggerReload));
+
+            SelectedDeliveryModeIndex = settings.SelectedDeliveryModeIndex;
+            IsSoundEnabled = settings.IsSoundEnabled;
+            SoundVolume = settings.SoundVolume;
+            MusicVolume = settings.MusicVolume;
+            SpeechVolume = settings.SpeechVolume;
+            ObstacleVolume = settings.ObstacleVolume;
+            SelectedMusic = settings.SelectedMusic;
+            WaitTimeSeconds = settings.WaitTimeSeconds;
+            SpeedCmS = settings.SpeedCmS;
+            DeliveryWaitTime = settings.DeliveryWaitTime;
+            DeliverySpeed = settings.DeliverySpeed;
+            CollisionDecelFactor = settings.CollisionDecelFactor;
+            IsCollisionDecelEnabled = settings.IsCollisionDecelEnabled;
+            RotationSpeed = settings.RotationSpeed;
+            IsWeightLimitEnabled = settings.IsWeightLimitEnabled;
+            SelectedReverseMode = settings.SelectedReverseMode;
+            IsVoiceCountdownEnabled = settings.IsVoiceCountdownEnabled;
+            IsPasswordEnabled = settings.IsPasswordEnabled;
+        }
+
+        private SetupSettingsEntity CaptureCurrentSettingsSnapshot()
+        {
+            return new SetupSettingsEntity
+            {
+                Id = 1,
+                ActiveMapName = _draftMapName,
+                SelectedDeliveryModeIndex = SelectedDeliveryModeIndex,
+                IsSoundEnabled = IsSoundEnabled,
+                SoundVolume = SoundVolume,
+                MusicVolume = MusicVolume,
+                SpeechVolume = SpeechVolume,
+                ObstacleVolume = ObstacleVolume,
+                SelectedMusic = SelectedMusic,
+                WaitTimeSeconds = WaitTimeSeconds,
+                SpeedCmS = SpeedCmS,
+                DeliveryWaitTime = DeliveryWaitTime,
+                DeliverySpeed = DeliverySpeed,
+                CollisionDecelFactor = CollisionDecelFactor,
+                IsCollisionDecelEnabled = IsCollisionDecelEnabled,
+                RotationSpeed = RotationSpeed,
+                IsWeightLimitEnabled = IsWeightLimitEnabled,
+                SelectedReverseMode = SelectedReverseMode,
+                IsVoiceCountdownEnabled = IsVoiceCountdownEnabled,
+                IsPasswordEnabled = IsPasswordEnabled
+            };
+        }
+
+        private static SetupSettingsEntity CloneSettings(SetupSettingsEntity source)
+        {
+            return new SetupSettingsEntity
+            {
+                Id = source.Id,
+                ActiveMapName = source.ActiveMapName,
+                SelectedDeliveryModeIndex = source.SelectedDeliveryModeIndex,
+                IsSoundEnabled = source.IsSoundEnabled,
+                SoundVolume = source.SoundVolume,
+                MusicVolume = source.MusicVolume,
+                SpeechVolume = source.SpeechVolume,
+                ObstacleVolume = source.ObstacleVolume,
+                SelectedMusic = source.SelectedMusic,
+                WaitTimeSeconds = source.WaitTimeSeconds,
+                SpeedCmS = source.SpeedCmS,
+                DeliveryWaitTime = source.DeliveryWaitTime,
+                DeliverySpeed = source.DeliverySpeed,
+                CollisionDecelFactor = source.CollisionDecelFactor,
+                IsCollisionDecelEnabled = source.IsCollisionDecelEnabled,
+                RotationSpeed = source.RotationSpeed,
+                IsWeightLimitEnabled = source.IsWeightLimitEnabled,
+                SelectedReverseMode = source.SelectedReverseMode,
+                IsVoiceCountdownEnabled = source.IsVoiceCountdownEnabled,
+                IsPasswordEnabled = source.IsPasswordEnabled
+            };
+        }
+
+        private void OnAnyPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (_isHydratingSettings)
+                return;
+            if (e.PropertyName is null or nameof(HasPendingChanges) or nameof(MapPoseSummary) or nameof(RobotMapX) or nameof(RobotMapY) or nameof(RobotMapThetaDegrees))
+                return;
+            UpdatePendingChangesState();
+        }
+
+        private void UpdatePendingChangesState()
+        {
+            var current = CaptureCurrentSettingsSnapshot();
+            HasPendingChanges =
+                current.ActiveMapName != _savedSettings.ActiveMapName ||
+                current.SelectedDeliveryModeIndex != _savedSettings.SelectedDeliveryModeIndex ||
+                current.IsSoundEnabled != _savedSettings.IsSoundEnabled ||
+                current.SoundVolume != _savedSettings.SoundVolume ||
+                current.MusicVolume != _savedSettings.MusicVolume ||
+                current.SpeechVolume != _savedSettings.SpeechVolume ||
+                current.ObstacleVolume != _savedSettings.ObstacleVolume ||
+                current.SelectedMusic != _savedSettings.SelectedMusic ||
+                Math.Abs(current.WaitTimeSeconds - _savedSettings.WaitTimeSeconds) > 0.0001 ||
+                Math.Abs(current.SpeedCmS - _savedSettings.SpeedCmS) > 0.0001 ||
+                Math.Abs(current.DeliveryWaitTime - _savedSettings.DeliveryWaitTime) > 0.0001 ||
+                Math.Abs(current.DeliverySpeed - _savedSettings.DeliverySpeed) > 0.0001 ||
+                Math.Abs(current.CollisionDecelFactor - _savedSettings.CollisionDecelFactor) > 0.0001 ||
+                current.IsCollisionDecelEnabled != _savedSettings.IsCollisionDecelEnabled ||
+                Math.Abs(current.RotationSpeed - _savedSettings.RotationSpeed) > 0.0001 ||
+                current.IsWeightLimitEnabled != _savedSettings.IsWeightLimitEnabled ||
+                current.SelectedReverseMode != _savedSettings.SelectedReverseMode ||
+                current.IsVoiceCountdownEnabled != _savedSettings.IsVoiceCountdownEnabled ||
+                current.IsPasswordEnabled != _savedSettings.IsPasswordEnabled;
         }
     }
 }

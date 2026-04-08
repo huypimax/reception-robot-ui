@@ -27,7 +27,7 @@
              LEFT SIDEBAR
         ════════════════════════════════════════════════ -->
         <Grid Grid.Column="0"
-              RowDefinitions="Auto,*,Auto"
+              RowDefinitions="Auto,*,Auto,Auto"
               BackgroundColor="{StaticResource White}">
 
             <!-- Page title -->
@@ -106,8 +106,15 @@
                 </VerticalStackLayout>
             </ScrollView>
 
-            <!-- Exit button -->
             <c:RobotButton Grid.Row="2"
+                           Text="{Binding SaveButtonText}"
+                           ButtonStyle="Primary"
+                           Command="{Binding SaveSettingsCommand}"
+                           HeightRequest="{StaticResource ButtonHeight}"
+                           Margin="24,0,24,8" />
+
+            <!-- Exit button -->
+            <c:RobotButton Grid.Row="3"
                            Text="{Binding ExitText}"
                            ButtonStyle="Primary"
                            Command="{Binding ExitCommand}"
@@ -461,45 +468,19 @@
                                 Margin="0,14,0,14"
                                 LabelText="{Binding DeliverySpeedLbl}"
                                 DescriptionText="{Binding DeliverySpeedDesc}"
-                                Value="{Binding DeliverySpeed, Mode=TwoWay}"
+                                Value="{Binding SpeedCmS, Mode=TwoWay}"
                                 MinValue="10" MaxValue="120" Unit="cm/s"
                                 MinLabel="10cm/s" MaxLabel="120cm/s" />
                             <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
 
-                            <!-- Collision deceleration: slider with enable toggle (no card) -->
-                            <VerticalStackLayout Spacing="8"
-                                                 Margin="0,14,0,14">
-                                <Grid ColumnDefinitions="*,Auto"
-                                      RowDefinitions="Auto,Auto">
-                                    <Label Grid.Row="0" Grid.Column="0"
-                                           Text="{Binding DeliveryCollisionDecelLbl}"
-                                           FontFamily="RobotoBold"
-                                           FontSize="{StaticResource FontSizeTitleMedium}"
-                                           TextColor="{StaticResource TextDark}" />
-                                    <Label Grid.Row="1" Grid.Column="0"
-                                           Text="{Binding DeliveryCollisionDecelDesc}"
-                                           Style="{StaticResource SubtitleLabel}"
-                                           FontSize="{StaticResource FontSizeBody}" />
-                                    <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
-                                            IsToggled="{Binding IsCollisionDecelEnabled, Mode=TwoWay}"
-                                            OnColor="{StaticResource PrimaryDarkBlue}"
-                                            VerticalOptions="Center" />
-                                </Grid>
-                                <Slider Value="{Binding CollisionDecelFactor, Mode=TwoWay}"
-                                        Minimum="0" Maximum="1"
-                                        ThumbColor="{StaticResource PrimaryDarkBlue}"
-                                        MinimumTrackColor="{StaticResource PrimaryDarkBlue}"
-                                        MaximumTrackColor="{StaticResource LightBlue}"
-                                        Margin="0,2,0,0" />
-                                <Grid ColumnDefinitions="*,Auto">
-                                    <Label Grid.Column="0" Text="0"
-                                           Style="{StaticResource SubtitleLabel}"
-                                           FontSize="{StaticResource FontSizeCaption}" />
-                                    <Label Grid.Column="1" Text="1.0"
-                                           Style="{StaticResource SubtitleLabel}"
-                                           FontSize="{StaticResource FontSizeCaption}" />
-                                </Grid>
-                            </VerticalStackLayout>
+                            <!-- Rough terrain speed slider -->
+                            <c:SettingsSliderRow
+                                Margin="0,14,0,14"
+                                LabelText="{Binding DeliveryCollisionDecelLbl}"
+                                DescriptionText="{Binding DeliveryCollisionDecelDesc}"
+                                Value="{Binding DeliverySpeed, Mode=TwoWay}"
+                                MinValue="10" MaxValue="120" Unit="cm/s"
+                                MinLabel="10cm/s" MaxLabel="120cm/s" />
                             <BoxView HeightRequest="1" Color="{StaticResource LightBlue}" />
 
                             <!-- Rotation speed slider (0–1.2, 1 decimal place) -->

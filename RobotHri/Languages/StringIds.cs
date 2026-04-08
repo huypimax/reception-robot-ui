@@ -246,6 +246,7 @@ namespace RobotHri.Languages
         public const string SETUP_DELIVERY_VOICE_COUNTDOWN_DESC= "setup_delivery_voice_countdown_desc";
         // Map settings
         public const string SETUP_MAP_TITLE = "setup_map_title";
+        public const string SETUP_SAVE = "setup_save";
         // System settings – extended
         public const string SETUP_SYS_PASSWORD          = "setup_sys_password";
         public const string SETUP_SYS_CHANGE_PASSWORD   = "setup_sys_change_password";

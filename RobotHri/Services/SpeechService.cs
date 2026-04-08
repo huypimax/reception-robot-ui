@@ -9,6 +9,8 @@ namespace RobotHri.Services
     /// </summary>
     public class SpeechService : ISpeechService
     {
+        public const string ListenErrorPermissionDenied = "__LISTEN_ERROR_PERMISSION_DENIED__";
+        public const string ListenErrorServiceUnavailable = "__LISTEN_ERROR_SERVICE_UNAVAILABLE__";
         private readonly ISpeechToText _speechToText;
         private CancellationTokenSource? _ttsCts;
         private CancellationTokenSource? _sttCts;
@@ -72,7 +74,7 @@ namespace RobotHri.Services
                 IsListening = true;
 
                 var isGranted = await _speechToText.RequestPermissions(_sttCts.Token);
-                if (!isGranted) return null;
+                if (!isGranted) return ListenErrorPermissionDenied;
 
                 var localeCode = AppConstants.SpeechLanguages.TryGetValue(languageCode, out var lc)
                     ? lc : "vi-VN";
@@ -83,6 +85,7 @@ namespace RobotHri.Services
                 void OnResultCompleted(object? sender, SpeechToTextRecognitionResultCompletedEventArgs e)
                 {
                     _speechToText.RecognitionResultCompleted -= OnResultCompleted;
+                    _speechToText.RecognitionResultUpdated -= OnResultUpdated;
                     if (e.RecognitionResult.IsSuccessful)
                     {
                         SpeechRecognized?.Invoke(this, e.RecognitionResult.Text);
@@ -130,10 +133,16 @@ namespace RobotHri.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"[STT] Error: {ex.Message}");
-                return null;
+                return ListenErrorServiceUnavailable;
             }
             finally
             {
+                try
+                {
+                    if (_sttCts != null)
+                        await _speechToText.StopListenAsync(_sttCts.Token);
+                }
+                catch { }
                 IsListening = false;
             }
         }
