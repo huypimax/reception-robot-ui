@@ -300,7 +300,7 @@ namespace RobotHri.ViewModels
                 }
             }
 
-            await _mqtt.PublishGoalAsync(GetRobotGoalPlace(roomKey));
+            await _mqtt.PublishGoalAsync(roomKey);
 
 #if DEBUG
             if (SimulateRobotArrivalAfterPublish)
@@ -558,8 +558,6 @@ namespace RobotHri.ViewModels
             "RoomCEPPLab" => StringIds.NAV_ROOM_LAB_CEPP.GetString(),
             _ => roomKey
         };
-
-        private static string GetRobotGoalPlace(string roomKey) => roomKey;
 
         private static string GetRoomDescription(string roomKey) => roomKey switch
         {

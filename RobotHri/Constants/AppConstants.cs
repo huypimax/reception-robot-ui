@@ -3,7 +3,7 @@ namespace RobotHri.Constants
     public static class AppConstants
     {
         public const string AssistantName = "AIko";
-        public const string ModelName = "gemini-2.5-pro";
+        public const string ModelName = "gemini-2.0-flash";
         public const string DefaultLanguage = "vi";
 
         // TTS voice codes per language

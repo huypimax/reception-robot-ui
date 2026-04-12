@@ -185,25 +185,45 @@ class ResponseGraph:
         workspace_dir = os.path.dirname(base_src_dir)  # .../Robot_hri
         parent_workspace = os.path.dirname(workspace_dir)  # .../Workspace
 
+        # Same primary bundle as MAUI (RobotHri/Resources/Raw/Rag), then repo-root copies, then seed.
         candidate_paths = [
+            os.path.join(workspace_dir, "RobotHri", "Resources", "Raw", "Rag", "langgraph_rag_corpus.json"),
             os.path.join(parent_workspace, "webscraping", "langgraph_rag_corpus.json"),
             os.path.join(workspace_dir, "langgraph_rag_corpus.json"),
             os.path.join(base_src_dir, "langgraph_rag_corpus.json"),
             os.path.join(workspace_dir, "RobotHri", "Resources", "Raw", "Rag", "hcmut_seed.json"),
         ]
 
+        merged: List[dict] = []
+        seen: set[str] = set()
         for p in candidate_paths:
             if not os.path.exists(p):
                 continue
             try:
                 with open(p, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                if isinstance(data, list):
-                    print(f"[RAG] Loaded {len(data)} chunks from {p}")
-                    return data
-                print(f"[RAG] Ignored non-list corpus at: {p}")
+                if not isinstance(data, list):
+                    print(f"[RAG] Ignored non-list corpus at: {p}")
+                    continue
+                added = 0
+                for item in data:
+                    if not isinstance(item, dict):
+                        continue
+                    content = str(item.get("content", "") or "").strip()
+                    if not content:
+                        continue
+                    key = f"{item.get('sourceUrl', '')}\x1f{item.get('title', '')}\x1f{content}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    merged.append(item)
+                    added += 1
+                print(f"[RAG] Merged {added} new chunks ({len(data)} in file) from {p}")
             except Exception as ex:
                 print(f"[RAG] Failed loading {p}: {ex}")
+        if merged:
+            print(f"[RAG] Total merged corpus: {len(merged)} chunks")
+            return merged
         print("[RAG] No corpus file found; continue without RAG context.")
         return []
 
@@ -213,10 +233,39 @@ class ResponseGraph:
             if len(t) > 1
         }
 
+    def _tokenize_for_retrieval(self, text: str) -> set[str]:
+        """Query-side tokens + adjacent joins (e.g. fab + lab -> fablab) to match glued corpus text."""
+        ordered = [
+            t for t in re.findall(r"[0-9A-Za-zÀ-ỹ_]+", (text or "").lower())
+            if len(t) > 1
+        ]
+        out = set(ordered)
+        max_glue_len = 5
+        max_span = min(4, len(ordered))
+        for span in range(2, max_span + 1):
+            for i in range(0, len(ordered) - span + 1):
+                slice_ = ordered[i : i + span]
+                if all(len(p) <= max_glue_len for p in slice_):
+                    out.add("".join(slice_))
+        return out
+
+    @staticmethod
+    def _retrieval_score(q_tokens: set[str], d_tokens: set[str]) -> int:
+        overlap = len(q_tokens.intersection(d_tokens))
+        if overlap > 0:
+            return overlap
+        for qt in q_tokens:
+            if len(qt) < 3:
+                continue
+            for dt in d_tokens:
+                if qt in dt:
+                    return 1
+        return 0
+
     def _retrieve_context(self, query: str, top_k: int = 4) -> List[dict]:
         if not self._rag_corpus:
             return []
-        q_tokens = self._tokenize(query)
+        q_tokens = self._tokenize_for_retrieval(query)
         if not q_tokens:
             return []
 
@@ -228,10 +277,10 @@ class ResponseGraph:
             if not content.strip():
                 continue
             d_tokens = self._tokenize(content)
-            overlap = len(q_tokens.intersection(d_tokens))
-            if overlap <= 0:
+            score = self._retrieval_score(q_tokens, d_tokens)
+            if score <= 0:
                 continue
-            scored.append((overlap, len(content), item))
+            scored.append((score, len(content), item))
 
         scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
         return [item for _, _, item in scored[:top_k]]
